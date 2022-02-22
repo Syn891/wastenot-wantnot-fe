@@ -10,6 +10,7 @@ function RecipieInfoDisplay({ image, title, prepTime, cookTime, url }) {
       <a href={url} target="_blank">
         Explore recipe
       </a>
+      <button>+</button>
     </div>
   );
 }
