@@ -5,7 +5,7 @@ function RecipieInfoDisplay({ image, title, prepTime, cookTime, url }) {
     <div>
       <img src={image} alt="recipe image"></img>
       <h3>Title goes here: {title}</h3>
-      <p>prep: {prepTime} mins</p>
+      <p>Prep: {prepTime} mins</p>
       <p>Cook: {cookTime} mins</p>
       <a href={url} target="_blank">
         Explore recipe
