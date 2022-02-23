@@ -1,0 +1,14 @@
+
+.searchCol {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.searchCol:nth-child(1){
+    flex-direction: row;
+    align-items: center;
+    }
+
