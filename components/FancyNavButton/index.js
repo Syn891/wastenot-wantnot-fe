@@ -1,14 +1,13 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Link from 'next/link';
 
-const NavButton = () => {
+const NavButton = ({message}) => {
     return (
-    <Container>
-  <Row>
-    <Col><button>Find recipes to use these items here..........</button></Col>
-  </Row>
-</Container>
+    <Link href={"/"}>
+    <Col><button>{message}</button></Col>
+</Link>
     );
 };
 

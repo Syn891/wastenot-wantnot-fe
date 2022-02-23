@@ -5,18 +5,19 @@ import FoodExpirtyButton from '../components/FoodExpiryButton';
 import NavButton from '../components/FancyNavButton';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Row, Col } from 'react-bootstrap';
+import css from '../styles/Landing.module.css'
 
 
 const Landing = () => {
     
     return (
         <div>
-            <Row>
+            <Row className={css.row}>
             <Banner title="WasteNot-WantNot"/>
             </Row>
-            <Row></Row>
-            <Row></Row>
-            <Row>
+            <Row className={css.row}></Row>
+            <Row className={css.row}></Row>
+            <Row className={css.row}>
             <Col>
             <FoodExpirtyButton link="/" message = "Eggs. You have 1 day left"/>
             </Col>
@@ -27,12 +28,15 @@ const Landing = () => {
             <FoodExpirtyButton link="/" message = "Eggs. You have 1 day left"/>
             </Col>
             </Row>
-            <Row></Row>
-            <Row></Row>
-            <Row></Row>
-            <Row></Row>
-            <NavbarBtn/>         
-        <NavButton/>  
+            <Row className={css.row}>
+            <Col>
+            <NavButton link="/" message = "Find recipes to use these items here.........."/>
+            </Col>
+            </Row>
+            <Row className={css.row}></Row>
+            <Row className={css.row}></Row>
+            <Row className={css.row}></Row>
+            <NavbarBtn/>
         </div>
     );
 };
