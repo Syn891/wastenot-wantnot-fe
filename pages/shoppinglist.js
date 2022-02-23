@@ -1,6 +1,14 @@
 import Navbar from "../components/Navbar";
 import DonationPromptInfo from "../components/DonationPromptInfo"
 
+// FoodItem(){
+//     name
+//     expdate
+//     quantity
+//     unit
+//     radio?selector
+// }
+
 // ShoppingListTable(){
 //     SpecificRow
 //     NameRow
