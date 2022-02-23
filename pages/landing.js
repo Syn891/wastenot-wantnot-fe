@@ -9,6 +9,8 @@ import {FaHandHoldingHeart } from "react-icons/fa";
 import {TiShoppingCart} from 'react-icons/ti'
 import {RiFridgeLine} from 'react-icons/ri'
 import {GiForkKnifeSpoon, GiKnifeFork} from 'react-icons/gi'
+import Dashboard from '../components/Dashboard';
+import DashboardChart from '../components/DashboardChart';
 
 
 
@@ -27,6 +29,8 @@ const Landing = () => {
       }
                   
     return (
+    
+
         <Col className={css.view}>
             <Row className={css.row}>
               <Banner title="WasteNot-WantNot"/>  
@@ -65,7 +69,8 @@ const Landing = () => {
                     <NavigationButton color="#EF8D4B" link="/donations"Icon={FaHandHoldingHeart}/>
                 </Col>
             </Row>
-            <Row className={css.row}></Row>
+            <Row className={css.row}><Dashboard link="/userInformation" />
+</Row>
         </Col>
     );
 };
