@@ -1,5 +1,8 @@
 import Navbar from "../components/Navbar";
-import DonationPromptInfo from "../components/DonationPromptInfo"
+import DonationPromptInfo from "../components/DonationPromptInfo";
+import ShoppingListTable from "../components/ShoppingListTable";
+
+// $ database contains _id, id(string), shopping_items(array)[{_itemid(again), name, est_exp, category, quantity, measurement,_id(same as root_id)}],user_id
 
 // FoodItem(){
 //     name
@@ -7,6 +10,7 @@ import DonationPromptInfo from "../components/DonationPromptInfo"
 //     quantity
 //     unit
 //     radio?selector
+
 // }
 
 // ShoppingListTable(){
@@ -18,17 +22,18 @@ import DonationPromptInfo from "../components/DonationPromptInfo"
 //     FoodItem...
 // }
 
-
-
 function ShoppingList() {
-  return(<div>
-  <Navbar />
-{/* //   ShoppingListTable
+  return (
+    <div>
+      <Navbar title={"Grocery List"} />
+      <ShoppingListTable />
+      {/*
 //   FoodAlert
 //   AddItemBtn
 //   NewListBtn */}
-  <DonationPromptInfo /></div>
-  )
+      <DonationPromptInfo />
+    </div>
+  );
 }
 
 export default ShoppingList;
