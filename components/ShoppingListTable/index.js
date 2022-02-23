@@ -1,11 +1,11 @@
-// import {con}
 import React, { useState } from "react";
 import FoodListItem from "../FoodListItem";
+import FoodCategoryRow from "../FoodCategoryRow";
 
 function ShoppingListTable() {
   return (
     <div>
-      <h1>hello im the shop list table</h1>
+      <FoodCategoryRow />
       <FoodListItem
         name={"test"}
         expDate={"test"}
