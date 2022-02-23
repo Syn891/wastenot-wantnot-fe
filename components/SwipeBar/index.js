@@ -5,8 +5,10 @@ import {
     SwipeAction,
     TrailingActions,
   } from 'react-swipeable-list';
-  import css from 'react-swipeable-list/dist/styles.css';
+  import 'react-swipeable-list/dist/styles.css';
+  import css from "./shoppingList.module.css";
   
+
   const leadingActions = () => (
     <LeadingActions>
       <SwipeAction onClick={() => console.info('swipe action triggered')}>
@@ -26,13 +28,15 @@ import {
     </TrailingActions>
   );
   
-  function SwipeBar (){
+  function SwipeBar ({className}){
+      let cN=className
       return (<SwipeableList>
-    <SwipeableListItem
+    <SwipeableListItem className={css.swipeBarCss}
       leadingActions={leadingActions()}
       trailingActions={trailingActions()}
     >
-      Item content
+      This item is already in 
+<strong>My Pantry!</strong> Add anyway?
     </SwipeableListItem>
   </SwipeableList>);
   

@@ -3,6 +3,7 @@ import DonationPromptInfo from "../components/DonationPromptInfo";
 import ShoppingListTable from "../components/ShoppingListTable";
 import SwipeBar from "../components/SwipeBar";
 
+
 // $ database contains _id, id(string), shopping_items(array)[{_itemid(again), name, est_exp, category, quantity, measurement,_id(same as root_id)}],user_id
 
 // FoodItem(){
