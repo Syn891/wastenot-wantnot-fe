@@ -1,9 +1,22 @@
 import RecipieInfoDisplay from "../components/RecipieInfoDisplay";
 import Navbar from "../components/Navbar";
 import SubPageNavBtn from "../components/SubPageNavBtn";
-import {Row} from 'react-bootstrap'
+import {Row, Col, InputGroup, FormControl} from 'react-bootstrap'
+import css from '../styles/Mealplan.module.css'
+import {BsSearch, BsFilterSquare} from 'react-icons/bs'
+import {useState} from 'react'
 
 const MealPlan = () => {
+
+  const [searchInput, setSearchInput] = useState("")
+  function handleChange(event) {
+    setSearchInput(event.target.value)
+  }
+
+  function searchRepo(string) {
+
+    console.log(searchInput)
+  }
   return (
     <div>
       <Row>
@@ -19,6 +32,24 @@ const MealPlan = () => {
         <SubPageNavBtn buttonName={"Recipes"} />
         <SubPageNavBtn buttonName={"My Meals"} />
       </div>
+      </Row>
+
+      <Row className={css.searchContainer}>
+        <Col  className={css.searchCol}xs={{span: 2}}>
+          <BsFilterSquare size={'2em'} color={'grey'}/>
+        </Col>
+        <Col className={css.searchCol}>
+          <InputGroup className="my-2">
+            <FormControl
+            placeholder="Search"
+            aria-label="search recipes"
+            aria-describedby="basic-addon2"
+            onChange={handleChange}
+            value={searchInput}
+            />
+          <InputGroup.Text onClick={()=> {searchRepo(searchInput)}} id="basic-addon2"><BsSearch /></InputGroup.Text>
+          </InputGroup>
+        </Col>
       </Row>
 
       <Row>
