@@ -8,7 +8,7 @@ const Landing = () => {
         <div>
             <NavbarBtn />
             <Dashboard />
-            <DashboardChart />
+            
         </div>
     );
 };
