@@ -1,0 +1,25 @@
+
+.cls {
+    border: 2px solid green
+}
+
+.ict {
+    border: 2px solid pink;
+    height: 100%;
+}
+
+.green {
+    background-color: green;
+    height: 15%
+}
+
+
+.yellow {
+    background-color: yellow;
+    height: 15%
+}
+
+.red {
+    background-color: red;
+    height: 15%
+}

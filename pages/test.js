@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import css from '../styles/Landing.module.css'
+import css from '../styles/Test.module.css'
 
 const Test = () => {
     return (
