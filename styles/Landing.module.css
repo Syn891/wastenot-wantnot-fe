@@ -14,3 +14,45 @@
     align-items: center;
     justify-content: center;
 }
+
+.ct {
+    border: 2px solid red;
+    height: 100vh
+}
+
+.r {
+    border: 2px solid blue;
+}
+
+.r:nth-child(1) {
+    height: 10%
+}
+.r:nth-child(2) {
+    height: 90%;
+    padding: 2rem
+}
+
+.cls {
+    border: 2px solid green
+}
+
+.ict {
+    border: 2px solid pink;
+    height: 100%;
+}
+
+.green {
+    background-color: green;
+    height: 15%
+}
+
+
+.yellow {
+    background-color: yellow;
+    height: 15%
+}
+
+.red {
+    background-color: red;
+    height: 15%
+}
