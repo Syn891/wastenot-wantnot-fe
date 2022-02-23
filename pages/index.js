@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { Row, Navbar, Container, Offcanvas, Nav,  Form, NavDropdown, FormControl, Button, } from 'react-bootstrap'
 import styles from '../styles/Home.module.css'
-import VideoPlayer from '../components/Videoplayer'
+// import VideoPlayer from '../components/Videoplayer'
+import HomeVideo from "../components/Videoplayer/index"
 
 
 
@@ -20,8 +20,11 @@ export default function Home() {
 
       <main className={styles.main}>
       <Container className={styles.container}>
-      {/* <video  src="../video/Homepage.mp4" controls muted autoPlay={"autoplay"} preLoad="auto"/> */}
-        <VideoPlayer/>
+      {/* <video  url="https://www.youtube.com/watch?v=dVLmX06tdDU" controls muted type="video/mp4"/> */}
+      {/* <video controls autoPlay muted loop className={styles.video}>         
+    <source src="homepage.mp4" type="video/mp4"/>       
+</video> */}
+      <HomeVideo/>
       <Navbar bg="light" expand={false}>
         <Container fluid>
         <Navbar.Toggle aria-controls="offcanvasNavbar" />

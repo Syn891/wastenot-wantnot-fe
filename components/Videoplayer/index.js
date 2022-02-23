@@ -1,11 +1,10 @@
 import React from 'react'
-import ReactPlayer from 'react-player'
+import styles from '../../styles/Home.module.css'
 
-export default function VideoPlayer(){
+export default function HomeVideo(){
 return (
 	<div>
-	<h2>NextJs VideoPlayer - GeeksforGeeks</h2>
-	<ReactPlayer url='https://www.youtube.com/watch?v=wWgIAphfn2U' />
+	<video controls autoPlay muted loop className={styles.video} src={require('../../homepage.mp4')} />
 	</div>
 )
 }
