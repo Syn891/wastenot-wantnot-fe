@@ -1,7 +1,10 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Row, Navbar, Container, Offcanvas, Nav, Form, NavDropdown, FormControl, Button } from 'react-bootstrap'
+import { Row, Navbar, Container, Offcanvas, Nav,  Form, NavDropdown, FormControl, Button, } from 'react-bootstrap'
 import styles from '../styles/Home.module.css'
+import VideoPlayer from '../components/Videoplayer'
+
+
 
 export default function Home() {
   return (
@@ -16,6 +19,9 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+      <Container className={styles.container}>
+      {/* <video  src="../video/Homepage.mp4" controls muted autoPlay={"autoplay"} preLoad="auto"/> */}
+        <VideoPlayer/>
       <Navbar bg="light" expand={false}>
         <Container fluid>
         <Navbar.Toggle aria-controls="offcanvasNavbar" />
@@ -35,8 +41,6 @@ export default function Home() {
           <Nav.Link href="#action2">Manage, Reduce, Donate!</Nav.Link>
           <Nav.Link href="/donations">Find Food Banks!</Nav.Link>
           <Nav.Link className={styles.bottom} href="/">Register</Nav.Link>
-
-         
         </Nav>
       
       </Offcanvas.Body>
@@ -47,6 +51,7 @@ export default function Home() {
 <Row className={styles.row}></Row>
         <Row className={styles.row}></Row>
         <Row className={styles.row}></Row>
+        </Container>
       </main>
 
     </div>
