@@ -16,6 +16,7 @@ import DashboardChart from '../components/DashboardChart';
 
 const Landing = () => {
 
+
   const setColor = (number) => {
         let color = ''
         if (number < 3){
