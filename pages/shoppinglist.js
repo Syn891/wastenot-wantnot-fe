@@ -2,8 +2,7 @@ import Navbar from "../components/Navbar";
 import DonationPromptInfo from "../components/DonationPromptInfo";
 import ShoppingListTable from "../components/ShoppingListTable";
 import SwipeBar from "../components/SwipeBar";
-
-
+import { Row, Col } from "react-bootstrap";
 // $ database contains _id, id(string), shopping_items(array)[{_itemid(again), name, est_exp, category, quantity, measurement,_id(same as root_id)}],user_id
 
 // FoodItem(){
@@ -26,18 +25,20 @@ import SwipeBar from "../components/SwipeBar";
 
 function ShoppingList() {
   return (
-    <div>
+    <Row>
       <Navbar title={"Grocery List"} />
       <ShoppingListTable />
-      { /*
+      {/*
 //   FoodAlert
 //   AddItemBtn
 //   NewListBtn */}
-      <SwipeBar />
+      <Col>
+        <SwipeBar />
+      </Col>
+
       <DonationPromptInfo />
-    </div>
+    </Row>
   );
 }
-
 
 export default ShoppingList;
