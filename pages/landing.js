@@ -10,6 +10,7 @@ import {GiForkKnifeSpoon, GiKnifeFork} from 'react-icons/gi'
 
 
 const Landing = () => {
+
     return (
         <Col className={css.view}>
             <Row className={css.row}></Row>
