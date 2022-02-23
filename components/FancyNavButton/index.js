@@ -6,7 +6,7 @@ import Link from 'next/link';
 const NavButton = ({message}) => {
     return (
     <Link href={"/"}>
-    <Col><button>{message}</button></Col>
+    <button>{message}</button>
 </Link>
     );
 };
