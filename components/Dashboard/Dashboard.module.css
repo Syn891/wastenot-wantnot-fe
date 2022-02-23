@@ -25,15 +25,17 @@ line-height: 12px;
 color: #000000;
 }
 .dashRight{
-    position: absolute;
+    /* position: relative;
 width: 119px;
 height: 79px;
 left: 237px;
 top: 709px;
-background-color: orange;
+background-color: orange; */
+  border: green;
+height: 15%;
 }
 .dashCentre{
-    position: absolute;
+    position: realtive;
 width: 119px;
 height: 79px;   
 left: 136px;
@@ -42,7 +44,7 @@ background: orange;
 
 }
 .dashLeft{
-    position: absolute;
+    position: relative;
 width: 119px;
 height: 79px;
 left: 42px;

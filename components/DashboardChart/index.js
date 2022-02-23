@@ -40,6 +40,7 @@ import DashboardItem from '../DashboardItem'
 // export default DashboardChart
 
 import { PieChart } from "react-minimal-pie-chart";
+import css from "./DashboardChart.module.css";
 
 
 
@@ -50,7 +51,7 @@ const DashboardChart = () => {
 
 
 
-<PieChart
+<PieChart className={css.DashboardChart}
    animation
    animationDuration={500}
    animationEasing="ease-out"
@@ -72,7 +73,7 @@ const DashboardChart = () => {
    lengthAngle={360}
    lineWidth={15}
    paddingAngle={0}
-   radius={50}
+   radius={20}
    rounded
    startAngle={0}
    viewBoxSize={[100, 100]}
