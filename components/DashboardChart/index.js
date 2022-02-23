@@ -44,7 +44,7 @@ import css from "./DashboardChart.module.css";
 
 
 
-const DashboardChart = () => {
+const DashboardChart = ({value}) => {
   return (
     <div>
       

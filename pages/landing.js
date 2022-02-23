@@ -8,8 +8,8 @@ import {Row, Col} from 'react-bootstrap'
 const Landing = () => {
     return (
         <div>
-            <NavbarBtn />
-            <Dashboard />
+           
+            <Dashboard link="/userInformation" />
 
     
         </div>

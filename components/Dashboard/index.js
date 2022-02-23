@@ -1,16 +1,15 @@
 import React from 'react';
 
 import { Row, Container, Col } from 'react-bootstrap';
-
-import css from './Dashboard.module.css';
 import Link from 'next/link';
 import DashboardChart from '../DashboardChart';
+import css from './Dashboard.module.css';
 
 
 
 
 
-const Dashboard = () => {
+const Dashboard = ({link}) => {
     // let image = "../"
    
     return (
@@ -20,10 +19,17 @@ const Dashboard = () => {
         <Row> <p className={css.dashHeader}>User dashboard: analyse and monitor your food use:</p></Row>
        
         <Row> 
+        <Link href={link}>
         <Col xs={{span: 4}}><DashboardChart className={css.dashRight} /></Col>
+        </Link>
+        <Link href={link}>
         <Col xs={{span: 4}}><DashboardChart className={css.dashCentre} /></Col>
+        </Link>
+        <Link href={link}>
         <Col xs={{span: 4}}><DashboardChart className={css.dashLeft} /></Col>  
+        </Link>
         </Row>
+        
         
         
 
