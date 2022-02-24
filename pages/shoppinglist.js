@@ -14,14 +14,16 @@ function ShoppingList() {
       <Row className={css.row}>
         <Navbar title={"Grocery List"} />
         <Container className={css.innercontainer}>
+          {/* {all needs to be in Shopping List Table} */}
           <ShoppingListTable />
           <Col>
             <Row className={css.row}>
               <SwipeBar />
             </Row>
             <Row className={css.row}>
-              <AddItemButton message={"Add Item to Grocery List"}/>
+              <AddItemButton message={"Add Item to Grocery List"} />
             </Row>
+            {/* {all needs to be in Shopping List Table} */}
             <Row className={css.row}>
               <Button>Add to pantry button</Button>
             </Row>

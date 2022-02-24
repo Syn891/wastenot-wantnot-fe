@@ -5,11 +5,11 @@ const shopListTestData = [
     shopping_items: [
       {
         _itemid: "hello im the id string inside shopping items",
-        name: "hello im the name string inside shopping items",
+        name: "mangos",
         est_exp: { $date: { $numberLong: "1645444573974" } }, //https://stackoverflow.com/questions/22964199/how-to-convert-numberlong-to-date-in-mongodbs-shell
-        category: "hello im the category string inside shopping items",
-        quantity: "hello im the quantity string inside shopping items",
-        measurement: "hello im the measurement string inside shopping items",
+        category: "food",
+        quantity: 25,
+        measurement: "pc",
         _id: { $oid: "62137ddd17d718bb29b2bd2e" },
       },
     ],
@@ -21,11 +21,11 @@ const shopListTestData = [
     shopping_items: [
       {
         _itemid: "id string inside shopping items 1",
-        name: "name string inside shopping items 1",
+        name: "AA batteries",
         est_exp: { $date: { $numberLong: "1645444573974" } },
-        category: "cat string inside shopping items 1",
-        quantity: "quan string inside shopping items 1",
-        measurement: "measure string inside shopping items 1",
+        category: "not food",
+        quantity: "1",
+        measurement: "kg",
         _id: { $oid: "1234" },
       },
     ],
@@ -37,11 +37,11 @@ const shopListTestData = [
     shopping_items: [
       {
         _itemid: "id string inside shopping items 2",
-        name: "name string inside shopping items 2",
+        name: "2",
         est_exp: { $date: { $numberLong: "1645444573974" } },
-        category: "cat string inside shopping items 2",
-        quantity: "quan string inside shopping items 2",
-        measurement: "measure string inside shopping items 2",
+        category: " 2",
+        quantity: "2",
+        measurement: "miles",
         _id: { $oid: "123456" },
       },
     ],
@@ -53,11 +53,11 @@ const shopListTestData = [
     shopping_items: [
       {
         _itemid: "id string inside shopping items 3",
-        name: "name string inside shopping items 3",
+        name: "3",
         est_exp: { $date: { $numberLong: "1645444573974" } },
-        category: "cat string inside shopping items 3",
-        quantity: "quan string inside shopping items 3",
-        measurement: "measure string inside shopping items 3",
+        category: " 3",
+        quantity: "3",
+        measurement: "mph",
         _id: { $oid: "12345678" },
       },
     ],
