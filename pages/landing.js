@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Banner from '../components/Banner';
 import DonationPromptInfo from '../components/DonationPromptInfo';
 import {Button, Col, Row} from 'react-bootstrap'
@@ -11,12 +11,31 @@ import {RiFridgeLine} from 'react-icons/ri'
 import {GiForkKnifeSpoon, GiKnifeFork} from 'react-icons/gi'
 import { useUser } from '@auth0/nextjs-auth0';
 
-
-const Landing = () => {
+const Landing = ({users}) => {
   const { user, error, isLoading } = useUser();
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
+
+      //   const response = await fetch(userURL , {
+      //     method: 'POST', 
+      //     mode: 'cors', // no-cors, *cors, same-origin
+      //     cache: 'no-cache', 
+      //     credentials: 'same-origin', // include, *same-origin, omit
+      //     headers: {
+      //       'Content-Type': 'application/json'
+      //     },
+      //     redirect: 'follow', // manual, *follow, error
+      //     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      //     body: JSON.stringify(newUser) // body data type must match "Content-Type" header
+      //   });
+      //   console.log(response.json); // parses JSON response into native JavaScript objects
+      // }
+    
+    // }
+      // submitUser()
+  // })
+  
 
   const setColor = (number) => {
         let color = ''
@@ -72,9 +91,19 @@ const Landing = () => {
             <Row className={css.row}>
             <a  href = "/api/auth/logout"><Button>Logout</Button></a>
             </Row>
+            <h1>{users.name}</h1>
         </Col>
     ));
     
 };
+
+export async function getServerSideProps(user) {
+  const res = await fetch(`http://localhost:3001/users/${user.sub}`);
+  const users = await res.json();
+
+  return {
+    props: { users },
+  };
+}
 
 export default Landing;
