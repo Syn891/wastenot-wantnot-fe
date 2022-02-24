@@ -1,7 +1,7 @@
 import React from 'react';
 import Banner from '../components/Banner';
 import DonationPromptInfo from '../components/DonationPromptInfo';
-import {Col, Row} from 'react-bootstrap'
+import {Button, Col, Row} from 'react-bootstrap'
 import css from '../styles/Landing.module.css'
 import NavigationButton from '../components/NavigationButton';
 import FoodExpiryButton from '../components/FoodExpiryButton';
@@ -9,10 +9,14 @@ import {FaHandHoldingHeart } from "react-icons/fa";
 import {TiShoppingCart} from 'react-icons/ti'
 import {RiFridgeLine} from 'react-icons/ri'
 import {GiForkKnifeSpoon, GiKnifeFork} from 'react-icons/gi'
-
+import { useUser } from '@auth0/nextjs-auth0';
 
 
 const Landing = () => {
+  const { user, error, isLoading } = useUser();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
 
   const setColor = (number) => {
         let color = ''
@@ -25,8 +29,8 @@ const Landing = () => {
         }
         return color
       }
-                  
     return (
+      user && (
         <Col className={css.view}>
             <Row className={css.row}>
               <Banner title="WasteNot-WantNot"/>  
@@ -65,9 +69,12 @@ const Landing = () => {
                     <NavigationButton color="#EF8D4B" link="/donations"Icon={FaHandHoldingHeart}/>
                 </Col>
             </Row>
-            <Row className={css.row}></Row>
+            <Row className={css.row}>
+            <a  href = "/api/auth/login"><Button>Logout</Button></a>
+            </Row>
         </Col>
-    );
+    ));
+    
 };
 
 export default Landing;

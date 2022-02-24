@@ -2,10 +2,7 @@ import Head from 'next/head'
 import { Row, Navbar, Container, Offcanvas, Nav,  Form, NavDropdown, FormControl, Button, } from 'react-bootstrap'
 import styles from '../styles/Home.module.css'
 import HomeVideo from "../components/Videoplayer/index"
-
-
-
-
+import Link from 'next/link'
 export default function Home() {
 
   return (
@@ -49,10 +46,13 @@ export default function Home() {
   </Container>
 </Navbar>        
 
-<Row className={styles.row}></Row>
+<Row className={styles.row}>
+        <div></div>
+
+</Row>
         <Row className={styles.login}>
-        <a href = "/api/auth/login">
-        <button>Login/Signup</button>
+        <a className={styles.a} href = "/api/auth/login">
+        <Link href="/landing"><Button className={styles.loginBtn}>Login/Signup</Button></Link>
         </a>
         </Row>
         <Row className={styles.footer}></Row>
