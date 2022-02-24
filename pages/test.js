@@ -26,7 +26,7 @@ const Test = () => {
                 </Container>
             </Row>
         </Container>
-    );
+    ); 
 };
 
 export default Test;
