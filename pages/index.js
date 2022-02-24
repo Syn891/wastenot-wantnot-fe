@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Row, Navbar, Container, Offcanvas, Nav,  Form, NavDropdown, FormControl, Button, } from 'react-bootstrap'
+import { Col, Row, Navbar, Container, Offcanvas, Nav,  Form, NavDropdown, FormControl, Button, } from 'react-bootstrap'
 import styles from '../styles/Home.module.css'
 import HomeVideo from "../components/Videoplayer/index"
 import Link from 'next/link'
@@ -22,7 +22,7 @@ export default function Home() {
       <Navbar expand={false}>
         <Container fluid>
         <Navbar.Toggle aria-controls="offcanvasNavbar" />
-            <Navbar.Brand href="#">WasteNot: WantNot</Navbar.Brand>
+            <Navbar.Brand href="#"><img className={styles.brand} src="https://i.ibb.co/MV46RZx/Recycle-icon-by-rudezstudio-2-580x386-copy.png"/></Navbar.Brand>
             <Navbar.Offcanvas
             id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel"
@@ -31,14 +31,15 @@ export default function Home() {
             >
         <Offcanvas.Header closeButton className={styles.offcanvasHeader}>
         <Offcanvas.Title id="offcanvasNavbarLabel">WasteNot: WantNot</Offcanvas.Title>
+        <img className={styles.brand} src="https://i.ibb.co/MV46RZx/Recycle-icon-by-rudezstudio-2-580x386-copy.png"/>
         </Offcanvas.Header>
       <Offcanvas.Body>
         <Nav className="justify-content-end flex-grow-1 pe-3">
-          <Nav.Link href="#action1">About Us</Nav.Link>
-          <Nav.Link href="#action2">Food waste matters!</Nav.Link>
-          <Nav.Link href="#action2">Manage, Reduce, Donate!</Nav.Link>
-          <Nav.Link href="/donations">Find Food Banks!</Nav.Link>
-          <Nav.Link className={styles.bottom} href="/">Register</Nav.Link>
+          <Nav.Link className={styles.navLink} href="#action1">About Us</Nav.Link>
+          <Nav.Link className={styles.navLink} href="#action2">Food waste matters!</Nav.Link>
+          <Nav.Link className={styles.navLink} href="#action2">Manage, Reduce, Donate!</Nav.Link>
+          <Nav.Link className={styles.navLink} href="/donations">Find Food Banks!</Nav.Link>
+          <Nav.Link className={styles.navLink} href="/">Register</Nav.Link>
         </Nav>
       
       </Offcanvas.Body>
@@ -47,12 +48,27 @@ export default function Home() {
 </Navbar>        
 
 <Row className={styles.row}>
-        <div></div>
+        <div className={styles.heading}>
+          <Col className={styles.headingT} xs={{span: 8}}>
+            <Row className={styles.headingR}>
+              <span className={styles.span}><strong>Waste</strong>Not:</span>
+            </Row>
+            <Row className={styles.headingU}>
+              <span className={styles.span}><strong>Want</strong>Not<strong>!</strong></span>
+
+            </Row>
+          </Col>
+          <Col className={styles.headingS} xs={{span: 4}}>
+            <img className={styles.brandHead} src="https://i.ibb.co/MV46RZx/Recycle-icon-by-rudezstudio-2-580x386-copy.png"/>
+          </Col>
+
+
+        </div>
 
 </Row>
         <Row className={styles.login}>
         <a className={styles.a} href = "/api/auth/login">
-        <Link href="/landing"><Button className={styles.loginBtn}>Login/Signup</Button></Link>
+        <Link href="/landing"><Button className={styles.loginBtn}>Login / Signup</Button></Link>
         </a>
         </Row>
         <Row className={styles.footer}></Row>
