@@ -10,6 +10,9 @@ import {TiShoppingCart} from 'react-icons/ti'
 import {RiFridgeLine} from 'react-icons/ri'
 import {GiForkKnifeSpoon, GiKnifeFork} from 'react-icons/gi'
 import { useUser, getSession } from '@auth0/nextjs-auth0';
+import Dashboard from '../components/Dashboard';
+import DashboardChart from '../components/DashboardChart';
+
 
 const Landing = () => {
   const { user, error, isLoading } = useUser();
@@ -36,6 +39,7 @@ console.log(user)
       // submitUser()
   // })
   
+
 
   const setColor = (number) => {
         let color = ''
@@ -91,6 +95,9 @@ console.log(user)
             <Row className={css.row}>
             <a  href = "/api/auth/logout"><Button>Logout</Button></a>
             </Row>
+
+            <Row className={css.row}><Dashboard link="/userInformation" />
+</Row>
         </Col>
     ));
     
