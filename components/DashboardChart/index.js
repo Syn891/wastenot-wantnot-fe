@@ -1,5 +1,5 @@
 import React from 'react'
-import DashboardItem from '../DashboardItem'
+//import DashboardItem from '../DashboardItem'
 
 // import CanvasJSReact from '../../canvasjs.react';
 
@@ -46,7 +46,7 @@ import css from "./DashboardChart.module.css";
 
 const DashboardChart = ({value}) => {
   return (
-    <div>
+    <div className={css.DashboardChart}>
       
 
 

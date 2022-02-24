@@ -16,7 +16,7 @@ const Dashboard = ({link}) => {
         
          
         <Container  className={css.dashBox} >
-        <Row> <p className={css.dashHeader}>User dashboard: analyse and monitor your food use:</p></Row>
+        <Row><p className={css.dashHeader}>User dashboard: analyse and monitor your food use:</p></Row>
        
         <Row className={css.row}> 
         <Link href={link}>
