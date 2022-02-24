@@ -9,7 +9,7 @@ import css from './Dashboard.module.css';
 
 
 
-const Dashboard = ({link}) => {
+const Dashboard = ({link, waste, donations, consumption}) => {
     // let image = "../"
    
     return (
@@ -20,13 +20,13 @@ const Dashboard = ({link}) => {
        
         <Row className={css.row}> 
         <Link href={link}>
-        <Col xs={{span: 4}}><DashboardChart className={css.dashRight} /></Col>
+        <Col xs={{span: 4}}><DashboardChart className={css.dashRight} value={waste}/></Col>
         </Link>
         <Link href={link}>
-        <Col xs={{span: 4}}><DashboardChart className={css.dashCentre} /></Col>
+        <Col xs={{span: 4}}><DashboardChart className={css.dashCentre} value={donations} /></Col>
         </Link>
         <Link href={link}>
-        <Col xs={{span: 4}}><DashboardChart className={css.dashLeft} /></Col>  
+        <Col xs={{span: 4}}><DashboardChart className={css.dashLeft} value={consumption}/></Col>  
         </Link>
         </Row>
         

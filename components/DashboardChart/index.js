@@ -1,44 +1,4 @@
 import React from 'react'
-//import DashboardItem from '../DashboardItem'
-
-// import CanvasJSReact from '../../canvasjs.react';
-
-// var CanvasJS = CanvasJSReact.CanvasJS;
-// var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
-
-
-
-// function DashboardChart (){	
-//   render() {
-//     const options = {
-//       title: {
-//         text: "Basic Column Chart in React"
-//       },
-//       data: [{				
-//                 type: "column",
-//                 dataPoints: [
-//                     { label: "Apple",  y: 10  },
-//                     { label: "Orange", y: 15  },
-//                     { label: "Banana", y: 25  },
-//                     { label: "Mango",  y: 30  },
-//                     { label: "Grape",  y: 28  }
-//                 ]
-//        }]
-//    }
-		
-//    return (
-//       <div>
-//         <CanvasJSChart options = {options}
-//             /* onRef = {ref => this.chart = ref} */
-//         />
-//       </div>
-//     );
-//   }
-// }
-
-// export default DashboardChart
-
 import { PieChart } from "react-minimal-pie-chart";
 import css from "./DashboardChart.module.css";
 
@@ -51,21 +11,21 @@ const DashboardChart = ({value}) => {
 
 
 
-<PieChart className={css.DashboardChart}
+<PieChart className={css.DashboardChart} 
    animation
    animationDuration={500}
    animationEasing="ease-out"
    center={[50, 50]}
    data={[
      {
-     color: "#E38627",
+     color: "#F1AC79",
      title: "One",
-     value: 30,
+     value: value,
      },
      {
      color: "#C13C37",
      title: "Two",
-     value: 70,
+     value: 30,
      },
      
    ]}
