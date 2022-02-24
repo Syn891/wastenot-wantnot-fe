@@ -52,7 +52,7 @@ export default function Home() {
 <Row className={styles.row}></Row>
         <Row className={styles.login}>
         <a href = "/api/auth/login">
-        <button>Login </button>
+        <button>Login/Signup</button>
         </a>
         </Row>
         <Row className={styles.footer}></Row>
