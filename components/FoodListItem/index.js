@@ -9,7 +9,7 @@ function FoodListItem({ name, est_exp, category, quantity, measurement }) {
         <p>{name}</p>
       </Col>
       <Col>
-        <p>{"date placeholder"}</p>
+        <p>{"01/01/0101"}</p>
         {/* {est_exp.$date.$numberLong} */}
       </Col>
       <Col>

@@ -68,7 +68,7 @@ const shopListTestData = [
     id: "id string3",
     shopping_items: [
       {
-        _itemid: "id string inside shopping items 3",
+        _itemid: "id string inside shopping items 4",
         name: "apple",
         est_exp: { $date: { $numberLong: "1645444573974" } },
         category: "food",
