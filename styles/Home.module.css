@@ -10,10 +10,23 @@
 }
 
 .row {
-  /* border: 3px solid green; */
+  border: 3px solid green;
   --bs-gutter-x: unset;
-  height: 33%
+  height: 70%
 }
+
+.login{
+  border: 3px solid blue;
+  --bs-gutter-x: unset;
+  height: 20%
+}
+
+.footer{
+  border: 3px solid green;
+  --bs-gutter-x: unset;
+  height: 3%
+}
+
 
 .bottom {
   justify-self: flex-end;
@@ -24,7 +37,7 @@
   width: 100%;
   height: 100%;
   position: fixed;
-  /* z-index: -1;  */
+  z-index: -1; 
   opacity: 75%;
 }
 

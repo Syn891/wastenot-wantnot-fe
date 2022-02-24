@@ -2,10 +2,13 @@ import Head from 'next/head'
 import { Row, Navbar, Container, Offcanvas, Nav,  Form, NavDropdown, FormControl, Button, } from 'react-bootstrap'
 import styles from '../styles/Home.module.css'
 import HomeVideo from "../components/Videoplayer/index"
-import LoginButton from '../components/LoginButton'
+import Link from 'next/link'
+import { useUser } from '@auth0/nextjs-auth0'
+
 
 
 export default function Home() {
+  const {user, isLoading} = useUser()
   return (
     <div>
       <Head>
@@ -48,10 +51,12 @@ export default function Home() {
 </Navbar>        
 
 <Row className={styles.row}></Row>
-        <Row className={styles.row}>
-          <LoginButton />
+        <Row className={styles.login}>
+        <a href = "/api/auth/login">
+        <button>Login </button>
+        </a>
         </Row>
-        <Row className={styles.row}></Row>
+        <Row className={styles.footer}></Row>
         </Container>
       </main>
 
