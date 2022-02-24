@@ -3,12 +3,7 @@ import { Col, Row, Navbar, Container, Offcanvas, Nav,  Form, NavDropdown, FormCo
 import styles from '../styles/Home.module.css'
 import HomeVideo from "../components/Videoplayer/index"
 import Link from 'next/link'
-import { useUser } from '@auth0/nextjs-auth0'
-import { useRouter } from 'next/router'
-
 export default function Home() {
-  const { user, error, isLoading } = useUser();
-  const router = useRouter();
 
   return (
     <div>
@@ -73,7 +68,7 @@ export default function Home() {
 </Row>
         <Row className={styles.login}>
         <a className={styles.a} href = "/api/auth/login">
-           <Button className={styles.loginBtn}>Login / Sign up</Button>
+        <Link href="/landing"><Button className={styles.loginBtn}>Login / Signup</Button></Link>
         </a>
         </Row>
         <Row className={styles.footer}></Row>

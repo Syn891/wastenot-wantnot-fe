@@ -9,11 +9,11 @@ import {FaHandHoldingHeart } from "react-icons/fa";
 import {TiShoppingCart} from 'react-icons/ti'
 import {RiFridgeLine} from 'react-icons/ri'
 import {GiForkKnifeSpoon, GiKnifeFork} from 'react-icons/gi'
-import { useUser } from '@auth0/nextjs-auth0';
+import { useUser, getSession } from '@auth0/nextjs-auth0';
 
-const Landing = ({users}) => {
+const Landing = () => {
   const { user, error, isLoading } = useUser();
-
+console.log(user)
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
@@ -91,19 +91,57 @@ const Landing = ({users}) => {
             <Row className={css.row}>
             <a  href = "/api/auth/logout"><Button>Logout</Button></a>
             </Row>
-            <h1>{users.name}</h1>
         </Col>
     ));
     
 };
 
-export async function getServerSideProps(user) {
-  const res = await fetch(`http://localhost:3001/users/${user.sub}`);
-  const users = await res.json();
+  export async function getServerSideProps(ctx) {
+   const session = getSession(ctx.req, ctx.res);
+    
+   console.log(session)
 
-  return {
-    props: { users },
-  };
-}
+    // let dbUser = await fetch(`http://localhost:3001/users/${session.user.sub}`)
+    // dbUser = await dbUser.json()
+
+
+    // console.log(dbUser)
+    // console.log(session.user)
+
+    // const newUser = {
+    //   _id: session.user.sub,
+    //   name: session.user.nickname,
+    //   email: session.user.name, 
+    //   dietary_reqs: [],
+    //   wastage: 0,
+    //   consumption: 0,
+    //   donations: 0
+    // }
+    // if (dbUser.payload === null) {
+    //   const response = await fetch(`https://waste-want.herokuapp.com/users//users` , {
+    //         method: 'POST', 
+    //         mode: 'cors', // no-cors, *cors, same-origin
+    //         cache: 'no-cache', 
+    //         credentials: 'same-origin', // include, *same-origin, omit
+    //         headers: {
+    //           'Content-Type': 'application/json'
+    //         },
+    //         redirect: 'follow', // manual, *follow, error
+    //         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    //         body: JSON.stringify(newUser) // body data type must match "Content-Type" header
+    //       });
+    //       console.log(response.json); // parses JSON response into native JavaScript objects
+    //     } else {
+    //       console.log("user already in db")
+    //     }
+  
+    return {
+            props: { properties: session},
+          }
+   }
+
+
+
+
 
 export default Landing;
