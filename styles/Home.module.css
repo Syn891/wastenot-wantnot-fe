@@ -6,7 +6,6 @@
 }
 
 .main {
-  border: 5px solid red;
   height: 100vh
 }
 
@@ -26,5 +25,14 @@
   height: 100%;
   position: fixed;
   /* z-index: -1;  */
-  opacity: 65%;
+  opacity: 75%;
+}
+
+.offcanvas {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.offcanvasHeader {
+  background-color: #F6Cbaa
+
 }

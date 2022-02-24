@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { Row, Navbar, Container, Offcanvas, Nav,  Form, NavDropdown, FormControl, Button, } from 'react-bootstrap'
 import styles from '../styles/Home.module.css'
 import HomeVideo from "../components/Videoplayer/index"
-
+import LoginButton from '../components/LoginButton'
 
 
 export default function Home() {
@@ -20,7 +20,7 @@ export default function Home() {
       <main className={styles.main}>
       <Container className={styles.container}>
       <HomeVideo/>
-      <Navbar bg="light" expand={false}>
+      <Navbar expand={false}>
         <Container fluid>
         <Navbar.Toggle aria-controls="offcanvasNavbar" />
             <Navbar.Brand href="#">WasteNot: WantNot</Navbar.Brand>
@@ -28,8 +28,9 @@ export default function Home() {
             id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel"
             placement="start"
+            className={styles.offcanvas}
             >
-        <Offcanvas.Header closeButton>
+        <Offcanvas.Header closeButton className={styles.offcanvasHeader}>
         <Offcanvas.Title id="offcanvasNavbarLabel">WasteNot: WantNot</Offcanvas.Title>
         </Offcanvas.Header>
       <Offcanvas.Body>
@@ -47,7 +48,9 @@ export default function Home() {
 </Navbar>        
 
 <Row className={styles.row}></Row>
-        <Row className={styles.row}></Row>
+        <Row className={styles.row}>
+          <LoginButton />
+        </Row>
         <Row className={styles.row}></Row>
         </Container>
       </main>
