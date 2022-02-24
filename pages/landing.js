@@ -70,7 +70,7 @@ const Landing = () => {
                 </Col>
             </Row>
             <Row className={css.row}>
-            <a  href = "/api/auth/login"><Button>Logout</Button></a>
+            <a  href = "/api/auth/logout"><Button>Logout</Button></a>
             </Row>
         </Col>
     ));
