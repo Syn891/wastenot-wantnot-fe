@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { Row, Navbar, Container, Offcanvas, Nav,  Form, NavDropdown, FormControl, Button, } from 'react-bootstrap'
 import styles from '../styles/Home.module.css'
-// import VideoPlayer from '../components/Videoplayer'
 import HomeVideo from "../components/Videoplayer/index"
 
 
@@ -20,10 +19,6 @@ export default function Home() {
 
       <main className={styles.main}>
       <Container className={styles.container}>
-      {/* <video  url="https://www.youtube.com/watch?v=dVLmX06tdDU" controls muted type="video/mp4"/> */}
-      {/* <video controls autoPlay muted loop className={styles.video}>         
-    <source src="homepage.mp4" type="video/mp4"/>       
-</video> */}
       <HomeVideo/>
       <Navbar bg="light" expand={false}>
         <Container fluid>
