@@ -73,7 +73,7 @@ function ShoppingListTable() {
           <form onSubmit={handleSubmit}>
             <input
               placeholder="item"
-              onChange={(e) => setExpiry(e.target.value)}
+              onChange={(e) => setItem(e.target.value)}
             ></input>
             <input
               placeholder="Expiry"
@@ -81,11 +81,11 @@ function ShoppingListTable() {
             ></input>
             <input
               placeholder="Qty"
-              onChange={(e) => setExpiry(e.target.value)}
+              onChange={(e) => setQty(e.target.value)}
             ></input>
             <input
               placeholder="Unit"
-              onChange={(e) => setExpiry(e.target.value)}
+              onChange={(e) => setUnit(e.target.value)}
             ></input>
             <input
               type="submit"
