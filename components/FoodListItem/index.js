@@ -2,7 +2,7 @@ import { Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
 import css from './FoodListItem.module.css'
 
-function FoodListItem({ name, est_exp, category, quantity, measurement }) {
+function FoodListItem({ name, est_exp, category, quantity, measurement, color }) {
   console.log(name, est_exp, category, quantity, measurement);
   const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000);
   
