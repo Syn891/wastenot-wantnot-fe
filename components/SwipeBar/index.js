@@ -14,7 +14,7 @@ const leadingActions = () => (
       destructive={true}
       onClick={() => console.info("swipe action triggered")}
     >
-      Delete
+      Add
     </SwipeAction>
   </LeadingActions>
 );
@@ -25,7 +25,7 @@ const trailingActions = () => (
       destructive={true}
       onClick={() => console.info("swipe action triggered")}
     >
-      Add
+      Delete
     </SwipeAction>
   </TrailingActions>
 );
