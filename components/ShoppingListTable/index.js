@@ -7,14 +7,14 @@ import { Col, Container, Row } from "react-bootstrap";
 import AddItemButton from "../AddItemButton";
 import css from "./ShoppingListTable.module.css";
 
-function ShoppingListTable({ onClick2 }) {
+function ShoppingListTable({ onFormRender, onNoFormRender }) {
   const [itemButtonClick, setItemButtonClick] = useState(false);
   const [shopListData, setShopListData] = useState(shopListTestData); // what we want
   const [item, setItem] = useState("Error");
   const [expiry, setExpiry] = useState("Error");
   const [qty, setQty] = useState("Error");
   const [unit, setUnit] = useState("Error");
-  useEffect(() => {});
+
   let dataStructure = {
     _id: { $oid: "placeholder" },
     id: "placeholder",
@@ -61,6 +61,8 @@ function ShoppingListTable({ onClick2 }) {
   };
 
   if (itemButtonClick) {
+    function formRender() {}
+    onFormRender();
     return (
       <Container>
         <FoodCategoryRow />
@@ -113,7 +115,10 @@ function ShoppingListTable({ onClick2 }) {
               <input
                 type="submit"
                 value="+"
-                onClick={() => console.log("submit")}
+                onClick={() => {
+                  console.log("submit");
+                  formRender();
+                }}
               />
             </Col>
           </form>
@@ -123,6 +128,8 @@ function ShoppingListTable({ onClick2 }) {
   }
   // For each item in the ShopList Data array a chekcbox is rendered, create an array of true false values for if checkbox is checked, compare the true false against the index of the food items array
   if (!itemButtonClick) {
+    function noFormRender() {}
+    onNoFormRender();
     return (
       <Container>
         <FoodCategoryRow />
@@ -144,8 +151,9 @@ function ShoppingListTable({ onClick2 }) {
           message={"Add Item to Grocery List"}
           onClick={() => {
             setItemButtonClick(true);
-            onClick2;
+            noFormRender();
           }}
+          // alert("hello 2 at once working");
         />
       </Container>
     );
