@@ -40,7 +40,8 @@ function SwipeBar({ className, children }) {
         leadingActions={leadingActions()}
         trailingActions={trailingActions()}
       >
-          <FoodListItem name="chicken" quantity="1" measurement="kg" />
+         
+          {children}
 
       </SwipeableListItem>
     </SwipeableList>

@@ -8,6 +8,9 @@ import {Row, Col} from 'react-bootstrap';
 import { Container } from 'react-bootstrap';
 import css from '../styles/donations.module.css';
 import { useRouter } from "next/router";
+import SwipePantryBar from '../components/SwipePantryBar'
+import FoodListItem from '../components/FoodListItem';
+
 
 const DonationsPage = () => {
 
@@ -26,6 +29,10 @@ const DonationsPage = () => {
               <div className={css.donationsTitle}>
                 <p>To Donate:</p>
               </div>
+            </Row>
+
+            <Row>
+<SwipePantryBar > <FoodListItem name="chicken" quantity="1" measurement="kg" /></SwipePantryBar>
             </Row>
         
              <Row className={css.row}>
