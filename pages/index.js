@@ -68,7 +68,7 @@ export default function Home() {
 </Row>
         <Row className={styles.login}>
         <a className={styles.a} href = "/api/auth/login">
-        <Link href="/landing"><Button className={styles.loginBtn}>Login / Signup</Button></Link>
+        <Button className={styles.loginBtn}>Login / Signup</Button>
         </a>
         </Row>
         <Row className={styles.footer}></Row>

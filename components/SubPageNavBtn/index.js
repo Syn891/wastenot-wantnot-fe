@@ -2,7 +2,7 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 
 function SubPageNavBtn({ buttonName }) {
-  return <Button variant="primary">{buttonName}</Button>;
+  return <Button >{buttonName}</Button>;
 }
 /* <button>{buttonName}</button> */
 //   return (
