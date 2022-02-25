@@ -1,0 +1,18 @@
+.row {
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border: 3px solid #FFEADB;
+    margin-bottom: 1em;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    width: 100%
+
+}
+
+.col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.5em 0 0.5em 0;
+}

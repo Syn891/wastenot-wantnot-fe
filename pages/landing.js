@@ -39,7 +39,7 @@ const Landing = () => {
               <Banner title="WasteNot-WantNot"/>  
             </Row>
             <Row className={css.row}>
-              <Navbar title="Food Waste Matters!" />
+              <Navbar title="Food Waste Matters!" Icon={RiFridgeLine} />
             </Row>
             <Row className={css.row}>
               <div className={css.pantryTitle}>
