@@ -1,14 +1,21 @@
 import RecipieInfoDisplay from "../components/RecipieInfoDisplay";
 import Navbar from "../components/Navbar";
 import SubPageNavBtn from "../components/SubPageNavBtn";
-import {Row, Col, InputGroup, FormControl} from 'react-bootstrap'
+import {Row, Col, InputGroup, FormControl, Button, Container} from 'react-bootstrap'
 import css from '../styles/Mealplan.module.css'
 import {BsSearch, BsFilterSquare} from 'react-icons/bs'
 import {useState} from 'react'
+import { IoIosArrowBack } from "react-icons/io";
+import {GiForkKnifeSpoon} from 'react-icons/gi'
+import { useRouter } from "next/router";
 
-const MealPlan = () => {
+const MealPlan = ({recipes}) => {
 
+  const router = useRouter()
   const [searchInput, setSearchInput] = useState("")
+
+
+
   function handleChange(event) {
     setSearchInput(event.target.value)
   }
@@ -17,20 +24,21 @@ const MealPlan = () => {
 
     console.log(searchInput)
   }
+
   return (
-    <div>
+    <Container className={css.container}>
       <Row>
-        <h1>hello im the meal plan</h1>
+        <Navbar Icon={GiForkKnifeSpoon} color="#EF8D4B" title={"Meal Planner"}>
+          <IoIosArrowBack
+          size={'1.5em'}
+          style={{marginRight:'0.25em' }} onClick={()=> router.back()}/>
+        </Navbar>
       </Row>
 
       <Row>
-        <Navbar title={"Meal Planner"} />
-      </Row>
-
-      <Row>
-      <div>
-        <SubPageNavBtn buttonName={"Recipes"} />
-        <SubPageNavBtn buttonName={"My Meals"} />
+      <div className={css.subPageNav}>
+        <Button className={css.subBtn}>Recipes</Button>
+        <Button className={css.subBtn}>My Meals</Button>
       </div>
       </Row>
 
@@ -53,43 +61,27 @@ const MealPlan = () => {
       </Row>
 
       <Row>
-        
-      <RecipieInfoDisplay
-        image={
-          "https://ih1.redbubble.net/image.2929924990.5213/raf,128x128,075,f,grey_lightweight_hoodie.jpg"
-        }
-        title={"Lorem Ipsum"}
-        prepTime={999}
-        cookTime={1}
-        url={
-          "https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwi0y7ruz5P2AhWXFMAKHZQkBbUQPAgI"
-        }
-      />
-      <RecipieInfoDisplay
-        image={
-          "https://ih1.redbubble.net/image.2929924990.5213/raf,128x128,075,f,grey_lightweight_hoodie.jpg"
-        }
-        title={"Lorem Ipsum"}
-        prepTime={99}
-        cookTime={10}
-        url={
-          "https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwi0y7ruz5P2AhWXFMAKHZQkBbUQPAgI"
-        }
-      />
-      <RecipieInfoDisplay
-        image={
-          "https://ih1.redbubble.net/image.2929924990.5213/raf,128x128,075,f,grey_lightweight_hoodie.jpg"
-        }
-        title={"Lorem Ipsum"}
-        prepTime={9}
-        cookTime={100}
-        url={
-          "https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwi0y7ruz5P2AhWXFMAKHZQkBbUQPAgI"
-        }
-      />
+      
+      {recipes.map((recipe) => {
+        return (
+          <RecipieInfoDisplay
+            key={recipe.recipe.uri}
+            image={recipe.recipe.image}
+            title={recipe.recipe.label}
+            url={recipe.recipe.url}
+          />
+        )
+      })}
       </Row>
-    </div>
+    </Container>
   );
 };
 
+export async function getServerSideProps(ctx) {
+   
+   ctx = "chicken"
+     let recipes = await fetch(`http://localhost:3001/api/search?q=${ctx}`)
+     const data = await recipes.json()
+     return { props: { recipes: data } }
+}
 export default MealPlan;
