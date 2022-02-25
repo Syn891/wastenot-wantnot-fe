@@ -1,16 +1,54 @@
 .row {
     justify-content: center;
     --bs-gutter-x: unset;
-    height: 10vh
+    height: auto;
+    margin-bottom: 1em;
+}
+.row:nth-child(1) {
+    margin-bottom: unset;
+}
+.row:nth-child(2) {
+    margin-bottom: 0.65em;
+}
+.row:nth-child(4) {
+ padding-left: 0.75em;
+ padding-right: 0.75em;
+}
+
+.row:nth-child(3) {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    padding: 0 1em 0.5em 1em;
+    margin-bottom: unset;
 
 }
 
 .row:nth-child(7) {
-    margin-top: 1em
+    height: 13vh;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+
+}
+
+.febtns {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    padding: 0.3em;
 }
 
 .col {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+}
+
+.pantryTitle {
+    background-color: #FCEADD;
+    display: flex;
+    justify-content: center;
+    font-size: 0.9em;
 }

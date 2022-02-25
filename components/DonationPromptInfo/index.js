@@ -10,10 +10,10 @@ const DonationPromptInfo = ({text, icon}) => {
     return (
         <Link href="/donations">
         <div className={css.dpi}>
-            <Col xs={{span: 8}}>
+            <Col xs={{span: 9}}>
             {text}
             </Col>
-            <Col xs={{span: 4}}>
+            <Col xs={{span: 3}} className={css.svg}>
                 <GrMapLocation size={'3em'}/>
             </Col>
         </div>
