@@ -4,19 +4,21 @@ import css from './FoodCategoryRow.module.css'
 function FoodCategoryRow() {
   return (
     <Row className={css.row}>
-      <Col xs={{span:3}}>
+      <Col className={css.cls} xs={{ span: 2 }}>
         <p>Name</p>
       </Col>
-      <Col xs={{span:3}}>
-        <p>Expiry Date</p>
+      <Col className={css.cls} xs={{ span: 2 }}>
+        <p>Exp</p>
       </Col>
-      <Col xs={{span:2}}>
+      <Col className={css.cls} xs={{ span: 2 }}>
         <p>Quantity</p>
       </Col>
-      <Col xs={{span:2}}>
+      <Col className={css.cls} xs={{ span: 2 }}>
         <p>Unit</p>
       </Col>
-      <Col xs={{span:2}}></Col>
+      <Col className={css.cls} xs={{ span: 4 }}>
+        <p>x</p>
+      </Col>
     </Row>
   );
 }
