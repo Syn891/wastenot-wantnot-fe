@@ -6,7 +6,8 @@ import {
   TrailingActions,
 } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
-import css from "./shoppingList.module.css";
+import css from "./swipePantryBar.module.css";
+import FoodListItem from "../FoodListItem";
 
 const leadingActions = () => (
   <LeadingActions>
@@ -14,7 +15,7 @@ const leadingActions = () => (
       destructive={true}
       onClick={() => console.info("swipe action triggered")}
     >
-      Add
+      Delete
     </SwipeAction>
   </LeadingActions>
 );
@@ -25,22 +26,22 @@ const trailingActions = () => (
       destructive={true}
       onClick={() => console.info("swipe action triggered")}
     >
-      Delete
+      Add
     </SwipeAction>
   </TrailingActions>
 );
 
-function SwipeBar({ className }) {
+function SwipeBar({ className, children }) {
   let cN = className;
   return (
-    <SwipeableList>
+    <SwipeableList className={css.swipeableList}>
       <SwipeableListItem
         className={css.swipeBarCss}
         leadingActions={leadingActions()}
         trailingActions={trailingActions()}
       >
-        This item is already in
-        <strong> My Pantry! </strong> Add anyway?
+          <FoodListItem name="chicken" quantity="1" measurement="kg" />
+
       </SwipeableListItem>
     </SwipeableList>
   );

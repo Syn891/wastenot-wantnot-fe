@@ -39,7 +39,7 @@ const Landing = () => {
               <Banner title="WasteNot-WantNot"/>  
             </Row>
             <Row className={css.row}>
-              <Navbar title="Food Waste Matters!" />
+              <Navbar title="Food Waste Matters!" Icon={RiFridgeLine} />
             </Row>
             <Row className={css.row}>
               <div className={css.pantryTitle}>
@@ -69,7 +69,7 @@ const Landing = () => {
                     <NavigationButton title="Grocery List" color="#94DEB2" link="/shoppinglist"Icon={TiShoppingCart}/>
                 </Col>
                 <Col className={css.col}>
-                    <NavigationButton title="In my Pantry" color="#5CC971" link="/"Icon={RiFridgeLine}/>
+                    <NavigationButton title="In my Pantry" color="#5CC971" link="/pantry"Icon={RiFridgeLine}/>
                 </Col>
                 <Col className={css.col}>
                     <NavigationButton title="Meal Planner" color="#F1AC79" link="/mealPlan"Icon={GiForkKnifeSpoon}/>

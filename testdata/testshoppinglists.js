@@ -14,6 +14,8 @@ const shopListTestData = [
       },
     ],
     user_id: "hello im the user id string",
+    alertSwiped: true, //if item already in pantry and user has seen alert already and dismissed dont show the alert again
+    checkboxTicked: true
   },
   {
     _id: { $oid: "1234" },
@@ -64,7 +66,7 @@ const shopListTestData = [
     user_id: "hello im the user id string 3",
   },
   {
-    _id: { $oid: "12345678" },
+    _id: { $oid: "12345678910" },
     id: "id string3",
     shopping_items: [
       {
@@ -74,10 +76,10 @@ const shopListTestData = [
         category: "food",
         quantity: "54",
         measurement: "barrels",
-        _id: { $oid: "12345678" },
+        _id: { $oid: "12345678910" },
       },
     ],
-    user_id: "hello im the user id string 3",
+    user_id: "hello im the user id string 4",
   },
 ];
 
