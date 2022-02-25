@@ -7,7 +7,7 @@ function FoodListItem({ name, est_exp, category, quantity, measurement, color })
      color = "#5CC971"
   }
   return (
-    <Row className={css.row} style={{color: color}}>
+    < >
       <Col  className={css.col} xs={{span:3}}>
         <div>{name}</div>
       </Col>
@@ -24,7 +24,7 @@ function FoodListItem({ name, est_exp, category, quantity, measurement, color })
       <Col className={css.col} xs={{span:2}}>
         <input type="checkbox"></input>
       </Col>
-    </Row>
+    </>
   );
 }
 

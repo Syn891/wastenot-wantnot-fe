@@ -7,6 +7,7 @@ import {
 } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
 import css from "./swipePantryBar.module.css";
+import FoodListItem from "../FoodListItem";
 
 const leadingActions = () => (
   <LeadingActions>
@@ -39,7 +40,8 @@ function SwipeBar({ className, children }) {
         leadingActions={leadingActions()}
         trailingActions={trailingActions()}
       >
-{children}
+          <FoodListItem name="chicken" quantity="1" measurement="kg" />
+
       </SwipeableListItem>
     </SwipeableList>
   );

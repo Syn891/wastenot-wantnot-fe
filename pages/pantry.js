@@ -36,7 +36,6 @@ const Pantry = () => {
         <Container className={css.container}>
         <SwipePantryBar />
 
-            <FoodListItem color={setColor(1)} name="chicken" quantity="1" measurement="kg" />
         </Container>
         </div>
     );
