@@ -6,7 +6,7 @@ import {
   TrailingActions,
 } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
-import css from "./shoppingList.module.css";
+import css from "./swipePantryBar.module.css";
 
 const leadingActions = () => (
   <LeadingActions>
@@ -33,7 +33,7 @@ const trailingActions = () => (
 function SwipeBar({ className, children }) {
   let cN = className;
   return (
-    <SwipeableList>
+    <SwipeableList className={css.swipeableList}>
       <SwipeableListItem
         className={css.swipeBarCss}
         leadingActions={leadingActions()}

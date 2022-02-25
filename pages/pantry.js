@@ -7,7 +7,7 @@ import css from '../styles/Pantry.module.css'
 import { Container } from 'react-bootstrap';
 import FoodCategoryRow from '../components/FoodCategoryRow';
 import FoodListItem from '../components/FoodListItem'
-import SwipeBar from '../components/SwipeBar';
+import SwipePantryBar from '../components/SwipePantryBar';
 const Pantry = () => {
     const router = useRouter()
 
@@ -34,26 +34,9 @@ const Pantry = () => {
          <FoodCategoryRow />
 
         <Container className={css.container}>
-<SwipeBar />
-            <FoodListItem color={setColor(1)} name="chicken" quantity="1" measurement="kg" />
-            <FoodListItem color={setColor(1)} name="chicken" quantity="1" measurement="kg" />
-            <FoodListItem color={setColor(1)} name="chicken" quantity="1" measurement="kg" />
-            <FoodListItem color={setColor(1)} name="chicken" quantity="1" measurement="kg" />
-            <FoodListItem color={setColor(1)} name="chicken" quantity="1" measurement="kg" />
+        <SwipePantryBar />
 
             <FoodListItem color={setColor(1)} name="chicken" quantity="1" measurement="kg" />
-            <FoodListItem color={setColor(9)} name="chicken" quantity="1" measurement="kg" />
-            <FoodListItem color={setColor(5)} name="chicken" quantity="1" measurement="kg" />
-            <FoodListItem color={setColor(1)} name="chicken" quantity="1" measurement="kg" />
-            <FoodListItem  name="chicken" quantity="1" measurement="kg" />
-            <FoodListItem color={setColor(1)} name="chicken" quantity="1" measurement="kg" />
-            <FoodListItem color={setColor(1)} name="chicken" quantity="1" measurement="kg" />
-            <FoodListItem color={setColor(1)} name="chicken" quantity="1" measurement="kg" />
-            <FoodListItem color={setColor(1)} name="chicken" quantity="1" measurement="kg" />
-            <FoodListItem color={setColor(1)} name="chicken" quantity="1" measurement="kg" />
-            <FoodListItem color={setColor(1)} name="chicken" quantity="1" measurement="kg" />
-
-
         </Container>
         </div>
     );
