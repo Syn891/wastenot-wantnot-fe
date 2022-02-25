@@ -1,116 +1,127 @@
-.container {
-  padding: 0 2rem;
+.container{
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
+  height: 100vh;
 }
 
 .main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
+  height: 100vh
+}
+
+.row {
+  --bs-gutter-x: unset;
+  height: 65%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login{
+  --bs-gutter-x: unset;
+  height: 20%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.title a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
-}
-
-.title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
-}
-
-.title,
-.description {
-  text-align: center;
-}
-
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-.grid {
-  display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
+  align-content: center;
 }
 
-.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
+.footer{
+  --bs-gutter-x: unset;
+  height: 3%
+}
+
+
+.bottom {
+  justify-self: flex-end;
+}
+
+.video {   
+  object-fit: cover;   
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: -1; 
+  opacity: 75%;
+}
+
+.offcanvas {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.offcanvasHeader {
+  background-color: rgba(63, 142, 39, 0.85);
+
+}
+
+.loginBtn {
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background-color: rgba(63, 142, 39, 0.85);
+  padding: 0.8rem;
+  width: 120%;
   border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
+  border: unset;
 }
 
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+.loginBtn:hover {
+  background-color: rgba(63, 142, 39, 1);
+
 }
 
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
+.a {
+  width: unset
 }
 
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
+.brand {
+  height: 8vh;
 }
 
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
+.navLink {
+  color: white;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
+.heading {
+  height: 20%;
+  background-color: rgba(63, 142, 39, 1);
+  width: 75%;
+  opacity: 0.9;
+filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+border-radius: 15px;
+display: flex;
+}
+
+.headingS {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.headingT {
+  display: flex;
+  flex-direction: column;
+  letter-spacing: 0.1em;
+}
+
+.headingR {
+  height: 50%;
+  --bs-gutter-x: unset;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: 1.7em;
+}
+
+.headingU {
+  height: 50%;
+  --bs-gutter-x: unset
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: 1.7em;
+  color: rgb(233, 233, 233);
+}
+
+.brandHead {
+  height: 7.5em
 }
