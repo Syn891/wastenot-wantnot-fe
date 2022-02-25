@@ -11,6 +11,10 @@ function ShoppingListTable() {
   const [itemToAdd, setItemToAdd] = useState();
   const [shopListData, setShopListData] = useState(shopListTestData); // what we want
   // shopListData = [...shopListData, dataStructure];
+  const [item, setItem] = useState("Error");
+  const [expiry, setExpiry] = useState("");
+  const [qty, setQty] = useState(99999);
+  const [unit, setUnit] = useState("");
   useEffect(() => {});
   let dataStructure = {
     _id: { $oid: "placeholder" },
@@ -31,6 +35,22 @@ function ShoppingListTable() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    dataStructure = {
+      _id: { $oid: "placeholder" },
+      id: "placeholder",
+      shopping_items: [
+        {
+          _itemid: "placeholder",
+          name: item,
+          est_exp: { $date: { $numberLong: "doesnt matter right now" } }, //https://stackoverflow.com/questions/22964199/how-to-convert-numberlong-to-date-in-mongodbs-shell
+          category: "not needed for MVP",
+          quantity: qty,
+          measurement: unit,
+          _id: { $oid: "placeholder" },
+        },
+      ],
+      user_id: "placeholder",
+    };
     setShopListData([...shopListData, dataStructure]);
     alert(`form submitted`);
     console.log("shop list data:", shopListData, "");
@@ -51,10 +71,22 @@ function ShoppingListTable() {
         })}
         <Container>
           <form onSubmit={handleSubmit}>
-            <input value="item"></input>
-            <input value="Expiry"></input>
-            <input value="Qty"></input>
-            <input value="Unit"></input>
+            <input
+              placeholder="item"
+              onChange={(e) => setExpiry(e.target.value)}
+            ></input>
+            <input
+              placeholder="Expiry"
+              onChange={(e) => setExpiry(e.target.value)}
+            ></input>
+            <input
+              placeholder="Qty"
+              onChange={(e) => setExpiry(e.target.value)}
+            ></input>
+            <input
+              placeholder="Unit"
+              onChange={(e) => setExpiry(e.target.value)}
+            ></input>
             <input
               type="submit"
               value="Submit"
