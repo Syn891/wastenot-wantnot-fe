@@ -40,7 +40,7 @@ function SwipeBar({ className }) {
         trailingActions={trailingActions()}
       >
         This item is already in
-        <strong>My Pantry!</strong> Add anyway?
+        <strong> My Pantry! </strong> Add anyway?
       </SwipeableListItem>
     </SwipeableList>
   );

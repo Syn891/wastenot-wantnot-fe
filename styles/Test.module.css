@@ -16,7 +16,7 @@
 
 .yellow {
     background-color: yellow;
-    height: 15%
+    height: 15%;
 }
 
 .red {
@@ -39,4 +39,9 @@
 .r:nth-child(2) {
     height: 90%;
     padding: 2rem
+}
+
+.redtext {
+    justify-content: flex-end;
+    border: 2px solid blue;
 }
