@@ -4,7 +4,6 @@ import Link from 'next/link';
 import css from './FoodExpiryButton.module.css'
 
 const FoodExpiryButton = ({message, color }) => {
-    console.log({color})
     return (  
     <Link href={"/"}>
     <div >
