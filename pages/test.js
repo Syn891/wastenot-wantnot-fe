@@ -19,14 +19,14 @@ const Test = () => {
                     <Row className={css.yellow}></Row>
                     <Row className={css.red}>
                         <Col xs={{span: 3}} sm={{span: 12}} md={{span: 9}} xl={{span: 1}}>an image</Col>
-                        <Col xs={{span: 9}} sm={{span: 12}} md={{span: 3}} xl={{span: 1}}>Some text 
+                        <Col className= {css.redtext} xs={{span: 3}} sm={{span: 12}} md={{span: 3}} xl={{span: 1}}>Some text 
                         <p> some more text</p></Col>
                     </Row>
         
                 </Container>
             </Row>
         </Container>
-    );
+    ); 
 };
 
 export default Test;
