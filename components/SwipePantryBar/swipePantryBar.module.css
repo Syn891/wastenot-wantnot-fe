@@ -12,3 +12,19 @@ flex: unset;
 height: unset;
 width: 100%;
 }
+
+.actionDonate {
+  background-color: green;
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 1em
+}
+
+.actionDelete {
+  background-color: red;
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 1em
+}

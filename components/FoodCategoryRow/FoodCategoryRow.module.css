@@ -1,9 +1,8 @@
 .row {
     font-size: 75%;
     margin-top:1em;
-    border: 2px solid red;
+    padding-left: 1.5em
 }
 .cls {
-    border: 2px solid green;   
 
 }
