@@ -3,14 +3,15 @@ import React, { useState } from "react";
 
 function FoodListItem({ name, est_exp, category, quantity, measurement }) {
   console.log(name, est_exp, category, quantity, measurement);
+  const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000);
+  //this is while we work out the date solution for the DB just to make the number shorter
   return (
     <Row>
       <Col>
         <p>{name}</p>
       </Col>
       <Col>
-        <p>{"01/01/0101"}</p>
-        {/* {est_exp.$date.$numberLong} */}
+        <p>{date}</p>
       </Col>
       <Col>
         <p>{quantity}</p>
@@ -18,11 +19,9 @@ function FoodListItem({ name, est_exp, category, quantity, measurement }) {
       <Col>
         <p>{measurement}</p>
       </Col>
-      <Col>
-        <input type="checkbox"></input>
-      </Col>
     </Row>
   );
 }
+//Console Log out items with the check box ticked when add checked items to pantry is pressed
 
 export default FoodListItem;
