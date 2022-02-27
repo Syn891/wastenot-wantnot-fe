@@ -66,7 +66,7 @@ const Pantry = ({pantryItems}) => {
 
 
 export async function getServerSideProps(user) {
-        let pantryItems = await fetch(`http://localhost:3001/pantrylist/`)
+        let pantryItems = await fetch(`https://waste-want.herokuapp.com/pantrylist/`)
         pantryItems = await pantryItems.json()
     
         return {props: {pantryItems: pantryItems}}

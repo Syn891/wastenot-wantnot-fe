@@ -1,7 +1,25 @@
 .image {
-    height: 50%
+    height: 10em
 }
 
 .row {
-height: 50%;
+    --bs-gutter-x: unset;
+    height: 100%;
+    margin-top: 1em;
+    padding: 0.5em;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    background: rgb(219, 153, 103)
+}
+
+.addRecipe {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    background-color: #FF6600;
+    border: unset;
+    color: white;
+}
+
+.selected {
+    background-color: #5CC971 ;
 }
