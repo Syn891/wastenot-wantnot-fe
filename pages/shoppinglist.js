@@ -6,6 +6,7 @@ import css from "../styles/Shoppinglist.module.css";
 import AddItemToPantryButton from "../components/AddItemToPantryButton";
 import CreateNewListButton from "../components/CreateNewListButton";
 import { useState } from "react";
+import { checkedArray } from "../components/FoodListItem";
 
 // $ database contains _id, id(string), shopping_items(array)[{_itemid(again), name, est_exp, category, quantity, measurement,_id(same as root_id)}],user_id
 
@@ -38,7 +39,11 @@ function ShoppingList() {
               <AddItemToPantryButton
                 message={"Add checked list items to My Pantry:"}
                 addPantryDisable={addPantryDisable}
-                onClick={() => console.log(index, checked)}
+                onClick={() =>{
+                  console.log("array from food list item", checkedArray)
+                  //function to map over checked array if true get shoppinglist item from array by index and put it into an array, this then gets sent to the pantry, either added to existing or a new one is made, then database is updated something like checkedArray.map{if index === true ShopListData[index] push into new array
+
+                }}
               />
             </Row>
             <Row className={css.row}>

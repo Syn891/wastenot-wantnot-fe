@@ -2,9 +2,9 @@ import { Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
 import css from "./FoodListItem.module.css";
 import shopListTestData from "../../testdata/testshoppinglists";
+// const checkboxArray = new Array(shopListData.length).fill("");
 
-  // const checkboxArray = new Array(shopListData.length).fill("");
-
+export let checkedArray = new Array(shopListTestData.length).fill(false);
 
 function FoodListItem({
   name,
@@ -17,11 +17,9 @@ function FoodListItem({
   checkboxArray,
   color,
 }) {
-  // const [updatedCheckboxArray, setUpdatedCheckboxArray] =
-  //   useState(checkboxArray);
-
   //if we can toggle and pass up a boolean value from here we can do it
-  // console.log("checkbox array outside of handleOnChange", updatedCheckboxArray);
+  //
+  console.log("checkbox array outside of handleOnChange", checkedArray);
   //on check or uncheck call function to change state from true to false and pass the function down as a prop!!!!
 
   const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000);
@@ -30,14 +28,14 @@ function FoodListItem({
   }
   let pantry = [];
   const handleOnChange = (position) => {
-    let updatedCheckboxArray = checkboxArray;
+    let updatedCheckboxArray = checkedArray;
 
     const updatedCheckedState = updatedCheckboxArray.map((item, index) =>
       index === position ? !item : item
     );
 
-    updatedCheckboxArray = [...updatedCheckedState, updatedCheckedState];
-    console.log("after handle change", updatedCheckboxArray);
+    checkedArray = updatedCheckedState;
+    console.log("after handle change", checkedArray);
   };
   return (
     <>
