@@ -9,12 +9,13 @@ function FoodListItem({
   measurement,
   index,
   listItem,
+  color
 }) {//if we can toggle and pass up a boolean value from here we can do it
 
   //on check or uncheck call function to change state from true to false and pass the function down as a prop!!!!
   console.log(listItem, name, est_exp, category, quantity, measurement, index);
 
-  const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000);
+  // const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000);
   
     if (!color) {
      color = "#5CC971"

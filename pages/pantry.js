@@ -1,4 +1,4 @@
-import {React, useEffect} from 'react';
+import {React, useEffect, useState} from 'react';
 import Navbar from '../components/Navbar';
 import { IoIosArrowBack } from "react-icons/io";
 import {GiForkKnifeSpoon} from 'react-icons/gi'
@@ -14,15 +14,34 @@ import {useFetch} from "../hooks/useFetch.js"
 
 const Pantry = () => {
     let user = useUser();
+    const [pantry, setPantry] = useState ([])
     async function userPantry(){
     const fetchData = useFetch('pantryList', 'GET', null, `/?user_id=google-oauth2|114208744455338261066`)
     console.log(fetchData)
     const data = await Promise.resolve(fetchData)
     return data.payload}
     useEffect(async()=>{
-       const pantry = await userPantry()
+      setPantry (await userPantry())
        console.log(pantry)
-    });
+    },[]);
+
+    function renderListItems(){
+        if (pantry){
+        // console.log(pantry)
+    {return pantry.map((f)=> {
+        return f.pantry_items.map((pi)=>{
+                return <SwipePantryBar>
+                    <FoodListItem color={setColor(1)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quanity : ""} measurement={pi?.measurement ? pi.measurement : ""} />
+                     <FoodListItem color={setColor(1)} name={pi.name} quantity={ pi.quanity} measurement={pi.measurement} />
+
+                </SwipePantryBar>
+            })
+        })
+
+        }} 
+    }
+    
+
     const router = useRouter()
     const setColor = (number) => {
         let color = ''
@@ -47,7 +66,7 @@ const Pantry = () => {
          <FoodCategoryRow />
 
         <Container className={css.container}>
-        {pantry.map}
+        {renderListItems()}
         {/* {pantry.map((f)=> {
             return f.pantry_items.map((pi)=> {
                 return <SwipePantryBar>
