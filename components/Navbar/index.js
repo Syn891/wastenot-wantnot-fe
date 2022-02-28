@@ -4,23 +4,25 @@ import styles from './navbar.module.css'
 import { useUser } from '@auth0/nextjs-auth0';
 
 function NavbarCustom({ title, color, children, Icon }) {
+  const { user } = useUser();
 
-  const {user} = useUser();
-  
   function renderLogout() {
-    if(user) {
+  if(user) {
       return  <a href = "/api/auth/logout"><Button className={styles.logout}>Logout</Button></a>
+
     }
   }
 
   return (
     <Navbar expand={false} className={styles.navbar}>
-        <Container fluid className={styles.container}>
+      <Container fluid className={styles.container}>
         {children}
-        <div className={styles.divc} style={{backgroundColor: color}} >
-        <Navbar.Toggle aria-controls="offcanvasNavbar" />
-            <Navbar.Brand className={styles.title} href="#">{title}</Navbar.Brand> 
-            <Icon size={'2em'} />
+        <div className={styles.divc} style={{ backgroundColor: color }}>
+          <Navbar.Toggle aria-controls="offcanvasNavbar" />
+          <Navbar.Brand className={styles.title} href="#">
+            {title}
+          </Navbar.Brand>
+          {/* <Icon size={'2em'} /> */}
         </div>
             <Navbar.Offcanvas
             id="offcanvasNavbar"
@@ -48,6 +50,7 @@ function NavbarCustom({ title, color, children, Icon }) {
   </Container>
 </Navbar>        
   )
+
 }
 
 export default NavbarCustom;
