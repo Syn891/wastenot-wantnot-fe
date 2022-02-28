@@ -1,13 +1,8 @@
 
   .offcanvas {
-    background-color: rgba(255, 255, 255, 1);
-    
+    background-color: rgba(255, 255, 255, 0.5);
   }
   
-  .offcanvasHom {
-    background-color: rgba(255, 255, 255, 0.5);
-
-  }
   .offcanvasHeader {
     background-color: rgba(63, 142, 39, 0.85);
   
@@ -17,13 +12,8 @@
     height: 8vh;
   }
   
-  .navLinkHome {
-    color: white;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
-
   .navLink {
-    color: #EF8D4B;
+    color: white;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
   
@@ -76,26 +66,21 @@
  .navbar>.container {
     justify-content: start;
     padding-left: 0;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content:space-evenly;
  }
 
   .title {
     letter-spacing: 0.05em;
     font-size:x-large;
+    margin-right: 2em;
     padding: 0;
     justify-self: center;
-    margin-left: 0.5em;
   }
 
   .divc {
+    width: 91%;
+    display: flex;
+    align-items: center;
     border-radius: 10px;
     padding: 0.25em 0.5em 0.25em 0.5em;
   }
   
-  .logout {
-    background-color: rgba(63, 142, 39, 1);  
-    border: rgba(63, 142, 39, 1);
-    margin-top: 2em;
-  }
