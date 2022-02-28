@@ -33,7 +33,7 @@ const trailingActions = () => (
   </TrailingActions>
 );
 
-function SwipeBar({ className, children }) {
+function SwipePantryBar({ className, children }) {
   let cN = className;
   return (
     <SwipeableList className={css.swipeableList}>
@@ -50,4 +50,4 @@ function SwipeBar({ className, children }) {
   );
 }
 
-export default SwipeBar;
+export default SwipePantryBar;

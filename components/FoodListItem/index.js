@@ -14,9 +14,6 @@ function FoodListItem({
   //on check or uncheck call function to change state from true to false and pass the function down as a prop!!!!
   console.log(listItem, name, est_exp, category, quantity, measurement, index);
 
-function FoodListItem({ name, est_exp, category, quantity, measurement, color }) {
-  console.log(name, est_exp, category, quantity, measurement);
-
   const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000);
   
     if (!color) {
@@ -44,7 +41,7 @@ function FoodListItem({ name, est_exp, category, quantity, measurement, color })
       <Col className={css.col} xs={{span:2}}>
         <input type="checkbox" defaultChecked index={index}></input>
       </Col>
-    </Row>
+      </>
 
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useEffect} from 'react';
 import Navbar from '../components/Navbar';
 import { IoIosArrowBack } from "react-icons/io";
 import {GiForkKnifeSpoon} from 'react-icons/gi'
@@ -10,20 +10,19 @@ import FoodListItem from '../components/FoodListItem'
 import SwipePantryBar from '../components/SwipePantryBar';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
 import SwipeBar from '../components/SwipeBar';
+import {useFetch} from "../hooks/useFetch.js"
 
-
-const Pantry = ({pantryItems}) => {
-    
+const Pantry = () => {
     let user = useUser();
-    let filteredItems = []
-    
-    if(pantryItems.payload.length > 0){
-        pantryItems.payload.map((p)=> {
-        if(p.user_id === user.user.sub) {
-            filteredItems.push(p)   
-        }
-    })}
-
+    async function userPantry(){
+    const fetchData = useFetch('pantryList', 'GET', null, `/?user_id=google-oauth2|114208744455338261066`)
+    console.log(fetchData)
+    const data = await Promise.resolve(fetchData)
+    return data.payload}
+    useEffect(async()=>{
+       const pantry = await userPantry()
+       console.log(pantry)
+    },[])
     const router = useRouter()
     const setColor = (number) => {
         let color = ''
@@ -48,15 +47,15 @@ const Pantry = ({pantryItems}) => {
          <FoodCategoryRow />
 
         <Container className={css.container}>
-        {filteredItems.map((f)=> {
+        {/* {pantry.map((f)=> {
             return f.pantry_items.map((pi)=> {
-                return <SwipePantryBar>            
-                    {/* <FoodListItem color={setColor(1)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quanity : ""} measurement={pi?.measurement ? pi.measurement : ""} /> */}
-                    <FoodListItem color={setColor(1)} name={pi.name} quantity={ pi.quanity} measurement={pi.measurement} />
+                return <SwipePantryBar>
+                    <FoodListItem color={setColor(1)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quanity : ""} measurement={pi?.measurement ? pi.measurement : ""} />
+                     <FoodListItem color={setColor(1)} name={pi.name} quantity={ pi.quanity} measurement={pi.measurement} />
 
                 </SwipePantryBar>
             })
-        })}
+        })} */}
         </Container>
 
         <SwipeBar />
@@ -64,12 +63,4 @@ const Pantry = ({pantryItems}) => {
     );
 };
 
-
-export async function getServerSideProps(user) {
-        let pantryItems = await fetch(`https://waste-want.herokuapp.com/pantrylist/`)
-        pantryItems = await pantryItems.json()
-    
-        return {props: {pantryItems: pantryItems}}
-    
-}
 export default Pantry;
