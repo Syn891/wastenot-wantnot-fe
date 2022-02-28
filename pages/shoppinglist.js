@@ -10,7 +10,15 @@ import { useState } from "react";
 // $ database contains _id, id(string), shopping_items(array)[{_itemid(again), name, est_exp, category, quantity, measurement,_id(same as root_id)}],user_id
 
 function ShoppingList() {
-  const [addPantryDisable, setAddPantryDisable] = useState(false); //TRYING TO GET THE ADD TO PANTRY BUTTON TO GREY OUT WHEN THE ADD TO LIST FORM APPEARS, Passed down onclick as a prop to the ShoppingListTable however cant get the prop to be handled by the onClick of the AddItemButton on line 146, need to run both the function of setItemButtonClick(true) and pass the onclick up to this file and resolve on line 20.
+  const [addPantryDisable, setAddPantryDisable] = useState(false); //Pantry button greyed out when new item form is rendered
+  const [checked, setChecked] = useState(false);
+  const [index, setIndex] = useState("error");
+  const [checkboxArray, setCheckboxArray] = useState(["hello initial state"]);
+  //create a new array CheckedGroceryListItems, for each index in shoppingList create an object with {index: index, value: false} to correlate with unchecked boxes,
+  //Items added to GroceryList array via AddGroceryListItem Button, and rendered on screen with checkbox,
+  // If checkbox if checked we spread and slice the index and true into the CheckedGroceryListItems array (inState or in database).
+  // When AddItemToPantry button is pressed, Post CheckedGorceryListItems to Pantry Array
+  // Or we can swipe rendered item in GroceryList array , to add item to Pantry Array or delete item from GroceryList array.
 
   return (
     <Container className={css.container}>
@@ -20,12 +28,17 @@ function ShoppingList() {
           <ShoppingListTable
             onFormRender={() => setAddPantryDisable(true)}
             onNoFormRender={() => setAddPantryDisable(false)}
+            setChecked={() => setChecked()}
+            setIndex={() => setIndex()}
+            checkboxArray={checkboxArray}
+            setCheckboxArray={setCheckboxArray}
           />
           <Col>
             <Row className={css.row}>
               <AddItemToPantryButton
                 message={"Add checked list items to My Pantry:"}
                 addPantryDisable={addPantryDisable}
+                onClick={() => console.log(index, checked)}
               />
             </Row>
             <Row className={css.row}>

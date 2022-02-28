@@ -7,7 +7,13 @@ import { Col, Container, Row } from "react-bootstrap";
 import AddItemButton from "../AddItemButton";
 import css from "./ShoppingListTable.module.css";
 
-function ShoppingListTable({ onFormRender, onNoFormRender }) {
+function ShoppingListTable({
+  onFormRender,
+  onNoFormRender,
+  setChecked,
+  checkboxArray,
+  setCheckboxArray,
+}) {
   const [itemButtonClick, setItemButtonClick] = useState(false);
   const [shopListData, setShopListData] = useState(shopListTestData); // what we want
   const [item, setItem] = useState("Error");
@@ -60,16 +66,23 @@ function ShoppingListTable({ onFormRender, onNoFormRender }) {
     setItemButtonClick(false);
   };
 
+  function formRender() {}
+  onFormRender();
+
   if (itemButtonClick) {
-    function formRender() {}
-    onFormRender();
     return (
       <Container>
         <FoodCategoryRow />
         {shopListData.map(function (item, index) {
           //FOR EACH CREATE ARRAY OF TRUE VALUES BASED ON INDEX
-          const index1 = index;
-          console.log("index is", index1);
+          {
+            /* setCheckboxArray(() => [
+            ...checkboxArray,
+            { index: index, value: false },
+          ]);
+
+          console.log("index is", index, "CHBX Array is", checkboxArray); */
+          }
           return (
             <Container>
               <FoodListItem
@@ -77,6 +90,8 @@ function ShoppingListTable({ onFormRender, onNoFormRender }) {
                 key={item._id}
                 index={index}
                 listItem={item}
+                setChecked={setChecked}
+                checkboxArray={checkboxArray}
               />
               {/*in food list item pass a function down like OnClick for Buttons for the checkboxes, use the index to correlate the shopListData and the checkbox true or false arrays around line 68*/}
               <SwipeBar key={index} />
@@ -127,13 +142,27 @@ function ShoppingListTable({ onFormRender, onNoFormRender }) {
     );
   }
   // For each item in the ShopList Data array a chekcbox is rendered, create an array of true false values for if checkbox is checked, compare the true false against the index of the food items array
+  function noFormRender() {}
+  onNoFormRender(); // causing error, doesnt work nested in function, solution needed
+
   if (!itemButtonClick) {
-    function noFormRender() {}
-    onNoFormRender();
+    //No need for checkbox functionality, submit button greyed out
+    //FOR EACH CREATE ARRAY OF TRUE VALUES BASED ON INDEX
+
     return (
       <Container>
         <FoodCategoryRow />
         {shopListData.map(function (item, index) {
+          {
+            /* useEffect(() => {
+            setCheckboxArray(() => [
+              ...checkboxArray,
+              { index: index, value: false },
+            ]);
+          }, [index]);
+
+          console.log("index is", index, "CHBX Array is", checkboxArray); */
+          }
           return (
             <Container>
               <Row>
@@ -141,6 +170,9 @@ function ShoppingListTable({ onFormRender, onNoFormRender }) {
                   {...item.shopping_items[0]}
                   key={item._id}
                   index={index}
+                  listItem={item}
+                  setChecked={setChecked}
+                  checkboxArray={checkboxArray}
                 />
               </Row>
               <SwipeBar key={index} />
