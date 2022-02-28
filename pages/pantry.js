@@ -15,11 +15,13 @@ import {useFetch} from "../hooks/useFetch.js"
 const Pantry = () => {
     let user = useUser();
     const [pantry, setPantry] = useState ([])
-    async function userPantry(){
-    const fetchData = useFetch('pantryList', 'GET', null, `/?user_id=google-oauth2|114208744455338261066`)
-    console.log(fetchData)
-    const data = await Promise.resolve(fetchData)
+
+    async function userPantry(){ 
+        const fetchData = useFetch('pantryList', 'GET', null, `/?user_id=google-oauth2|114208744455338261066`)
+        console.log(fetchData)
+        const data = await Promise.resolve(fetchData)
     return data.payload}
+
     useEffect(async()=>{
       setPantry (await userPantry())
        console.log(pantry)
@@ -27,10 +29,22 @@ const Pantry = () => {
 
     function renderListItems(){
         if (pantry){
-        // console.log(pantry)
     {return pantry.map((f)=> {
         return f.pantry_items.map((pi)=>{
-                return <SwipePantryBar>
+                const object = {user_id: "google-oauth2|114208744455338261066",
+                    donated_items:[ {
+                       name: pi.name,
+                       est_exp: pi.est_exp,
+                       category: "", 
+                       quanitiy: 0,
+                       measurement: ""
+                  }]}
+                return<SwipePantryBar 
+                key={pi._id} 
+                userId={'google-oauth2|114208744455338261066'} 
+                data={pi._id} 
+                object_id={f._id}
+                object={object}>
                     <FoodListItem color={setColor(1)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quanity : ""} measurement={pi?.measurement ? pi.measurement : ""} />
                      <FoodListItem color={setColor(1)} name={pi.name} quantity={ pi.quanity} measurement={pi.measurement} />
 
@@ -67,15 +81,6 @@ const Pantry = () => {
 
         <Container className={css.container}>
         {renderListItems()}
-        {/* {pantry.map((f)=> {
-            return f.pantry_items.map((pi)=> {
-                return <SwipePantryBar>
-                    <FoodListItem color={setColor(1)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quanity : ""} measurement={pi?.measurement ? pi.measurement : ""} />
-                     <FoodListItem color={setColor(1)} name={pi.name} quantity={ pi.quanity} measurement={pi.measurement} />
-
-                </SwipePantryBar>
-            })
-        })} */}
         </Container>
 
         <SwipeBar />
