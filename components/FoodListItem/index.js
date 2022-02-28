@@ -1,6 +1,11 @@
 import { Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
 import css from "./FoodListItem.module.css";
+import shopListTestData from "../../testdata/testshoppinglists";
+
+  // const checkboxArray = new Array(shopListData.length).fill("");
+
+
 function FoodListItem({
   name,
   est_exp,
@@ -9,31 +14,37 @@ function FoodListItem({
   measurement,
   index,
   listItem,
-  setChecked,
   checkboxArray,
   color,
 }) {
-  const [checkedinflm, setCheckedinflm] = useState(false);
-  //if we can toggle and pass up a boolean value from here we can do it
-  console.log("cbx array", checkboxArray);
-  //on check or uncheck call function to change state from true to false and pass the function down as a prop!!!!
-  console.log(listItem, name, est_exp, category, quantity, measurement, index);
+  // const [updatedCheckboxArray, setUpdatedCheckboxArray] =
+  //   useState(checkboxArray);
 
-  console.log(name, est_exp, category, quantity, measurement);
+  //if we can toggle and pass up a boolean value from here we can do it
+  // console.log("checkbox array outside of handleOnChange", updatedCheckboxArray);
+  //on check or uncheck call function to change state from true to false and pass the function down as a prop!!!!
+
   const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000);
   if (!color) {
     color = "#5CC971";
   }
-  function weirdDebug() {
-    console.log(checkedinflm, index);
-    setChecked();
-  }
+  let pantry = [];
+  const handleOnChange = (position) => {
+    let updatedCheckboxArray = checkboxArray;
+
+    const updatedCheckedState = updatedCheckboxArray.map((item, index) =>
+      index === position ? !item : item
+    );
+
+    updatedCheckboxArray = [...updatedCheckedState, updatedCheckedState];
+    console.log("after handle change", updatedCheckboxArray);
+  };
   return (
     <>
-      <Col className={css.col} xs={{ span: 3 }}>
+      <Col className={css.col} xs={{ span: 2 }}>
         <div>{name}</div>
       </Col>
-      <Col className={css.col} xs={{ span: 3 }}>
+      <Col className={css.col} xs={{ span: 2 }}>
         <div>1/1/11</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
@@ -50,8 +61,8 @@ function FoodListItem({
           type="checkbox"
           defaultChecked={false}
           onChange={() => {
-            setCheckedinflm(true);
-            weirdDebug();
+            handleOnChange(index);
+            //spread and slice? the value into the array?
           }}
           index={index}
         ></input>

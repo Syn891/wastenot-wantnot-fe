@@ -13,7 +13,7 @@ function ShoppingList() {
   const [addPantryDisable, setAddPantryDisable] = useState(false); //Pantry button greyed out when new item form is rendered
   const [checked, setChecked] = useState(false);
   const [index, setIndex] = useState("error");
-  const [checkboxArray, setCheckboxArray] = useState(["hello initial state"]);
+
   //create a new array CheckedGroceryListItems, for each index in shoppingList create an object with {index: index, value: false} to correlate with unchecked boxes,
   //Items added to GroceryList array via AddGroceryListItem Button, and rendered on screen with checkbox,
   // If checkbox if checked we spread and slice the index and true into the CheckedGroceryListItems array (inState or in database).
@@ -30,8 +30,8 @@ function ShoppingList() {
             onNoFormRender={() => setAddPantryDisable(false)}
             setChecked={() => setChecked()}
             setIndex={() => setIndex()}
-            checkboxArray={checkboxArray}
-            setCheckboxArray={setCheckboxArray}
+            // checkboxArray={checkboxArray}
+            // setCheckboxArray={setCheckboxArray}
           />
           <Col>
             <Row className={css.row}>

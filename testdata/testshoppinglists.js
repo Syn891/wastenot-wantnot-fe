@@ -15,7 +15,7 @@ const shopListTestData = [
     ],
     user_id: "hello im the user id string",
     alertSwiped: true, //if item already in pantry and user has seen alert already and dismissed dont show the alert again
-    checkboxTicked: true
+    checkboxTicked: true,
   },
   {
     _id: { $oid: "1234" },
