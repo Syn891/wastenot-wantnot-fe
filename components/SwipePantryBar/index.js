@@ -12,10 +12,11 @@ import FoodListItem from "../FoodListItem";
 const leadingActions = () => (
   <LeadingActions>
     <SwipeAction
+        className={css.actionDelete}
       destructive={true}
       onClick={() => console.info("swipe action triggered")}
     >
-      Delete
+      <div>Delete</div>
     </SwipeAction>
   </LeadingActions>
 );
@@ -23,10 +24,11 @@ const leadingActions = () => (
 const trailingActions = () => (
   <TrailingActions>
     <SwipeAction
+    className={css.actionDonate}
       destructive={true}
       onClick={() => console.info("swipe action triggered")}
     >
-      Add
+      <div>Donate</div>
     </SwipeAction>
   </TrailingActions>
 );

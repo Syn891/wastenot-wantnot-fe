@@ -43,7 +43,7 @@ const Landing = () => {
             </Row>
             <Row className={css.row}>
               <div className={css.pantryTitle}>
-                <p>Food in your Pantry which is going out of date:</p>
+                <div>Food in your Pantry which is going out of date:</div>
               </div>
             </Row>
             <Row className={css.row}>
