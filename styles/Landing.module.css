@@ -8,11 +8,13 @@
     margin-bottom: unset;
 }
 .row:nth-child(2) {
-    margin-bottom: 0.65em;
+    margin-bottom: 0.5em;
 }
 .row:nth-child(4) {
- padding-left: 0.75em;
- padding-right: 0.75em;
+    padding: 1em;
+
+ height: 13vh;
+ display: flex;
 }
 
 .row:nth-child(3) {
@@ -33,10 +35,7 @@
 }
 
 .febtns {
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    padding: 0.3em;
+    height: auto;
 }
 
 .col {

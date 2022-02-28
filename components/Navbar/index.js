@@ -20,6 +20,7 @@ function NavbarCustom({ title, color, children, Icon }) {
         <div className={styles.divc} style={{backgroundColor: color}} >
         <Navbar.Toggle aria-controls="offcanvasNavbar" />
             <Navbar.Brand className={styles.title} href="#">{title}</Navbar.Brand> 
+            <Icon size={'2em'} />
         </div>
             <Navbar.Offcanvas
             id="offcanvasNavbar"

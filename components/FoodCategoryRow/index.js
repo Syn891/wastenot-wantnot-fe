@@ -1,8 +1,9 @@
 import { Row, Col } from "react-bootstrap";
-import css from "./FoodCategoryRow.module.css";
+import css from './FoodCategoryRow.module.css'
+
 function FoodCategoryRow() {
   return (
-    <Row>
+    <Row className={css.row}>
       <Col className={css.cls} xs={{ span: 2 }}>
         <p>Name</p>
       </Col>

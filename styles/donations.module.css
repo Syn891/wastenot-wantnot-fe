@@ -1,0 +1,45 @@
+.container {
+    margin: 0.5em;
+    display: flex;
+    flex-direction: column;
+}
+.row {
+    justify-content: center;
+    --bs-gutter-x: unset;
+    height: auto;
+    margin-bottom: 1em;
+    
+}
+
+.donationsHeader{
+    text-align: center;
+    align-content: center;
+}
+.donationsTitle {
+    
+    display: flex;
+    justify-content: center;
+    font-size: 0.9em;
+    width: 306px;
+height: 31px;
+left: 42px;
+top: 106px;
+    background: #FCEADD;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding-top: 5px;
+    margin-top: 20px;
+   
+
+font-family: Montserrat;
+font-style: normal;
+font-weight: normal;
+font-size: 17px;
+line-height: 21px;
+/* identical to box height */
+
+
+
+color: #000000;
+
+}

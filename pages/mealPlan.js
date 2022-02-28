@@ -9,8 +9,8 @@ import { IoIosArrowBack } from "react-icons/io";
 import {GiForkKnifeSpoon} from 'react-icons/gi'
 import { useRouter } from "next/router";
 
-const MealPlan = ({recipes}) => {
-
+const MealPlan = ({data}) => {
+console.log(data)
   const router = useRouter()
   const [searchInput, setSearchInput] = useState("")
 
@@ -21,8 +21,16 @@ const MealPlan = ({recipes}) => {
   }
 
   function searchRepo(string) {
+    
+  let {data}= async function getServerSideProps(ctx) {
 
-    console.log(searchInput)
+   
+        let recipes = await fetch(`http://localhost:3001/api/search?q=${string}`)
+        const data = await recipes.json()
+        return { props: { recipes: data } }
+   }
+
+    return data
   }
 
   return (
@@ -62,7 +70,7 @@ const MealPlan = ({recipes}) => {
 
       <Row>
       
-      {recipes.map((recipe) => {
+      {/* {data.map((recipe) => {
         return (
           <RecipieInfoDisplay
             key={recipe.recipe.uri}
@@ -71,17 +79,10 @@ const MealPlan = ({recipes}) => {
             url={recipe.recipe.url}
           />
         )
-      })}
+      })} */}
       </Row>
     </Container>
   );
 };
 
-export async function getServerSideProps(ctx) {
-   
-   ctx = "chicken"
-     let recipes = await fetch(`http://localhost:3001/api/search?q=${ctx}`)
-     const data = await recipes.json()
-     return { props: { recipes: data } }
-}
 export default MealPlan;
