@@ -1,18 +1,18 @@
 import { Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
 import css from './FoodListItem.module.css'
-function FoodListItem({
-  name,
-  est_exp,
-  category,
-  quantity,
-  measurement,
-  index,
-  listItem,
-}) {//if we can toggle and pass up a boolean value from here we can do it
+// function FoodListItem({
+//   name,
+//   est_exp,
+//   category,
+//   quantity,
+//   measurement,
+//   index,
+//   listItem,
+// }) {//if we can toggle and pass up a boolean value from here we can do it
 
-  //on check or uncheck call function to change state from true to false and pass the function down as a prop!!!!
-  console.log(listItem, name, est_exp, category, quantity, measurement, index);
+//   //on check or uncheck call function to change state from true to false and pass the function down as a prop!!!!
+//   console.log(listItem, name, est_exp, category, quantity, measurement, index);
 
 function FoodListItem({ name, est_exp, category, quantity, measurement, color }) {
   console.log(name, est_exp, category, quantity, measurement);
@@ -44,7 +44,7 @@ function FoodListItem({ name, est_exp, category, quantity, measurement, color })
       <Col className={css.col} xs={{span:2}}>
         <input type="checkbox" defaultChecked index={index}></input>
       </Col>
-    </Row>
+    </>
 
   );
 }

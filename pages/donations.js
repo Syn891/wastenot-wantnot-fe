@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import SwipePantryBar from '../components/SwipePantryBar'
 import FoodListItem from '../components/FoodListItem';
 import DonationsLink from '../components/DonationsLink';
+import AssignItem from '../components/EatConsumeDonate';
 
 
 const DonationsPage = () => {
@@ -40,6 +41,9 @@ const DonationsPage = () => {
               <div className={css.donationsTitle}>
                 <p>Saved Donation Points:</p>
               </div>
+            </Row>
+            <Row>
+              <AssignItem />
             </Row>
             <Row>
                 <DonationsLink link="./donationPoints"/>
