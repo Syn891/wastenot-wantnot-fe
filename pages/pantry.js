@@ -22,7 +22,7 @@ const Pantry = () => {
     useEffect(async()=>{
        const pantry = await userPantry()
        console.log(pantry)
-    },[])
+    });
     const router = useRouter()
     const setColor = (number) => {
         let color = ''
@@ -47,6 +47,7 @@ const Pantry = () => {
          <FoodCategoryRow />
 
         <Container className={css.container}>
+        {pantry.map}
         {/* {pantry.map((f)=> {
             return f.pantry_items.map((pi)=> {
                 return <SwipePantryBar>
