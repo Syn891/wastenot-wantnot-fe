@@ -10,10 +10,10 @@ const DonationsLink = ({link}) => {
         <Row className={css.box}>
         <Col sm={4} className={css.col}>
         <p className={css.p}>What people need near me?
-Donations needed in your area:</p>
+Donations needed in your area: </p>
 </Col>
 <Col sm={8} classNme={css.col} >
-<GrMapLocation />
+<GrMapLocation className={css.logo} />
 
 </Col>
             
