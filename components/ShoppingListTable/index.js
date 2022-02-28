@@ -7,16 +7,14 @@ import { Col, Container, Row } from "react-bootstrap";
 import AddItemButton from "../AddItemButton";
 import css from "./ShoppingListTable.module.css";
 
-function ShoppingListTable() {
+function ShoppingListTable({ onFormRender, onNoFormRender }) {
   const [itemButtonClick, setItemButtonClick] = useState(false);
-  const [itemToAdd, setItemToAdd] = useState();
   const [shopListData, setShopListData] = useState(shopListTestData); // what we want
-  // shopListData = [...shopListData, dataStructure];
   const [item, setItem] = useState("Error");
   const [expiry, setExpiry] = useState("Error");
   const [qty, setQty] = useState("Error");
   const [unit, setUnit] = useState("Error");
-  useEffect(() => {});
+
   let dataStructure = {
     _id: { $oid: "placeholder" },
     id: "placeholder",
@@ -33,6 +31,8 @@ function ShoppingListTable() {
     ],
     user_id: "placeholder",
   };
+  //interactions with the database: swipe to add, swipe to delete, form submit,
+  //for mvp create new list just deletes everything
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -61,13 +61,24 @@ function ShoppingListTable() {
   };
 
   if (itemButtonClick) {
+    function formRender() {}
+    onFormRender();
     return (
       <Container>
         <FoodCategoryRow />
         {shopListData.map(function (item, index) {
+          //FOR EACH CREATE ARRAY OF TRUE VALUES BASED ON INDEX
+          const index1 = index;
+          console.log("index is", index1);
           return (
             <Container>
-              <FoodListItem {...item.shopping_items[0]} key={item._id} />
+              <FoodListItem
+                {...item.shopping_items[0]}
+                key={item._id}
+                index={index}
+                listItem={item}
+              />
+              {/*in food list item pass a function down like OnClick for Buttons for the checkboxes, use the index to correlate the shopListData and the checkbox true or false arrays around line 68*/}
               <SwipeBar key={index} />
             </Container>
           );
@@ -104,7 +115,10 @@ function ShoppingListTable() {
               <input
                 type="submit"
                 value="+"
-                onClick={() => console.log("submit")}
+                onClick={() => {
+                  console.log("submit");
+                  formRender();
+                }}
               />
             </Col>
           </form>
@@ -114,6 +128,8 @@ function ShoppingListTable() {
   }
   // For each item in the ShopList Data array a chekcbox is rendered, create an array of true false values for if checkbox is checked, compare the true false against the index of the food items array
   if (!itemButtonClick) {
+    function noFormRender() {}
+    onNoFormRender();
     return (
       <Container>
         <FoodCategoryRow />
@@ -121,8 +137,11 @@ function ShoppingListTable() {
           return (
             <Container>
               <Row>
-                <FoodListItem {...item.shopping_items[0]} key={item._id} />
-                <input type="checkbox" key={index} checked></input>
+                <FoodListItem
+                  {...item.shopping_items[0]}
+                  key={item._id}
+                  index={index}
+                />
               </Row>
               <SwipeBar key={index} />
             </Container>
@@ -130,7 +149,11 @@ function ShoppingListTable() {
         })}
         <AddItemButton
           message={"Add Item to Grocery List"}
-          onClick={() => setItemButtonClick(true)}
+          onClick={() => {
+            setItemButtonClick(true);
+            noFormRender();
+          }}
+          // alert("hello 2 at once working");
         />
       </Container>
     );

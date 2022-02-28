@@ -5,9 +5,11 @@ import css from "./AddItemButton.module.css";
 
 function AddItemButton({ message, onClick }) {
   return (
-    <Container className={css.AddItemButton}>
+    <Container>
       <Row>
-        <button onClick={onClick}>{message}</button>
+        <button className={css.AddItemButton} onClick={onClick}>
+          {message}
+        </button>
       </Row>
     </Container>
   );
