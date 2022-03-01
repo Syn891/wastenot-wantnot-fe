@@ -2,7 +2,12 @@ import React from 'react'
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal'
+import Form from 'react-bootstrap/Form'
+import FormCheck from 'react-bootstrap/FormCheck'
+import ToggleButton from "react-bootstrap/ToggleButton";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 import css from './Eat.module.css'
+
 
 const AssignItem = () => {
     
@@ -14,6 +19,15 @@ const AssignItem = () => {
   const handleOnChange = () => {
     setIsChecked(!isChecked);
   };
+
+  const [checked, setChecked] = useState(false);
+  const [radioValue, setRadioValue] = useState("foo");
+
+  const radios = [
+    { name: "Eaten", value: "Eaten" },
+    { name: "Wasted", value: "Wasted" },
+    { name: "Donated", value: "Donated" }
+  ];
 
   return (
     <>
@@ -34,44 +48,30 @@ Eaten,  Donated, or Wasted!
           <Modal.Title>Eat, Donate or Waste?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <div>
-      <div className="eat">
-        <input
-          type="checkbox"
-          id="eat"
-          // name="topping"
-          value="Eaten"
-          // checked={isChecked}
-          onChange={handleOnChange}
-        />
-        Eaten
-      </div>
-      <div className="result">
-        {/* Above checkbox is {isChecked ? "checked" : "un-checked"}. */}
-      </div>
-         <div className="donate">
-        <input
-          type="checkbox"
-          id="donate"
-          // name="topping"
-          value="Donate"
-          // checked={isChecked}
-          onChange={handleOnChange}
-        />
-        Donated
-      </div>
-             <div className="Waste">
-        <input
-          type="checkbox"
-          id="waste"
-          // name="topping"
-          value="Waste"
-          // checked={isChecked}
-          onChange={handleOnChange}
-        />
-        Wasted
-      </div>
-    </div>
+    <Form>
+    
+      <ButtonGroup toggle className='mb-3'>
+      
+        {radios.map((radio, index) => (
+          <ToggleButton
+            key={index}
+            type="radio"
+            name="radio"
+            value={radio.value}
+            checked={radioValue === radio.value}
+            onChange={e => setRadioValue(e.currentTarget.value)}
+          >
+            {radio.name}
+          </ToggleButton>
+        ))}
+        
+      </ButtonGroup>
+     
+   </Form>
+       
+
+
+    
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -88,3 +88,4 @@ Eaten,  Donated, or Wasted!
 
 
 export default AssignItem
+
