@@ -27,6 +27,7 @@ function FoodListItem({
   function weirdDebug() {
     console.log(checkedinflm, index);
     setChecked();
+
   }
   return (
     <>
@@ -56,7 +57,10 @@ function FoodListItem({
           index={index}
         ></input>
       </Col>
-    </>
+
+      </>
+
+
   );
 }
 
