@@ -83,7 +83,7 @@ const DonationsPage = () => {
     //const router = useRouter()
     return (
         
-<Container className={css.container}>
+<Container className={css.container1}>
         <Row>
         <Navbar Icon={FaHandHoldingHeart} color="#EF8D4B" title={"My Donations"}>
           <IoIosArrowBack
@@ -100,7 +100,7 @@ const DonationsPage = () => {
             
          <FoodCategoryRow />
 
-        <Container className={css.container}>
+        <Container className={css.container1}>
         {renderListItems()}
         </Container>
 
