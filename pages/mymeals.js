@@ -6,15 +6,17 @@ import {GiForkKnifeSpoon} from 'react-icons/gi'
 import css from '../styles/Mealplan.module.css'
 import {useFetch} from '../hooks/useFetch'
 import RecipeInfoDisplay from '../components/RecipieInfoDisplay';
+import { useUser, getSession } from '@auth0/nextjs-auth0';
 
 const MyMeals = () => {
 
     const [mealPlans, setMealPlans] = useState([])
     const [recipes, setRecipes] = useState([])
     const latest = useRef(recipes)
+    const user = useUser()
 
     async function getMealPlan() {
-        const fetchData = useFetch('mealPlan', 'GET', null, '/?user_id=auth0|6217832025ea850070393ba0')
+        const fetchData = useFetch('mealPlan', 'GET', null, `/?user_id=${user.user.sub}`)
         let res = await Promise.resolve(fetchData)
         setMealPlans(res.payload[0].meal_plan)
        

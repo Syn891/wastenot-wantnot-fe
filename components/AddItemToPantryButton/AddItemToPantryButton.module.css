@@ -1,7 +1,10 @@
 .AddItemToPantryButton {
-    background-color: 5CC971;
+    background-color: #5CC971;
     border-radius: 10px;
     height: 60px;
     width: 306px;
     font-size: 12px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: none;
+ 
 }

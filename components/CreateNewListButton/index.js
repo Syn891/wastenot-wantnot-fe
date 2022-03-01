@@ -5,9 +5,9 @@ import css from "./CreateNewListButton.module.css";
 
 function CreateNewListButton ({message}) {
     return (
-        <Container className={css.CreateNewListButton}>
+        <Container>
         <Row>
-    <button>{message}</button>
+    <button className={css.CreateNewListButton}>{message}</button>
     </Row>
     </Container>
     );
