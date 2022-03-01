@@ -10,6 +10,7 @@ import css from '../styles/donations.module.css';
 import { useRouter } from "next/router";
 import SwipePantryBar from '../components/SwipePantryBar'
 import FoodListItem from '../components/FoodListItem';
+import DonationsLink from '../components/DonationsLink';
 
 
 const DonationsPage = () => {
@@ -32,13 +33,16 @@ const DonationsPage = () => {
             </Row>
 
             <Row>
-<SwipePantryBar > <FoodListItem name="chicken" quantity="1" measurement="kg" /></SwipePantryBar>
+{/* <SwipePantryBar > <FoodListItem name="chicken" quantity="1" measurement="kg" /></SwipePantryBar> */}
             </Row>
         
              <Row className={css.row}>
               <div className={css.donationsTitle}>
                 <p>Saved Donation Points:</p>
               </div>
+            </Row>
+            <Row>
+                <DonationsLink link="./donationPoints"/>
             </Row>
             
        
