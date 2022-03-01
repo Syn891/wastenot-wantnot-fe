@@ -1,6 +1,13 @@
 import { Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
 import css from "./FoodListItem.module.css";
+
+import shopListTestData from "../../testdata/testshoppinglists";
+
+  // let checkboxArray = new Array(shopListData.length).fill("");
+
+
+
 function FoodListItem({
   name,
   est_exp,
@@ -9,6 +16,43 @@ function FoodListItem({
   measurement,
   index,
   listItem,
+
+  checkboxArray,
+  color,
+}) {
+  // const [updatedCheckboxArray, setUpdatedCheckboxArray] =
+  //   useState(checkboxArray);
+
+  //if we can toggle and pass up a boolean value from here we can do it
+  // console.log("checkbox array outside of handleOnChange", updatedCheckboxArray);
+  //on check or uncheck call function to change state from true to false and pass the function down as a prop!!!!
+
+  const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000);
+  if (!color) {
+    color = "#5CC971";
+  }
+  let pantry = [];
+  const handleOnChange = (position) => {
+
+    if(defaultChecked === true){
+      pantry.push()
+    }
+    let updatedCheckboxArray = checkboxArray;
+
+
+    const updatedCheckedState = updatedCheckboxArray.map((item, index) =>
+      index === position ? !item : item
+    );
+
+    updatedCheckboxArray = [...updatedCheckedState, updatedCheckedState];
+    console.log("after handle change", updatedCheckboxArray);
+  };
+  return (
+    <>
+      <Col className={css.col} xs={{ span: 2 }}>
+        <div>{name}</div>
+      </Col>
+      <Col className={css.col} xs={{ span: 2 }}>
   setChecked,
   checkboxArray,
   color,
@@ -51,8 +95,12 @@ function FoodListItem({
           type="checkbox"
           defaultChecked={false}
           onChange={() => {
+            handleOnChange(index);
+            //spread and slice? the value into the array?
+
             setCheckedinflm(true);
             weirdDebug();
+
           }}
           index={index}
         ></input>
