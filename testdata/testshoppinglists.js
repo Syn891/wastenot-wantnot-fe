@@ -1,10 +1,10 @@
 const shopListTestData = [
   {
     _id: { $oid: "62137ddd17d718bb29b2bd2d" },
-    id: "hello im the id string",
+    id: "MANGO",
     shopping_items: [
       {
-        _itemid: "hello im the id string inside shopping items",
+        _itemid: "id string inside shopping items 0",
         name: "mangos",
         est_exp: { $date: { $numberLong: "1645444573974" } }, //https://stackoverflow.com/questions/22964199/how-to-convert-numberlong-to-date-in-mongodbs-shell
         category: "food",
@@ -15,11 +15,11 @@ const shopListTestData = [
     ],
     user_id: "hello im the user id string",
     alertSwiped: true, //if item already in pantry and user has seen alert already and dismissed dont show the alert again
-    checkboxTicked: true
+    checkboxTicked: true,
   },
   {
     _id: { $oid: "1234" },
-    id: "id string1",
+    id: "AA BAT",
     shopping_items: [
       {
         _itemid: "id string inside shopping items 1",
@@ -35,11 +35,11 @@ const shopListTestData = [
   },
   {
     _id: { $oid: "123456" },
-    id: "id string2",
+    id: "PINEAPPLE",
     shopping_items: [
       {
         _itemid: "id string inside shopping items 2",
-        name: "2",
+        name: "Pineapple",
         est_exp: { $date: { $numberLong: "1645444573974" } },
         category: " 2",
         quantity: "2",
@@ -51,11 +51,11 @@ const shopListTestData = [
   },
   {
     _id: { $oid: "12345678" },
-    id: "id string3",
+    id: "TVs",
     shopping_items: [
       {
         _itemid: "id string inside shopping items 3",
-        name: "3",
+        name: "TVs",
         est_exp: { $date: { $numberLong: "1645444573974" } },
         category: " 3",
         quantity: "3",
@@ -67,7 +67,7 @@ const shopListTestData = [
   },
   {
     _id: { $oid: "12345678910" },
-    id: "id string3",
+    id: "APPLE",
     shopping_items: [
       {
         _itemid: "id string inside shopping items 4",

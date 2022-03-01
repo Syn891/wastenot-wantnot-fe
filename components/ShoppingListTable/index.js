@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import FoodListItem from "../FoodListItem";
 import FoodCategoryRow from "../FoodCategoryRow";
-import shopListTestData from "../../testdata/testshoppinglists";
 import SwipeBar from "../SwipeBar";
 import { Col, Container, Row } from "react-bootstrap";
 import AddItemButton from "../AddItemButton";
 import css from "./ShoppingListTable.module.css";
 
 function ShoppingListTable({
-  onFormRender,
-  onNoFormRender,
-  setChecked,
-  checkboxArray,
-  setCheckboxArray,
+  onFormRender, //grey out pantry button
+  onNoFormRender, //grey out pantry button
+  shopListData, //database data
+  setShopListData, //pass this down so we can spread new items into it when a user adds to shopping list
+  trueFalseArraySL, // determine if checkbox is checked
+  setTrueFalseArraySL, // determine if checkbox is checked
 }) {
   const [itemButtonClick, setItemButtonClick] = useState(false);
-  const [shopListData, setShopListData] = useState(shopListTestData); // what we want
   const [item, setItem] = useState("Error");
   const [expiry, setExpiry] = useState("Error");
   const [qty, setQty] = useState("Error");
@@ -39,7 +38,6 @@ function ShoppingListTable({
   };
   //interactions with the database: swipe to add, swipe to delete, form submit,
   //for mvp create new list just deletes everything
-
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(expiry); //Console Logging Date from form
@@ -60,109 +58,17 @@ function ShoppingListTable({
       user_id: "placeholder",
     };
     setShopListData([...shopListData, dataStructure]);
+    setTrueFalseArraySL([...trueFalseArraySL, false]);
     //Would be here POST REQUEST shopListData to database function is called
-    alert(`form submitted`);
     console.log("shop list data:", shopListData, "");
     setItemButtonClick(false);
   };
-
-  function formRender() {}
   onFormRender();
-
   if (itemButtonClick) {
     return (
       <Container>
         <FoodCategoryRow />
         {shopListData.map(function (item, index) {
-          //FOR EACH CREATE ARRAY OF TRUE VALUES BASED ON INDEX
-          {
-            /* setCheckboxArray(() => [
-            ...checkboxArray,
-            { index: index, value: false },
-          ]);
-
-          console.log("index is", index, "CHBX Array is", checkboxArray); */
-          }
-          return (
-            <Container>
-              <FoodListItem
-                {...item.shopping_items[0]}
-                key={item._id}
-                index={index}
-                listItem={item}
-                setChecked={setChecked}
-                checkboxArray={checkboxArray}
-              />
-              {/*in food list item pass a function down like OnClick for Buttons for the checkboxes, use the index to correlate the shopListData and the checkbox true or false arrays around line 68*/}
-              <SwipeBar key={index} />
-            </Container>
-          );
-        })}
-        <Row>
-          <form onSubmit={handleSubmit}>
-            <Col className={css.cls} xs={{ span: 2 }}>
-              <input
-                placeholder="item"
-                onChange={(e) => setItem(e.target.value)}
-              ></input>
-            </Col>
-            <Col className={css.cls} xs={{ span: 2 }}>
-              <label htmlFor="date">Exp:</label>
-              <input
-                placeholder="Expiry"
-                type="date"
-                onChange={(e) => setExpiry(e.target.value)}
-              ></input>
-            </Col>
-            <Col className={css.cls} xs={{ span: 2 }}>
-              <input
-                placeholder="Qty"
-                onChange={(e) => setQty(e.target.value)}
-              ></input>
-            </Col>
-            <Col className={css.cls} xs={{ span: 2 }}>
-              <input
-                placeholder="Unit"
-                onChange={(e) => setUnit(e.target.value)}
-              ></input>
-            </Col>
-            <Col className={css.cls} xs={{ span: 2 }}>
-              <input
-                type="submit"
-                value="+"
-                onClick={() => {
-                  console.log("submit");
-                  formRender();
-                }}
-              />
-            </Col>
-          </form>
-        </Row>
-      </Container>
-    );
-  }
-  // For each item in the ShopList Data array a chekcbox is rendered, create an array of true false values for if checkbox is checked, compare the true false against the index of the food items array
-  function noFormRender() {}
-  onNoFormRender(); // causing error, doesnt work nested in function, solution needed
-
-  if (!itemButtonClick) {
-    //No need for checkbox functionality, submit button greyed out
-    //FOR EACH CREATE ARRAY OF TRUE VALUES BASED ON INDEX
-
-    return (
-      <Container>
-        <FoodCategoryRow />
-        {shopListData.map(function (item, index) {
-          {
-            /* useEffect(() => {
-            setCheckboxArray(() => [
-              ...checkboxArray,
-              { index: index, value: false },
-            ]);
-          }, [index]);
-
-          console.log("index is", index, "CHBX Array is", checkboxArray); */
-          }
           return (
             <Container>
               <Row>
@@ -171,8 +77,79 @@ function ShoppingListTable({
                   key={item._id}
                   index={index}
                   listItem={item}
-                  setChecked={setChecked}
-                  checkboxArray={checkboxArray}
+                  setShopListData={setShopListData}
+                  trueFalseArraySL={trueFalseArraySL}
+                  setTrueFalseArraySL={trueFalseArraySL}
+                />
+              </Row>
+              <SwipeBar key={index} />
+            </Container>
+          );
+        })}
+        <Container xs={{ span: 12 }}>
+          <Row>
+            <form onSubmit={handleSubmit}>
+              <Col className={css.cls} xs={{ span: 2 }}>
+                <input
+                  placeholder="item"
+                  onChange={(e) => setItem(e.target.value)}
+                ></input>
+              </Col>
+              <Col className={css.cls} xs={{ span: 2 }}>
+                <label htmlFor="date">Exp:</label>
+                <input
+                  placeholder="Expiry"
+                  type="date"
+                  onChange={(e) => setExpiry(e.target.value)}
+                ></input>
+              </Col>
+              <Col className={css.cls} xs={{ span: 2 }}>
+                <input
+                  placeholder="Qty"
+                  onChange={(e) => setQty(e.target.value)}
+                ></input>
+              </Col>
+              <Col className={css.cls} xs={{ span: 2 }}>
+                <input
+                  placeholder="Unit"
+                  onChange={(e) => setUnit(e.target.value)}
+                ></input>
+              </Col>
+              <Col className={css.cls} xs={{ span: 2 }}>
+                <input
+                  type="submit"
+                  value="+"
+                  onClick={() => {
+                    console.log("submit");
+                    onNoFormRender();
+                  }}
+                />
+              </Col>
+            </form>
+          </Row>
+        </Container>
+      </Container>
+    );
+  }
+  function noFormRender() {}
+  onNoFormRender();
+  //causing error, doesnt work nested in function, solution needed}
+  if (!itemButtonClick) {
+    return (
+      <Container>
+        <FoodCategoryRow />
+        {shopListData.map(function (item, index) {
+          return (
+            <Container>
+              <Row>
+                <FoodListItem
+                  {...item.shopping_items[0]}
+                  key={item._id}
+                  index={index}
+                  listItem={item}
+                  setShopListData={setShopListData}
+                  trueFalseArraySL={trueFalseArraySL}
+                  setTrueFalseArraySL={setTrueFalseArraySL}
                 />
               </Row>
               <SwipeBar key={index} />
@@ -185,7 +162,6 @@ function ShoppingListTable({
             setItemButtonClick(true);
             noFormRender();
           }}
-          // alert("hello 2 at once working");
         />
       </Container>
     );

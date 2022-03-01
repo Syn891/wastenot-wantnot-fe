@@ -1,13 +1,6 @@
 import { Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
 import css from "./FoodListItem.module.css";
-
-import shopListTestData from "../../testdata/testshoppinglists";
-
-  // let checkboxArray = new Array(shopListData.length).fill("");
-
-
-
 function FoodListItem({
   name,
   est_exp,
@@ -16,69 +9,28 @@ function FoodListItem({
   measurement,
   index,
   listItem,
-
-  checkboxArray,
   color,
+  trueFalseArraySL,
+  setTrueFalseArraySL,
 }) {
-  // const [updatedCheckboxArray, setUpdatedCheckboxArray] =
-  //   useState(checkboxArray);
+  const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000); //silly maths no functionality
 
-  //if we can toggle and pass up a boolean value from here we can do it
-  // console.log("checkbox array outside of handleOnChange", updatedCheckboxArray);
-  //on check or uncheck call function to change state from true to false and pass the function down as a prop!!!!
-
-  const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000);
   if (!color) {
     color = "#5CC971";
   }
-  let pantry = [];
-  const handleOnChange = (position) => {
-
-    if(defaultChecked === true){
-      pantry.push()
-    }
-    let updatedCheckboxArray = checkboxArray;
-
-
-    const updatedCheckedState = updatedCheckboxArray.map((item, index) =>
+  function handleChange(position) {
+    const updatedCheckedState = trueFalseArraySL.map((item, index) =>
       index === position ? !item : item
     );
-
-    updatedCheckboxArray = [...updatedCheckedState, updatedCheckedState];
-    console.log("after handle change", updatedCheckboxArray);
-  };
+    console.log("True False Array", updatedCheckedState);
+    setTrueFalseArraySL(updatedCheckedState);
+  }
   return (
     <>
       <Col className={css.col} xs={{ span: 2 }}>
         <div>{name}</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
-  setChecked,
-  checkboxArray,
-  color,
-}) {
-  const [checkedinflm, setCheckedinflm] = useState(false);
-  //if we can toggle and pass up a boolean value from here we can do it
-  console.log("cbx array", checkboxArray);
-  //on check or uncheck call function to change state from true to false and pass the function down as a prop!!!!
-  console.log(listItem, name, est_exp, category, quantity, measurement, index);
-
-  console.log(name, est_exp, category, quantity, measurement);
-  const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000);
-  if (!color) {
-    color = "#5CC971";
-  }
-  function weirdDebug() {
-    console.log(checkedinflm, index);
-    setChecked();
-
-  }
-  return (
-    <>
-      <Col className={css.col} xs={{ span: 3 }}>
-        <div>{name}</div>
-      </Col>
-      <Col className={css.col} xs={{ span: 3 }}>
         <div>1/1/11</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
@@ -93,25 +45,16 @@ function FoodListItem({
       <Col className={css.col} xs={{ span: 2 }}>
         <input
           type="checkbox"
-          defaultChecked={false}
+          defaultChecked={trueFalseArraySL[index]}
           onChange={() => {
-            handleOnChange(index);
+            handleChange(index);
             //spread and slice? the value into the array?
-
-            setCheckedinflm(true);
-            weirdDebug();
-
           }}
-          index={index}
+          key={index}
         ></input>
       </Col>
-
-      </>
-
-
+    </>
   );
 }
-
 //Console Log out items with the check box ticked when add checked items to pantry is pressed
-
 export default FoodListItem;
