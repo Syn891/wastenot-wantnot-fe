@@ -68,7 +68,12 @@ const DonationPoints = () => {
 
     addMarker('This is you', longitude, latitude);
 
-    addMarker('trussel trust', trusLong, trus);
+    
+    // Use API to get Lat and Long of Local Food Banks
+    //Store as an array of arrays
+    // map over arrays and use addMarker
+    // pass name, longitude and latitude
+
     return () => map.remove();
   }, [longitude, latitude]);
 
@@ -85,27 +90,6 @@ const DonationPoints = () => {
       {map && (
         <div className="App">
           <div ref={mapElement} className="map" style={{height: '60vh'}} />
-          <div className="search-bar">
-            <h1>Where to?</h1>
-            <input
-              type="text"
-              id="longitude"
-              className="longitude"
-              placeholder="Put in longitude"
-              onChange={(e) => {
-                setLongitude(e.target.value);
-              }}
-            />
-            <input
-              type="text"
-              id="latitude"
-              className="latitude"
-              placeholder="Put in latitude"
-              onChange={(e) => {
-                setLatitude(e.target.value);
-              }}
-            />
-          </div>
         </div>
       )}
     </>
