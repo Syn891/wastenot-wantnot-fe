@@ -27,21 +27,21 @@ const DonationsPage = () => {
     const [donations, setDonations] = useState ([])
 
     async function userDonations(){ 
-        const fetchData = useFetch('DonationList', 'GET', null, `/?user_id=twesdfsdfsdfest`)
+        const fetchData = useFetch('donationlist', 'GET', null, `/?user_id=${user.user.sub}`)
         console.log(fetchData)
         const data = await Promise.resolve(fetchData)
     return data.payload}
 
     useEffect(async()=>{
       setDonations (await userDonations())
-       console.log(Donations)
+       console.log(donations)
     },[]);
 
     function renderListItems(){
         if (donations){
     {return donations.map((f)=> {
         return f.donations_items.map((pi)=>{
-                const object = {user_id: "twesdfsdfsdfest",
+                const object = {user_id:  user.user.sub,
                     donated_items:[ {
                        name: pi.name,
                        est_exp: pi.est_exp,
@@ -51,7 +51,7 @@ const DonationsPage = () => {
                   }]}
                 return<SwipePantryBar 
                 key={pi._id} 
-                userId={'twesdfsdfsdfest'} 
+                userId={user.user.sub} 
                 data={pi._id} 
                 object_id={f._id}
                 object={object}>
