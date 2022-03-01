@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useEffect, useState} from 'react';
 import Navbar from '../components/Navbar';
 import { IoIosArrowBack } from "react-icons/io";
 import {GiForkKnifeSpoon} from 'react-icons/gi'
@@ -10,19 +10,51 @@ import FoodListItem from '../components/FoodListItem'
 import SwipePantryBar from '../components/SwipePantryBar';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
 import SwipeBar from '../components/SwipeBar';
+import {useFetch} from "../hooks/useFetch.js"
 
-
-const Pantry = ({pantryItems}) => {
-    
+const Pantry = () => {
     let user = useUser();
-    let filteredItems = []
+    const [pantry, setPantry] = useState ([])
+
+    async function userPantry(){ 
+        const fetchData = useFetch('pantryList', 'GET', null, `/?user_id=${user.user.sub}`)
+        console.log(fetchData)
+        const data = await Promise.resolve(fetchData)
+    return data.payload}
+
+    useEffect(async()=>{
+      setPantry (await userPantry())
+       console.log(pantry)
+    },[]);
+
+    function renderListItems(){
+        if (pantry){
+    {return pantry.map((f)=> {
+        return f.pantry_items.map((pi)=>{
+                const object = {user_id: user.user.sub,
+                    donated_items:[ {
+                       name: pi.name,
+                       est_exp: pi.est_exp,
+                       category: "", 
+                       quanitiy: 0,
+                       measurement: ""
+                  }]}
+                return<SwipePantryBar 
+                key={pi._id} 
+                userId={'google-oauth2|114208744455338261066'} 
+                data={pi._id} 
+                object_id={f._id}
+                object={object}>
+                    <FoodListItem color={setColor(1)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quanity : ""} measurement={pi?.measurement ? pi.measurement : ""} />
+                     <FoodListItem color={setColor(1)} name={pi.name} quantity={ pi.quanity} measurement={pi.measurement} />
+
+                </SwipePantryBar>
+            })
+        })
+
+        }} 
+    }
     
-    if(pantryItems.payload.length > 0){
-        pantryItems.payload.map((p)=> {
-        if(p.user_id === user.user.sub) {
-            filteredItems.push(p)   
-        }
-    })}
 
     const router = useRouter()
     const setColor = (number) => {
@@ -48,15 +80,7 @@ const Pantry = ({pantryItems}) => {
          <FoodCategoryRow />
 
         <Container className={css.container}>
-        {filteredItems.map((f)=> {
-            return f.pantry_items.map((pi)=> {
-                return <SwipePantryBar>            
-                    {/* <FoodListItem color={setColor(1)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quanity : ""} measurement={pi?.measurement ? pi.measurement : ""} /> */}
-                    <FoodListItem color={setColor(1)} name={pi.name} quantity={ pi.quanity} measurement={pi.measurement} />
-
-                </SwipePantryBar>
-            })
-        })}
+        {renderListItems()}
         </Container>
 
         <SwipeBar />
@@ -64,12 +88,4 @@ const Pantry = ({pantryItems}) => {
     );
 };
 
-
-export async function getServerSideProps(user) {
-        let pantryItems = await fetch(`https://waste-want.herokuapp.com/pantrylist/`)
-        pantryItems = await pantryItems.json()
-    
-        return {props: {pantryItems: pantryItems}}
-    
-}
 export default Pantry;
