@@ -17,7 +17,7 @@ const Pantry = () => {
     const [pantry, setPantry] = useState ([])
 
     async function userPantry(){ 
-        const fetchData = useFetch('pantryList', 'GET', null, `/?user_id=google-oauth2|114208744455338261066`)
+        const fetchData = useFetch('pantryList', 'GET', null, `/?user_id=${user.user.sub}`)
         console.log(fetchData)
         const data = await Promise.resolve(fetchData)
     return data.payload}
@@ -31,7 +31,7 @@ const Pantry = () => {
         if (pantry){
     {return pantry.map((f)=> {
         return f.pantry_items.map((pi)=>{
-                const object = {user_id: "google-oauth2|114208744455338261066",
+                const object = {user_id: user.user.sub,
                     donated_items:[ {
                        name: pi.name,
                        est_exp: pi.est_exp,
