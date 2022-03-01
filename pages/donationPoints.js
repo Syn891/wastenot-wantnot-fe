@@ -13,6 +13,7 @@ const DonationPoints = () => {
   const [longitude, setLongitude] = useState(-0.112869);
   const [latitude, setLatitude] = useState(51.504);
   const [foodBanks, setFoodBanks] = useState([]) 
+  const [click, setClick] = useState(false)
 
   navigator.geolocation.getCurrentPosition(function(position) {
     setLatitude(position.coords.latitude);
@@ -34,7 +35,7 @@ const DonationPoints = () => {
       
       },
       center: [longitude, latitude],
-      zoom: 14,
+      zoom: 10,
     });
 
     const addMarker = (text, long, lat) => {
@@ -43,22 +44,17 @@ const DonationPoints = () => {
         bottom: [0, -25]
       }
 
-      const popup = new tt.Popup({ offset:popupOffset}).setHTML(text);
+      const popup = new tt.Popup({ offset:popupOffset, closeOnClick: false}).setHTML(text);
       const element = document.createElement("div");
       element.className = "marker";
 
       const marker = new tt.Marker({
         draggable: true,
         element: element,
+        className: css.marker,
       })
         .setLngLat([long, lat])
         .addTo(map)
-
-        marker.on('dragend', () => {
-          const lngLat = marker.getLngLat();
-          setLongitude(lngLat.lng);
-          setLatitude(lngLat.lat);
-        });
 
         marker.setPopup(popup).togglePopup();
     };
