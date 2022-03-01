@@ -8,7 +8,7 @@ import Link from 'next/link'
 
 const DonationPromptInfo = ({text, icon}) => {
     return (
-        <Link href="/donations">
+        <Link href="/donationPoints">
         <div className={css.dpi}>
             <Col xs={{span: 9}}>
             {text}

@@ -7,6 +7,12 @@ module.exports = {
   module: {
     rules: [{ test: /\.txt$/, use: 'raw-loader' }],
   },
+  output: {
+    library: '@tomtom-international/web-sdk-maps/dist',
+    libraryTarget: 'umd',
+    filename: 'maps.min.js',
+    globalObject: 'this',
+  },
 };
 // const path = require('path');
 
