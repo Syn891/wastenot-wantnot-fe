@@ -11,11 +11,15 @@ import { useRouter } from "next/router";
 import SwipePantryBar from '../components/SwipePantryBar'
 import FoodListItem from '../components/FoodListItem';
 import DonationsLink from '../components/DonationsLink';
+
 //import css from '../styles/Pantry.module.css'
 import FoodCategoryRow from '../components/FoodCategoryRow';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
 import SwipeBar from '../components/SwipeBar';
 import {useFetch} from "../hooks/useFetch.js"
+
+import AssignItem from '../components/EatConsumeDonate';
+
 
 
 const DonationsPage = () => {
@@ -113,6 +117,9 @@ const DonationsPage = () => {
               <div className={css.donationsTitle}>
                 <p>Saved Donation Points:</p>
               </div>
+            </Row>
+            <Row>
+              <AssignItem />
             </Row>
             <Row>
                 <DonationsLink link="./donationPoints"/>
