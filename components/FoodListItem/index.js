@@ -1,11 +1,6 @@
 import { Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
 import css from "./FoodListItem.module.css";
-import shopListTestData from "../../testdata/testshoppinglists";
-// const checkboxArray = new Array(shopListData.length).fill("");
-
-export let checkedArray = new Array(shopListTestData.length).fill(false);
-
 function FoodListItem({
   name,
   est_exp,
@@ -14,29 +9,22 @@ function FoodListItem({
   measurement,
   index,
   listItem,
-  checkboxArray,
   color,
+  trueFalseArraySL,
+  setTrueFalseArraySL,
 }) {
-  //if we can toggle and pass up a boolean value from here we can do it
-  //
-  console.log("checkbox array outside of handleOnChange", checkedArray);
-  //on check or uncheck call function to change state from true to false and pass the function down as a prop!!!!
+  const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000); //silly maths no functionality
 
-  const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000);
   if (!color) {
     color = "#5CC971";
   }
-  let pantry = [];
-  const handleOnChange = (position) => {
-    let updatedCheckboxArray = checkedArray;
-
-    const updatedCheckedState = updatedCheckboxArray.map((item, index) =>
+  function handleChange(position) {
+    const updatedCheckedState = trueFalseArraySL.map((item, index) =>
       index === position ? !item : item
     );
-
-    checkedArray = updatedCheckedState;
-    console.log("after handle change", checkedArray);
-  };
+    console.log("True False Array", updatedCheckedState);
+    setTrueFalseArraySL(updatedCheckedState);
+  }
   return (
     <>
       <Col className={css.col} xs={{ span: 2 }}>
@@ -57,18 +45,16 @@ function FoodListItem({
       <Col className={css.col} xs={{ span: 2 }}>
         <input
           type="checkbox"
-          defaultChecked={false}
+          defaultChecked={trueFalseArraySL[index]}
           onChange={() => {
-            handleOnChange(index);
+            handleChange(index);
             //spread and slice? the value into the array?
           }}
-          index={index}
+          key={index}
         ></input>
       </Col>
     </>
   );
 }
-
 //Console Log out items with the check box ticked when add checked items to pantry is pressed
-
 export default FoodListItem;
