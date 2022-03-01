@@ -22,7 +22,6 @@ function FoodListItem({
     const updatedCheckedState = trueFalseArraySL.map((item, index) =>
       index === position ? !item : item
     );
-
     console.log("True False Array", updatedCheckedState);
     setTrueFalseArraySL(updatedCheckedState);
   }
@@ -32,7 +31,7 @@ function FoodListItem({
         <div>{name}</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
-      <div>1/1/11</div>
+        <div>1/1/11</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
         <div>{quantity}</div>

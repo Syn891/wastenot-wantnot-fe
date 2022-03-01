@@ -12,7 +12,7 @@ const DonationsLink = ({link}) => {
         <p className={css.p}>What people need near me?
 Donations needed in your area: </p>
 </Col>
-<Col sm={8} className={css.col} >
+<Col sm={8} classNme={css.col} >
 <GrMapLocation className={css.logo} />
 
 </Col>
