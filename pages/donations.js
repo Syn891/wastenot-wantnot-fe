@@ -27,7 +27,7 @@ const DonationsPage = () => {
     const [donations, setDonations] = useState ([])
 
     async function userDonations(){ 
-        const fetchData = useFetch('DonationList', 'GET', null, `/?user_id=google-oauth2|114208744455338261066`)
+        const fetchData = useFetch('DonationList', 'GET', null, `/?user_id=twesdfsdfsdfest`)
         console.log(fetchData)
         const data = await Promise.resolve(fetchData)
     return data.payload}
@@ -41,7 +41,7 @@ const DonationsPage = () => {
         if (donations){
     {return donations.map((f)=> {
         return f.donations_items.map((pi)=>{
-                const object = {user_id: "google-oauth2|114208744455338261066",
+                const object = {user_id: "twesdfsdfsdfest",
                     donated_items:[ {
                        name: pi.name,
                        est_exp: pi.est_exp,
@@ -51,7 +51,7 @@ const DonationsPage = () => {
                   }]}
                 return<SwipePantryBar 
                 key={pi._id} 
-                userId={'google-oauth2|114208744455338261066'} 
+                userId={'twesdfsdfsdfest'} 
                 data={pi._id} 
                 object_id={f._id}
                 object={object}>
@@ -83,7 +83,7 @@ const DonationsPage = () => {
     //const router = useRouter()
     return (
         
-<Container className={css.container}>
+<Container className={css.container1}>
         <Row>
         <Navbar Icon={FaHandHoldingHeart} color="#EF8D4B" title={"My Donations"}>
           <IoIosArrowBack
@@ -100,7 +100,7 @@ const DonationsPage = () => {
             
          <FoodCategoryRow />
 
-        <Container className={css.container}>
+        <Container className={css.container1}>
         {renderListItems()}
         </Container>
 
