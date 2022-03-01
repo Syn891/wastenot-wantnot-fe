@@ -1,9 +1,11 @@
 import { Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
 import css from "./FoodListItem.module.css";
+
 import shopListTestData from "../../testdata/testshoppinglists";
 
   // let checkboxArray = new Array(shopListData.length).fill("");
+
 
 
 function FoodListItem({
@@ -14,6 +16,7 @@ function FoodListItem({
   measurement,
   index,
   listItem,
+
   checkboxArray,
   color,
 }) {
@@ -50,6 +53,31 @@ function FoodListItem({
         <div>{name}</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
+  setChecked,
+  checkboxArray,
+  color,
+}) {
+  const [checkedinflm, setCheckedinflm] = useState(false);
+  //if we can toggle and pass up a boolean value from here we can do it
+  console.log("cbx array", checkboxArray);
+  //on check or uncheck call function to change state from true to false and pass the function down as a prop!!!!
+  console.log(listItem, name, est_exp, category, quantity, measurement, index);
+
+  console.log(name, est_exp, category, quantity, measurement);
+  const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000);
+  if (!color) {
+    color = "#5CC971";
+  }
+  function weirdDebug() {
+    console.log(checkedinflm, index);
+    setChecked();
+  }
+  return (
+    <>
+      <Col className={css.col} xs={{ span: 3 }}>
+        <div>{name}</div>
+      </Col>
+      <Col className={css.col} xs={{ span: 3 }}>
         <div>1/1/11</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
@@ -68,6 +96,10 @@ function FoodListItem({
           onChange={() => {
             handleOnChange(index);
             //spread and slice? the value into the array?
+
+            setCheckedinflm(true);
+            weirdDebug();
+
           }}
           index={index}
         ></input>
