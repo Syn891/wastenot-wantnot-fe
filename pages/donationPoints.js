@@ -12,16 +12,14 @@ const DonationPoints = () => {
   const mapElement = useRef();
   const [longitude, setLongitude] = useState(-0.112869);
   const [latitude, setLatitude] = useState(51.504);
-  const [trus, setTrus] = useState(53.41608)
-  const [trusLong, setTrusLong] = useState(-2.346269)
-
+  const [foodBanks, setFoodBanks] = useState([]) 
 
   navigator.geolocation.getCurrentPosition(function(position) {
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
   });
 
-  useEffect(() => {
+  useEffect( () => {
     const origin = {
       lng: longitude,
       lat: latitude
@@ -33,8 +31,7 @@ const DonationPoints = () => {
       key: 'VNXLbtBj2rKw0C10r8BxYCHVAPWYKo3q',
       container: mapElement.current,
       stylesVisibility: {
-        trafficIncidents: true,
-        trafficFlow: true,
+      
       },
       center: [longitude, latitude],
       zoom: 14,
@@ -66,9 +63,35 @@ const DonationPoints = () => {
         marker.setPopup(popup).togglePopup();
     };
 
+    async function fetchFoodBank() {
+        const fetchFromFoodBank = await fetch(`https://www.givefood.org.uk/api/2/foodbanks/search/?lat_lng=${latitude},${longitude}`)
+        const bankData = await fetchFromFoodBank.json()
+        bankData.map((bank)=> {
+            console.log(bank)
+            let latLng = bank.lat_lng.split(",");
+            latLng[0] = Number(latLng[0])
+            latLng[1] = Number(latLng[1])
+
+            let bankDetails = {
+                name: bank.name,
+                lat: latLng[0],
+                long: latLng[1],
+                address: bank.name,
+                distance: bank.distance_mi,
+                email: bank.email,
+                phone: bank.phone,
+                address: bank.address
+            }
+            addMarker(bankDetails.name, bankDetails.long, bankDetails.lat) 
+            setFoodBanks((prev) => [...prev, bankDetails])
+        }) 
+    }
+console.log(foodBanks)
     addMarker('This is you', longitude, latitude);
 
-    
+    fetchFoodBank()
+
+
     // Use API to get Lat and Long of Local Food Banks
     //Store as an array of arrays
     // map over arrays and use addMarker
@@ -85,12 +108,11 @@ const DonationPoints = () => {
           size={'1.5em'}
           style={{marginRight:'0.25em' }} onClick={()=> router.back()}/>
           </Navbar>
-          <div id="map"></div>
           </Container>
       {map && (
-        <div className="App">
-          <div ref={mapElement} className="map" style={{height: '60vh'}} />
-        </div>
+
+          <div ref={mapElement} className={css.map} />
+    
       )}
     </>
   );
