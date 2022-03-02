@@ -95,7 +95,7 @@ function ShoppingList() {
               />
             </Row>
             <Row className={css.row}>
-              <CreateNewListButton message={"Create a new List"} />
+              <CreateNewListButton message={"Create new List"} />
             </Row>
             <DonationPromptInfo />
           </Col>
