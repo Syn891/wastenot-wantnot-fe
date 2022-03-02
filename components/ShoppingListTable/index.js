@@ -12,7 +12,7 @@ function ShoppingListTable({
   shopListData, //database data
   setShopListData, //pass this down so we can spread new items into it when a user adds to shopping list
   trueFalseArraySL, // determine if checkbox is checked
-  setTrueFalseArraySL, // determine if checkbox is checked
+  setTrueFalseArraySL, // set a false value for checkbox is checked when a new item is added to shopping list
 }) {
   const [itemButtonClick, setItemButtonClick] = useState(false);
   const [item, setItem] = useState("Error");

@@ -5,8 +5,10 @@ import { Col, Container, Row } from "react-bootstrap";
 import css from "../styles/Shoppinglist.module.css";
 import AddItemToPantryButton from "../components/AddItemToPantryButton";
 import CreateNewListButton from "../components/CreateNewListButton";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import shopListTestData from "../testdata/testshoppinglists";
+import { useUser, getSession } from "@auth0/nextjs-auth0";
+import { useFetch } from "../hooks/useFetch";
 
 function handlePantryClick(trueFalseArraySL, shopListData) {
   console.log(trueFalseArraySL, "ShopList TF Array");
@@ -19,6 +21,7 @@ function handlePantryClick(trueFalseArraySL, shopListData) {
     }
     console.log("Pantry List is ", pantryList);
     return pantryList;
+    //app.push pantry list to database
   });
 }
 
@@ -26,10 +29,28 @@ function handlePantryClick(trueFalseArraySL, shopListData) {
 function ShoppingList() {
   const [addPantryDisable, setAddPantryDisable] = useState(false); //Pantry button greyed out when new item form is rendered
   const [shopListData, setShopListData] = useState(shopListTestData);
-  const [pantryList, setPantryList] = useState(); //bastard, this keeps getting called
+  // const [shopListData, setShopListData] = useState([]);
+  // const [pantryList, setPantryList] = useState(); //bastard, this keeps getting called
   const [trueFalseArraySL, setTrueFalseArraySL] = useState(
+    //itll be this logic for donations and pantry
     new Array(shopListData.length).fill(false)
-  ); //populate in ShopListTable
+  );
+
+  // const user = useUser();
+  // console.log("Name:",user.user.name, "Sub/userID:", user.user.sub);
+  // const latest = useRef(recipes);
+
+  // async function getMealPlan() {
+  //   const fetchData = useFetch(
+  //     "mealPlan",
+  //     "GET",
+  //     null,
+  //     `/?user_id=${user.user.sub}`
+  //   );
+  //   let res = await Promise.resolve(fetchData);
+  //   setMealPlans(res.payload[0].meal_plan);
+  // }
+
   return (
     <Container>
       <Row className={css.row}>
