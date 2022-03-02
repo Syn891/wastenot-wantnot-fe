@@ -5,6 +5,7 @@ import SwipeBar from "../SwipeBar";
 import { Col, Container, Row } from "react-bootstrap";
 import AddItemButton from "../AddItemButton";
 import css from "./ShoppingListTable.module.css";
+import { useFetch } from "../../hooks/useFetch.js";
 
 function ShoppingListTable({
   onFormRender, //grey out pantry button
@@ -22,7 +23,7 @@ function ShoppingListTable({
 
   //interactions with the database: swipe to add, swipe to delete, form submit,
   //for mvp create new list just deletes everything
-  const handleSubmit = (event) => {
+  function handleSubmit(event) {
     event.preventDefault();
     console.log(expiry); //Console Logging Date from form
     let dataStructure = {
@@ -35,12 +36,35 @@ function ShoppingListTable({
       _id: "placeholder",
     };
 
+    const fetchedData = shopListData;
+    const response = fetchedData;
+
+    useFetch(
+      "shoppinglists",
+      "PUT",
+      dataStructure,
+      "/?user_id=google-oauth2|112451605105134992726"
+    );
+
+    // if (response.payload.length < 1) {
+    //   useFetch(
+    //     "shoppinglists",
+    //     "POST",
+    //     dataStructure,
+    //     "/?user_id=google-oauth2|112451605105134992726"
+    //   );
+    // } else {
+    //   // let query = { meal_plan: data.meal_plan[0] };
+    // }
+
+    // What we want to do is push the new added item onto the end of the users shopping list database
+
     setShopListData([...shopListData, dataStructure]);
     setTrueFalseArraySL([...trueFalseArraySL, false]);
     //Would be here POST REQUEST shopListData to database function is called
     console.log("shop list data:", shopListData, "");
     setItemButtonClick(false);
-  };
+  }
   onFormRender();
   if (itemButtonClick) {
     return (
