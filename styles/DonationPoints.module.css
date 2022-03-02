@@ -1,0 +1,14 @@
+.container {
+    margin: 0.5em;
+    display: flex;
+    flex-direction: column;
+}
+
+.map {
+    height: 50vh;
+    margin: 2em
+}
+
+.marker {
+    background-color: red;
+}
