@@ -13,9 +13,37 @@ import { useUser, getSession } from '@auth0/nextjs-auth0';
 import Dashboard from '../components/Dashboard';
 import DashboardChart from '../components/DashboardChart';
 import Navbar from '../components/Navbar';
+import {useState, useEffect} from 'react'
+import { useFetch } from '../hooks/useFetch';
 
 const Landing = () => {
   const { user, error, isLoading } = useUser();
+
+    const [waste, setWaste] =useState(0);
+    const [donations, setDonations] = useState(0);
+    const [consumption, setConsumption]= useState(0);
+
+      async function userDashboard(){ 
+        const fetchData = useFetch('users', 'GET', null, `/?user_id=${user.user.sub}`)
+        console.log(fetchData)
+        const data = await Promise.resolve(fetchData)
+    return data.payload}
+
+    useEffect(async()=>{
+      setWaste (await userDashboard())
+       console.log(waste)
+    },[waste]);
+
+     useEffect(async()=>{
+      setDonations (await userDashboard())
+       console.log(donations)
+    },[donations]);
+
+     useEffect(async()=>{
+      setConsumption (await userDashboard())
+       console.log(consumption)
+    },[consumption]);
+
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -81,7 +109,8 @@ const Landing = () => {
             <Row className={css.row}>
             </Row>
 
-            <Row className={css.row}><Dashboard link="/userInformation" />
+            <Row className={css.row}><Dashboard waste={waste} donations={donations} consumption={consumption} link="/userInformation" />
+             
 </Row>
         </Col>
     ));
