@@ -9,32 +9,30 @@ function FoodListItem({
   measurement,
   index,
   listItem,
-  setChecked,
-  checkboxArray,
   color,
+  trueFalseArraySL,
+  setTrueFalseArraySL,
 }) {
-  const [checkedinflm, setCheckedinflm] = useState(false);
-  //if we can toggle and pass up a boolean value from here we can do it
-  console.log("cbx array", checkboxArray);
-  //on check or uncheck call function to change state from true to false and pass the function down as a prop!!!!
-  console.log(listItem, name, est_exp, category, quantity, measurement, index);
+  const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000); //silly maths no functionality
 
-  console.log(name, est_exp, category, quantity, measurement);
-  const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000);
   if (!color) {
     color = "#5CC971";
   }
-  function weirdDebug() {
-    console.log(checkedinflm, index);
-    setChecked();
+  function handleChange(position) {
+    const updatedCheckedState = trueFalseArraySL.map((item, index) =>
+      index === position ? !item : item
+    );
+
+    console.log("True False Array", updatedCheckedState);
+    setTrueFalseArraySL(updatedCheckedState);
   }
   return (
     <>
-      <Col className={css.col} xs={{ span: 3 }}>
+      <Col className={css.col} xs={{ span: 2 }}>
         <div>{name}</div>
       </Col>
-      <Col className={css.col} xs={{ span: 3 }}>
-        <div>1/1/11</div>
+      <Col className={css.col} xs={{ span: 2 }}>
+      <div>1/1/11</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
         <div>{quantity}</div>
@@ -48,18 +46,16 @@ function FoodListItem({
       <Col className={css.col} xs={{ span: 2 }}>
         <input
           type="checkbox"
-          defaultChecked={false}
+          defaultChecked={trueFalseArraySL[index]}
           onChange={() => {
-            setCheckedinflm(true);
-            weirdDebug();
+            handleChange(index);
+            
           }}
-          index={index}
+          key={index}
         ></input>
       </Col>
     </>
   );
 }
-
 //Console Log out items with the check box ticked when add checked items to pantry is pressed
-
 export default FoodListItem;
