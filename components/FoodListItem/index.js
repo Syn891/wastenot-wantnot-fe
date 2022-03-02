@@ -14,7 +14,6 @@ function FoodListItem({
   setTrueFalseArraySL,
 }) {
   // const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000); //silly maths no functionality
-
   if (!color) {
     color = "#5CC971";
   }

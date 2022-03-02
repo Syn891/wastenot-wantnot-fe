@@ -1,18 +1,18 @@
-import { useRef, useEffect, useState } from "react";
+ import { useRef, useEffect, useState } from "react";
 import * as tt from "@tomtom-international/web-sdk-maps";
 import * as ttapi from "@tomtom-international/web-sdk-services";
 import '@tomtom-international/web-sdk-maps/dist/maps.css';
 import {Col, Container, FormControl, InputGroup, Row} from 'react-bootstrap'
 import { IoIosArrowBack } from "react-icons/io";
-import Navbar from "../components/Navbar";
-import css from '../styles/DonationPoints.module.css'
+import Navbar from "../Navbar";
+import css from '../../styles/DonationPoints.module.css'
 import Link from "next/link";
 import {BsSearch} from 'react-icons/bs'
 import { GrMapLocation } from "react-icons/gr";
 import { useRouter } from "next/router";
 
 
-const DonationPoints = () => {
+const TomTomMap = () => {
   const [map, setMap] = useState({});
   const mapElement = useRef();
   const [longitude, setLongitude] = useState(0);
@@ -169,4 +169,4 @@ const DonationPoints = () => {
    </Container>
   );
             }
-export default DonationTest
+export default TomTomMap

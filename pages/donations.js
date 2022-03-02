@@ -21,48 +21,36 @@ import { useFetch } from "../hooks/useFetch.js";
 import AssignItem from "../components/EatConsumeDonate";
 
 const DonationsPage = () => {
-  let user = useUser();
-  const [donations, setDonations] = useState([]);
+    let user = useUser();
+    const [donations, setDonations] = useState ([])
 
-  async function userDonations() {
-    const fetchData = await useFetch(
-      "DonationList",
-      "GET",
-      null,
-      `/?user_id=twesdfsdfsdfest`
-    );
-    console.log(fetchData);
-    const data = await Promise.resolve(fetchData);
-    return data.payload;
-  }
+    async function userDonations(){ 
+        const fetchData = useFetch('DonationList', 'GET', null, `/?user_id=twesdfsdfsdfest`)
+        console.log(fetchData)
+        const data = await Promise.resolve(fetchData)
+    return data.payload}
 
-  useEffect(async () => {
-    setDonations(await userDonations());
-    console.log(donations);
-  }, []);
+    useEffect(async()=>{
+      setDonations (await userDonations())
+       console.log(donations)
+    },[]);
 
-  function renderListItems() {
-    if (donations) {
-      {
-        return donations.map((f) => {
-          return f.donations_items.map((pi) => {
-            const object = {
-              user_id: "twesdfsdfsdfest",
-              donated_items: [
-                {
-                  name: pi.name,
-                  est_exp: pi.est_exp,
-                  category: "",
-                  quanitiy: 0,
-                  measurement: "",
-                },
-              ],
-            };
-            return (
-              <SwipePantryBar
-                key={pi._id}
-                userId={"twesdfsdfsdfest"}
-                data={pi._id}
+    function renderListItems(){
+        if (donations){
+    {return donations.map((f)=> {
+        return f.donations_items.map((pi)=>{
+                const object = {user_id: "twesdfsdfsdfest",
+                    donated_items:[ {
+                       name: pi.name,
+                       est_exp: pi.est_exp,
+                       category: "", 
+                       quanitiy: 0,
+                       measurement: ""
+                  }]}
+                return<SwipePantryBar 
+                key={pi._id} 
+                userId={'twesdfsdfsdfest'} 
+                data={pi._id} 
                 object_id={f._id}
                 object={object}
               >
