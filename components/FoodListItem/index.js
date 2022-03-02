@@ -49,7 +49,7 @@ function FoodListItem({
           defaultChecked={trueFalseArraySL[index]}
           onChange={() => {
             handleChange(index);
-            //spread and slice? the value into the array?
+            
           }}
           key={index}
         ></input>
