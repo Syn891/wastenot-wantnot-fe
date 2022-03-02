@@ -34,7 +34,7 @@ const DonationsPage = () => {
 
     useEffect(async()=>{
       setDonations (await userDonations())
-       console.log(Donations)
+       console.log(donations)
     },[]);
 
     function renderListItems(){
