@@ -1,14 +1,55 @@
 .container {
-    margin: 0.5em;
     display: flex;
     flex-direction: column;
+    margin-top: 0.5em;
 }
 
 .map {
-    height: 50vh;
-    margin: 2em
+    height: 45vh;
+    margin: 2em;
+    padding: 1em;
 }
 
 .marker {
     background-color: red;
+}
+
+.donationsTitle {
+    background-color: #FCEADD;
+    display: flex;
+    justify-content: center;
+    font-size: 0.9em;
+    border-radius: 10px;
+    padding: 0.5em;
+}
+
+.charityInfo {
+    margin: 0.8em;
+    padding: 0.6em;
+    background-color: lightblue;
+}
+
+.charities {
+    height: 40vh;
+    overflow-x: scroll;
+}
+
+.address:hover {
+    text-decoration: underline;
+    color: #FCEADD;
+}
+
+.search {
+z-index: 1;
+background-color: rgba(255,255,255,0.75);
+}
+
+.btn {
+    border-radius: 10px;
+    z-index: 1;
+    opacity: 0.8
+}
+
+.grp {
+    z-index: 1
 }
