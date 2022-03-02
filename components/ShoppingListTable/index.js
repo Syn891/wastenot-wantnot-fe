@@ -20,43 +20,21 @@ function ShoppingListTable({
   const [qty, setQty] = useState("Error");
   const [unit, setUnit] = useState("Error");
 
-  let dataStructure = {
-    _id: { $oid: "placeholder" },
-    id: "placeholder",
-    shopping_items: [
-      {
-        _itemid: "placeholder",
-        name: "item name",
-        est_exp: { $date: { $numberLong: "doesnt matter right now" } }, //https://stackoverflow.com/questions/22964199/how-to-convert-numberlong-to-date-in-mongodbs-shell
-        category: "not needed for MVP",
-        quantity: 999999,
-        measurement: "X",
-        _id: { $oid: "placeholder" },
-      },
-    ],
-    user_id: "placeholder",
-  };
   //interactions with the database: swipe to add, swipe to delete, form submit,
   //for mvp create new list just deletes everything
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(expiry); //Console Logging Date from form
-    dataStructure = {
-      _id: { $oid: "placeholder" },
-      id: "placeholder",
-      shopping_items: [
-        {
-          _itemid: "placeholder",
-          name: item,
-          est_exp: { $date: { $numberLong: "1645444573974" } }, //Solution Needed
-          category: "not needed for MVP",
-          quantity: qty,
-          measurement: unit,
-          _id: { $oid: "placeholder" },
-        },
-      ],
-      user_id: "placeholder",
+    let dataStructure = {
+      _itemid: "dont even need this",
+      name: item,
+      est_exp: new Date(), //Solution Needed
+      category: "not needed for MVP",
+      quantity: qty,
+      measurement: unit,
+      _id: "placeholder",
     };
+
     setShopListData([...shopListData, dataStructure]);
     setTrueFalseArraySL([...trueFalseArraySL, false]);
     //Would be here POST REQUEST shopListData to database function is called
@@ -73,7 +51,7 @@ function ShoppingListTable({
             <Container>
               <Row>
                 <FoodListItem
-                  {...item.shopping_items[0]}
+                  {...item}
                   key={item._id}
                   index={index}
                   listItem={item}
@@ -138,12 +116,13 @@ function ShoppingListTable({
     return (
       <Container>
         <FoodCategoryRow />
+        {console.log("line 141 in SLtable", shopListData)}
         {shopListData.map(function (item, index) {
           return (
             <Container>
               <Row>
                 <FoodListItem
-                  {...item.shopping_items[0]}
+                  {...item}
                   key={item._id}
                   index={index}
                   listItem={item}
