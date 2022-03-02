@@ -22,7 +22,7 @@ function NavbarCustom({ title, color, children, Icon }) {
           <Navbar.Brand className={styles.title} href="#">
             {title}
           </Navbar.Brand>
-          {/* <Icon size={'2em'} /> */}
+          <Icon size={'2em'} />
         </div>
             <Navbar.Offcanvas
             id="offcanvasNavbar"
@@ -36,11 +36,13 @@ function NavbarCustom({ title, color, children, Icon }) {
         </Offcanvas.Header>
       <Offcanvas.Body className={styles.offcanvasBody}>
         <Nav className="justify-content-end flex-grow-1 pe-3">
-          <Nav.Link className={styles.navLink} href="#action1">About Us</Nav.Link>
-          <Nav.Link className={styles.navLink} href="#action2">Food waste matters!</Nav.Link>
-          <Nav.Link className={styles.navLink} href="#action2">Manage, Reduce, Donate!</Nav.Link>
-          <Nav.Link className={styles.navLink} href="/donations">Find Food Banks!</Nav.Link>
-          <Nav.Link className={styles.navLink} href="/">Register</Nav.Link>
+          <Nav.Link className={styles.navLink} href="/about">About Us</Nav.Link>
+          <Nav.Link className={styles.navLink} href="/shoppingList">Grocery List</Nav.Link>
+          <Nav.Link className={styles.navLink} href="/pantry">In My Pantry</Nav.Link>
+          <Nav.Link className={styles.navLink} href="/mealPlan">Meal Planner</Nav.Link>
+          <Nav.Link className={styles.navLink} href="/donations">My Donations</Nav.Link>
+          <Nav.Link className={styles.navLink} href="/donationPoints">Find Food Banks!</Nav.Link>
+          <Nav.Link className={styles.navLink} href="/profile">Account</Nav.Link>
           {
             renderLogout()
           }
