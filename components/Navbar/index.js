@@ -22,7 +22,7 @@ function NavbarCustom({ title, color, children, Icon }) {
           <Navbar.Brand className={styles.title} href="#">
             {title}
           </Navbar.Brand>
-          <Icon size={'2em'} />
+          {/* <Icon size={'2em'} /> */}
         </div>
             <Navbar.Offcanvas
             id="offcanvasNavbar"
