@@ -26,3 +26,9 @@ Maths
 
 - total all the items which have been assigned a category eaten/wasted/donated - as simple no of items
 - calculate percentages
+
+- sort them by date
+- store the top 3 in an array as objects
+- map over these 3 and pull out the expiry data
+- perform the function for the calculation
+- render a food expiry button with the information returned from the function 

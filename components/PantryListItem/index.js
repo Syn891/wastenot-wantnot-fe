@@ -3,15 +3,12 @@ import React, { useState } from "react";
 import css from "./PantryListItem.module.css";
 function PantryListItem({
   name,
-  est_exp,
-  category,
   quantity,
   measurement,
   index,
-  listItem,
   color,
   trueFalseArraySL,
-  setTrueFalseArraySL,
+  expiry
 }) {
 
   // const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000); //silly maths no functionality
@@ -30,11 +27,11 @@ function PantryListItem({
   }
   return (
     <>
-      <Col className={css.col} xs={{ span: 2 }}>
+      <Col className={css.col} xs={{ span: 3 }}>
         <div>{name}</div>
       </Col>
-      <Col className={css.col} xs={{ span: 2 }}>
-        <div>1/1/11</div>
+      <Col className={css.col} xs={{ span: 3 }}>
+        <div>{expiry}</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
         <div>{quantity}</div>
@@ -42,10 +39,7 @@ function PantryListItem({
       <Col className={css.col} xs={{ span: 2 }}>
         <div>{measurement}</div>
       </Col>
-      <Col className={css.col} xs={{ span: 2 }}>
-        <p>{measurement}</p>
-      </Col>
-      <Col className={css.col} xs={{ span: 2 }}>
+      <Col className={css.col} xs={{ span: 1 }}>
         <input
           type="checkbox"
           // defaultChecked={trueFalseArraySL[index]}

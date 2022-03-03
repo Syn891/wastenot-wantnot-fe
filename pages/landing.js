@@ -13,12 +13,49 @@ import { useUser, getSession } from '@auth0/nextjs-auth0';
 import Dashboard from '../components/Dashboard';
 import DashboardChart from '../components/DashboardChart';
 import Navbar from '../components/Navbar';
+import { useState, useEffect } from 'react';
+import {useFetch} from '../hooks/useFetch.js'
+
 
 const Landing = () => {
   const { user, error, isLoading } = useUser();
-
+  const [pantry, setPantry] = useState ([])
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
+
+    async function userPantry(){ 
+      
+      const fetchData = useFetch('pantryList', 'GET', null, `/?user_id= google-oauth2|108124826364307880117`)
+      console.log(fetchData)
+      const data = await Promise.resolve(fetchData)
+      console.log(data)
+      data.payload.map((p)=>{
+        console.log(p)
+        p.pantry_items.map((pi)=>{
+          dateDif(pi.est_exp)
+        })
+      })
+  }
+    useEffect(async()=>{
+      await userPantry()
+    })
+
+     
+
+    function dateDif(expiryDate){
+let dates = [[new Date(), new Date(expiryDate)]]
+
+ function daysDifference(d0, d1) {
+  var diff = new Date(+d1).setHours(12) - new Date(+d0).setHours(12);
+  return Math.round(diff/8.64e7);
+}
+dates.forEach(function (date){
+ let dateFound = daysDifference(date[0],date[1]) + ' days<br>';
+ console.log(dateFound)
+ return dateFound
+});
+}
+ 
   
   const setColor = (number) => {
         let color = ''
@@ -48,7 +85,7 @@ const Landing = () => {
             </Row>
             <Row className={css.row}>
               <Col className={css.febtns}>
-                <FoodExpiryButton className={css.btn} color = {setColor(2)} link="/" message = "Eggs. You have 2 day left"/>
+                <FoodExpiryButton className={css.btn} color = {setColor(2)} link="/" message = "$={}. You have $={} day left"/>
               </Col>
               <Col className={css.febtns}>
                 <FoodExpiryButton color = {setColor(5)} link="/" message = "Eggs. You have 5 day left"/>

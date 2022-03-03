@@ -15,7 +15,7 @@ import {useFetch} from "../hooks/useFetch.js"
 const Pantry = () => {
     let user = useUser();
     const [pantry, setPantry] = useState ([])
-    const [isChecked, setIsChecked] = useState(new Array(pantry.length).fill(false))
+    // const [isChecked, setIsChecked] = useState(new Array(pantry.length).fill(false))
 
 
     async function userPantry(){ 
@@ -37,6 +37,8 @@ const Pantry = () => {
         if (pantry && user){
     {return pantry.map((f)=> {
         return f.pantry_items.map((pi)=>{
+            let date = new Date(pi.est_exp)
+            let dateString = date.toLocaleDateString('en-GB');
                 const object = {user_id: user.user.sub,
                     donated_items:[ {
                        name: pi.name,
@@ -51,8 +53,7 @@ const Pantry = () => {
                 data={pi._id} 
                 object_id={f._id}
                 object={object}>
-                    <PantryListItem color={setColor(1)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quanity : ""} measurement={pi?.measurement ? pi.measurement : ""} />
-                     <PantryListItem color={setColor(1)} name={pi.name} quantity={ pi.quanity} measurement={pi.measurement} />
+                    <PantryListItem color={setColor(1)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quanity : ""} measurement={pi?.measurement ? pi.measurement : ""} expiry={dateString}/>
 
                 </SwipePantryBar>
             })
