@@ -5,6 +5,7 @@ import SwipeBar from "../SwipeBar";
 import { Col, Container, Row } from "react-bootstrap";
 import AddItemButton from "../AddItemButton";
 import css from "./ShoppingListTable.module.css";
+import { useFetch } from "../../hooks/useFetch.js";
 
 function ShoppingListTable({
   onFormRender, //grey out pantry button
@@ -20,49 +21,50 @@ function ShoppingListTable({
   const [qty, setQty] = useState("Error");
   const [unit, setUnit] = useState("Error");
 
-  let dataStructure = {
-    _id: { $oid: "placeholder" },
-    id: "placeholder",
-    shopping_items: [
-      {
-        _itemid: "placeholder",
-        name: "item name",
-        est_exp: { $date: { $numberLong: "doesnt matter right now" } }, //https://stackoverflow.com/questions/22964199/how-to-convert-numberlong-to-date-in-mongodbs-shell
-        category: "not needed for MVP",
-        quantity: 999999,
-        measurement: "X",
-        _id: { $oid: "placeholder" },
-      },
-    ],
-    user_id: "placeholder",
-  };
   //interactions with the database: swipe to add, swipe to delete, form submit,
   //for mvp create new list just deletes everything
-  const handleSubmit = (event) => {
+  function handleSubmit(event) {
     event.preventDefault();
     console.log(expiry); //Console Logging Date from form
-    dataStructure = {
-      _id: { $oid: "placeholder" },
-      id: "placeholder",
-      shopping_items: [
-        {
-          _itemid: "placeholder",
-          name: item,
-          est_exp: { $date: { $numberLong: "1645444573974" } }, //Solution Needed
-          category: "not needed for MVP",
-          quantity: qty,
-          measurement: unit,
-          _id: { $oid: "placeholder" },
-        },
-      ],
-      user_id: "placeholder",
+    let dataStructure = {
+      _itemid: "dont even need this",
+      name: item,
+      est_exp: new Date(), //Solution Needed
+      category: "not needed for MVP",
+      quantity: qty,
+      measurement: unit,
+      _id: "placeholder",
     };
+
+    const fetchedData = shopListData;
+    const response = fetchedData;
+
+    useFetch(
+      "shoppinglists",
+      "PUT",
+      dataStructure,
+      "/?user_id=google-oauth2|112451605105134992726"
+    );
+
+    // if (response.payload.length < 1) {
+    //   useFetch(
+    //     "shoppinglists",
+    //     "POST",
+    //     dataStructure,
+    //     "/?user_id=google-oauth2|112451605105134992726"
+    //   );
+    // } else {
+    //   // let query = { meal_plan: data.meal_plan[0] };
+    // }
+
+    // What we want to do is push the new added item onto the end of the users shopping list database
+
     setShopListData([...shopListData, dataStructure]);
     setTrueFalseArraySL([...trueFalseArraySL, false]);
     //Would be here POST REQUEST shopListData to database function is called
     console.log("shop list data:", shopListData, "");
     setItemButtonClick(false);
-  };
+  }
   onFormRender();
   if (itemButtonClick) {
     return (
@@ -73,7 +75,7 @@ function ShoppingListTable({
             <Container>
               <Row>
                 <FoodListItem
-                  {...item.shopping_items[0]}
+                  {...item}
                   key={item._id}
                   index={index}
                   listItem={item}
@@ -138,12 +140,13 @@ function ShoppingListTable({
     return (
       <Container>
         <FoodCategoryRow />
+        {console.log("line 141 in SLtable", shopListData)}
         {shopListData.map(function (item, index) {
           return (
             <Container>
               <Row>
                 <FoodListItem
-                  {...item.shopping_items[0]}
+                  {...item}
                   key={item._id}
                   index={index}
                   listItem={item}
