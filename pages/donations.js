@@ -67,7 +67,7 @@ const DonationsPage = () => {
                   measurement={pi.measurement}
                 />
               </SwipePantryBar>
-            );
+            
           });
         });
       }
