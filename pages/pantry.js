@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import css from '../styles/Pantry.module.css'
 import { Container } from 'react-bootstrap';
 import FoodCategoryRow from '../components/FoodCategoryRow';
-import FoodListItem from '../components/FoodListItem'
+import PantryListItem from '../components/PantryListItem'
 import SwipePantryBar from '../components/SwipePantryBar';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
 import SwipeBar from '../components/SwipeBar';
@@ -15,20 +15,26 @@ import {useFetch} from "../hooks/useFetch.js"
 const Pantry = () => {
     let user = useUser();
     const [pantry, setPantry] = useState ([])
+    const [isChecked, setIsChecked] = useState(new Array(pantry.length).fill(false))
+
 
     async function userPantry(){ 
-        const fetchData = useFetch('pantryList', 'GET', null, `/?user_id=${user.user.sub}`)
-        console.log(fetchData)
-        const data = await Promise.resolve(fetchData)
-    return data.payload}
+        if(user.isLoading !== true) {
+            console.log(user)
+            const fetchData = useFetch('pantryList', 'GET', null, `/?user_id=${user.user.sub}`)
+            console.log(fetchData)
+            const data = await Promise.resolve(fetchData)
+        return data.payload
+        }
+        }
 
     useEffect(async()=>{
       setPantry (await userPantry())
        console.log(pantry)
-    },[]);
+    },[user.isLoading]);
 
     function renderListItems(){
-        if (pantry){
+        if (pantry && user){
     {return pantry.map((f)=> {
         return f.pantry_items.map((pi)=>{
                 const object = {user_id: user.user.sub,
@@ -41,12 +47,12 @@ const Pantry = () => {
                   }]}
                 return<SwipePantryBar 
                 key={pi._id} 
-                userId={'google-oauth2|114208744455338261066'} 
+                userId={user.user.sub} 
                 data={pi._id} 
                 object_id={f._id}
                 object={object}>
-                    {/* <FoodListItem color={setColor(1)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quanity : ""} measurement={pi?.measurement ? pi.measurement : ""} />
-                     <FoodListItem color={setColor(1)} name={pi.name} quantity={ pi.quanity} measurement={pi.measurement} /> */}
+                    <PantryListItem color={setColor(1)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quanity : ""} measurement={pi?.measurement ? pi.measurement : ""} />
+                     <PantryListItem color={setColor(1)} name={pi.name} quantity={ pi.quanity} measurement={pi.measurement} />
 
                 </SwipePantryBar>
             })

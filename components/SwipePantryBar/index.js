@@ -19,7 +19,6 @@ function SwipePantryBar({ className, children, data, object_id, userId, object }
     const remove = {id:id}
     const res = useFetch('pantryList', 'PUT', remove, `/${object_id}`)
     const test = await Promise.resolve(res)
-    console.log(test)
   }
   async function addToDonationsDb(id){
     // const remove = {id:id}
