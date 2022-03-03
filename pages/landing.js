@@ -16,34 +16,46 @@ import Navbar from '../components/Navbar';
 import {useState, useEffect} from 'react'
 import { useFetch } from '../hooks/useFetch';
 
-const Landing = () => {
+const Landing = ({properties}) => {
   const { user, error, isLoading } = useUser();
 
-    const [waste, setWaste] =useState(0);
-    const [donations, setDonations] = useState(0);
-    const [consumption, setConsumption]= useState(0);
+    const [waste, setWaste] =useState();
+    const [donations, setDonations] = useState();
+    const [consumption, setConsumption]= useState();
 
+    //  if(user) {
+       
       async function userDashboard(){ 
-        const fetchData = useFetch('users', 'GET', null, `/?user_id=${user.user.sub}`)
+        const fetchData = useFetch('users', 'GET', null, `/?user_id=${properties.payload._id}`)
         console.log(fetchData)
         const data = await Promise.resolve(fetchData)
     return data.payload}
 
-    useEffect(async()=>{
+    useEffect(()=>{
+      async function getUserWastage(){
       setWaste (await userDashboard())
-       console.log(waste)
+     console.log(waste)
+      }
+     getUserWastage()
     },[waste]);
 
-     useEffect(async()=>{
+     useEffect(()=>{
+      async function getUserDonations(){
       setDonations (await userDashboard())
        console.log(donations)
+      }
+       getUserDonations()
     },[donations]);
 
-     useEffect(async()=>{
+      useEffect(()=>{
+      async function getUserConsumption(){
       setConsumption (await userDashboard())
        console.log(consumption)
-    },[consumption]);
+      }
+       getUserConsumption()
 
+       },[consumption]);
+      
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;

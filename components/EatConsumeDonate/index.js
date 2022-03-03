@@ -9,7 +9,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import css from './Eat.module.css'
 
 
-const AssignItem = () => {
+const AssignItem = ({onClick}) => {
     
    const [isChecked, setIsChecked] = useState(false);
    const [show, setShow] = useState(false);
@@ -28,7 +28,11 @@ const AssignItem = () => {
     { name: "Wasted", value: "Wasted" },
     { name: "Donated", value: "Donated" }
   ];
+function temp(event){
+  setRadioValue(event.target.value);
+  console.log(event.target.value)
 
+}
   return (
     <>
     <div >
@@ -59,7 +63,7 @@ Eaten,  Donated, or Wasted!
             name="radio"
             value={radio.value}
             checked={radioValue === radio.value}
-            onChange={e => setRadioValue(e.currentTarget.value)}
+            onChange={e => temp(e.currentTarget.value)}
           >
             {radio.name}
           </ToggleButton>
@@ -77,7 +81,7 @@ Eaten,  Donated, or Wasted!
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="primary">Done</Button>
+          <Button variant="primary"onClick={onClick}>Done</Button>
         </Modal.Footer>
       </Modal>
     </>

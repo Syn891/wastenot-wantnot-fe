@@ -21,6 +21,52 @@ import {useFetch} from "../hooks/useFetch.js"
 import AssignItem from '../components/EatConsumeDonate';
 
 
+function handleEatWasteDonateClick(trueFalseArraySL, donations) {
+  console.log(trueFalseArraySL, "Donations TF Array");
+  //tried for and mapping, tried spreading, think the use state is being continually called and resetting it
+  let ewdList = [];
+  donations.map(function (item, index) {
+    if (trueFalseArraySL[index]) {
+      console.log(donations[index], "shop list data at index: ", index);
+      ewdList.push(item);
+    }
+    console.log(ewdList.length)
+    // console.log("Pantry List is ", pantryList);
+    return ewdList.length;
+    //app.push pantry list to database
+  })}
+   
+    
+  
+  
+
+  //onclick of the green button call the handleEatWasteDonateClick function to make an array of the checked items
+  // check the length of the array to calculate how many items are being assigned
+  //on click of the modal done button add this value to eaten, wasted or donated depending on which radio is selected.
+  //
+  
+  async function submitMeal(event) {
+    const fetchedData = useFetch('donationslist', 'GET', null, `/?user_id=${userId}`)
+    const response = await Promise.resolve(fetchedData)
+    if(response.payload.length < 1) {
+      useFetch('mealPlan', 'POST', data, '' )
+    }
+    else {
+      let query = {meal_plan: data.meal_plan[0]}
+      useFetch('mealPlan', 'PUT', query,`/update/?user_id=${userId}` )
+    }
+    handleToggle()
+  }
+let eatList=[]
+
+function handleDoneClick(){
+   if(radioValue === 'Eaten'){
+     let query= {}
+      users.eaten 
+      useFetch('users', 'PUT', query, `/update/?user_id=${userId}`)
+
+}
+}
 
 const DonationsPage = () => {
     let user = useUser();
@@ -36,6 +82,11 @@ const DonationsPage = () => {
       setDonations (await userDonations())
        console.log(donations)
     },[]);
+
+    const [trueFalseArraySL, setTrueFalseArraySL] = useState(
+    //itll be this logic for donations and pantry
+    new Array(donations.length).fill(false)
+  );
 
     function renderListItems(){
         if (donations){
@@ -119,8 +170,8 @@ const DonationsPage = () => {
               </div>
             </Row>
             <Row>
-              <AssignItem />
-            </Row>
+              <AssignItem onClick={handleEatWasteDonateClick} /> 
+            </Row> 
             <Row>
                 <DonationsLink link="./donationPoints"/>
             </Row>
@@ -131,3 +182,4 @@ const DonationsPage = () => {
 };
 
 export default DonationsPage;
+
