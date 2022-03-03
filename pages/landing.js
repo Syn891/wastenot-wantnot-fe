@@ -19,21 +19,23 @@ import { useFetch } from '../hooks/useFetch';
 const Landing = ({properties}) => {
   const { user, error, isLoading } = useUser();
 
-    const [waste, setWaste] =useState();
-    const [donations, setDonations] = useState();
-    const [consumption, setConsumption]= useState();
+    const [waste, setWaste] =useState(10);
+    const [donations, setDonations] = useState(10);
+    const [consumption, setConsumption]= useState(0);
 
     //  if(user) {
        
       async function userDashboard(){ 
         const fetchData = useFetch('users', 'GET', null, `/?user_id=${properties.payload._id}`)
-        console.log(fetchData)
+        
         const data = await Promise.resolve(fetchData)
-    return data.payload}
+        console.log(fetchData)
+    return data.payload[3].consumption}
 
     useEffect(()=>{
       async function getUserWastage(){
-      setWaste (await userDashboard())
+       
+      setWaste (data.payload.waste)
      console.log(waste)
       }
      getUserWastage()
@@ -41,11 +43,12 @@ const Landing = ({properties}) => {
 
      useEffect(()=>{
       async function getUserDonations(){
-      setDonations (await userDashboard())
+       
+      setDonations (data.payload.donations)
        console.log(donations)
       }
        getUserDonations()
-    },[donations]);
+    },[]);
 
       useEffect(()=>{
       async function getUserConsumption(){

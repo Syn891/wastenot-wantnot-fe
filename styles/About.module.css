@@ -1,0 +1,51 @@
+.main{
+    padding: 1em;
+}
+.body {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.row {
+    justify-content: center;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    --bs-gutter-x: unset;
+    height: 75vh;
+    margin-top: 0.5em;
+    width: 85vw;
+    padding: 1em;
+    font-size: 0.92em;
+    box-shadow:0px 10px 8px rgba(0, 0, 0, 0.25);
+    background-color: #F9F9F9;
+
+}
+
+.brand{
+    height: 5em;
+    width: auto;
+    margin-left: 1.5em;
+}
+
+.title{
+    display: flex;
+    flex-direction: row;
+    padding: 1em;
+}
+
+.waste{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    padding: 0%;
+    text-decoration: underline;
+    font-weight: bolder;
+}
+
+.donation{
+display: flex;
+justify-content: center;
+}

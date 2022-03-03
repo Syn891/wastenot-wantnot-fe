@@ -13,7 +13,7 @@ function FoodListItem({
   trueFalseArraySL,
   setTrueFalseArraySL,
 }) {
-
+  // const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000); //silly maths no functionality
   if (!color) {
     color = "#5CC971";
   }
@@ -31,7 +31,7 @@ function FoodListItem({
         <div>{name}</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
-      <div>1/1/11</div>
+        <div>1/1/11</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
         <div>{quantity}</div>
@@ -45,10 +45,10 @@ function FoodListItem({
       <Col className={css.col} xs={{ span: 2 }}>
         <input
           type="checkbox"
-          defaultChecked={trueFalseArraySL[index]}
+          // defaultChecked={trueFalseArraySL[index]}
+          defaultChecked={false}
           onChange={() => {
             handleChange(index);
-            
           }}
           key={index}
         ></input>
