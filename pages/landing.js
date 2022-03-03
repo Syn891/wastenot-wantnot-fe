@@ -20,54 +20,73 @@ import {useFetch} from '../hooks/useFetch.js'
 const Landing = () => {
   const { user, error, isLoading } = useUser();
   const [pantry, setPantry] = useState ([])
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
 
-    async function userPantry(){ 
-      
-      const fetchData = useFetch('pantryList', 'GET', null, `/?user_id= google-oauth2|108124826364307880117`)
-      console.log(fetchData)
-      const data = await Promise.resolve(fetchData)
-      console.log(data)
-      data.payload.map((p)=>{
-        console.log(p)
-        p.pantry_items.map((pi)=>{
-          dateDif(pi.est_exp)
+  useEffect(()=> {
+    userPantry()
+
+  }, [])
+  
+
+    async function getData(){
+        const fetchData = useFetch('pantryList', 'GET', null, `/?user_id=${user.sub}`)
+        const data = await Promise.resolve(fetchData)
+        return data.payload
+      }
+
+    async function userPantry() {
+      let data = await getData()
+      let values = data.map((d)=> {
+       return  d.pantry_items.map((pi)=> {
+          let date = dateDif(pi.est_exp)
+          return [date, pi.name]
+
         })
       })
-  }
-    useEffect(async()=>{
-      await userPantry()
-    })
-
-     
+      setPantry(values)
+    }
 
     function dateDif(expiryDate){
-let dates = [[new Date(), new Date(expiryDate)]]
+      let dates = [new Date(), new Date(expiryDate)]
 
- function daysDifference(d0, d1) {
-  var diff = new Date(+d1).setHours(12) - new Date(+d0).setHours(12);
-  return Math.round(diff/8.64e7);
-}
-dates.forEach(function (date){
- let dateFound = daysDifference(date[0],date[1]) + ' days<br>';
- console.log(dateFound)
- return dateFound
-});
-}
- 
-  
-  const setColor = (number) => {
-        let color = ''
-        if (number < 3){
-             color = '#F96D6D'
-        }else if (number < 7 && number > 2){
-            color = '#EF8D4B'
-        }else{
-            color = '#5CC971'
-        }
-        return color
+    function daysDifference(d0) {
+      var diff = new Date(+d0[1]).setHours(12) - new Date(+d0[0]).setHours(12);
+        return Math.round(diff/8.64e7);
       }
+
+      let dateFound = daysDifference(dates);
+      return dateFound
+}
+  
+const setColor = (number) => {
+  let color = ''
+  if (number < 3){
+       color = '#F96D6D'
+  }else if (number < 7 && number > 2){
+      color = '#EF8D4B'
+  }else{
+      color = '#5CC971'
+  }
+  return color
+}
+
+function renderButtons() {
+
+  let sortedValues = pantry.sort()
+  return sortedValues.map((p, indev)=> {
+    return p.map((a, index)=> {
+      if(index < 3 && a > 0) {
+        return <Col className={css.febtns}>
+        <FoodExpiryButton color = {setColor(a[0])} link="/" message = {`${a[1]}. You have ${a[0]} day left`}/>
+      </Col>
+      } else {
+        return <div className={css.err}>You have no items due to expire in your pantry</div>
+      }
+    })
+  })
+}
+
+      if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
 
     return (
       user && (
@@ -84,7 +103,7 @@ dates.forEach(function (date){
               </div>
             </Row>
             <Row className={css.row}>
-              <Col className={css.febtns}>
+              {/* <Col className={css.febtns}>
                 <FoodExpiryButton className={css.btn} color = {setColor(2)} link="/" message = "$={}. You have $={} day left"/>
               </Col>
               <Col className={css.febtns}>
@@ -92,7 +111,9 @@ dates.forEach(function (date){
               </Col>
               <Col className={css.febtns}>
                 <FoodExpiryButton color = {setColor(9)} link="/" message = "Eggs. You have 9 day left"/>
-              </Col>
+              </Col> */}
+
+              { renderButtons() }
             </Row>
                                            
             <Row className={css.row}></Row>
