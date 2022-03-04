@@ -26,6 +26,7 @@ function ShoppingListTable({
   useEffect(() => console.log("USERSUB PROP", userSub), []);
   //interactions with the database: swipe to add, swipe to delete, form submit,
   //for mvp create new list just deletes everything
+  
   async function handleSubmit(event) {
     event.preventDefault(); //stop page refresh
 
@@ -47,8 +48,8 @@ function ShoppingListTable({
       "shoppinglists",
       "PUT",
       { shopping_items: dataStructure.shopping_items[0] },
-      //"/update/?user_id=google-oauth2|112451605105134992726" //this works
-      `/update/?user_id=${userSub}`
+      "/update/?user_id=google-oauth2|112451605105134992726" //this works
+      //`/update/?user_id=${userSub}`
     );
 
     // if (response.payload.length < 1) {
