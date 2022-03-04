@@ -115,7 +115,7 @@ display: flex;
 
 .headingU {
   height: 50%;
-  --bs-gutter-x: unset
+  --bs-gutter-x: unset;
   display: flex;
   align-items: flex-start;
   justify-content: center;
