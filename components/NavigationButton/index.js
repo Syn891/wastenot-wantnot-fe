@@ -10,7 +10,7 @@ const NavigationButton = ({Icon, link, color, title}) => {
                 <Icon size={'2.5em'}/>   
             </div>
         </Link>
-        <p style={{fontSize: '80%', marginTop: '0.45em'}}>{title}</p>
+        <p style={{fontSize: '80%', marginTop: '0.45em', marginBottom: '0'}}>{title}</p>
         </>
     );
 };

@@ -13,8 +13,9 @@ import { useUser, getSession } from '@auth0/nextjs-auth0';
 import Dashboard from '../components/Dashboard';
 import DashboardChart from '../components/DashboardChart';
 import Navbar from '../components/Navbar';
-import {useState, useEffect} from 'react'
-import { useFetch } from '../hooks/useFetch';
+import { useState, useEffect } from 'react';
+import {useFetch} from '../hooks/useFetch.js'
+import FindRecipes from '../components/Findrecipes';
 
 const Landing = ({properties}) => {
   const { user, error, isLoading } = useUser();
@@ -155,7 +156,9 @@ function renderButtons() {
               { renderButtons() }
             </Row>
                                            
-            <Row className={css.row}></Row>
+            <Row className={css.row}>
+            <FindRecipes text='Find recipes to use these items here'/>
+            </Row>
             <Row className={css.row}>
                 <DonationPromptInfo 
                     text="...Or donate items to orgnisations in need, here:"
@@ -172,14 +175,11 @@ function renderButtons() {
                     <NavigationButton title="My Meals" color="#F1AC79" link="/mealPlan"Icon={GiForkKnifeSpoon}/>
                 </Col>
                 <Col className={css.col}>
-                    <NavigationButton title="My Donations" color="#EF8D4B" link="/donations"Icon={FaHandHoldingHeart}/>
+                    <NavigationButton title="Donations" color="#EF8D4B" link="/donations"Icon={FaHandHoldingHeart}/>
                 </Col>
             </Row>
-            <Row className={css.row}>
-            </Row>
-
             <Row className={css.row}><Dashboard waste={waste} donations={donations} consumption={consumption} link="/userInformation" />
-             
+
 </Row>
         </Col>
     ));
