@@ -11,10 +11,17 @@ import shopListTestData from "../testdata/testshoppinglists";
 import { useUser, getSession } from "@auth0/nextjs-auth0";
 import { useFetch } from "../hooks/useFetch";
 
+//add in delete selected shopping list items to add to pantry button functionality
+
+//add remove shopping list item functionality (swipe?)
+
+// styling of buttons, etc
+
 function handlePantryClick(trueFalseArraySL, shopListData, user) {
   console.log(trueFalseArraySL, "ShopList TF Array");
   let pantryList = [];
   shopListData.map(function (item, index) {
+    
     if (trueFalseArraySL[index]) {
       pantryList.push(item);
     }
