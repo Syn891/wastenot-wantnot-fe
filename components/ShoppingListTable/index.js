@@ -7,6 +7,7 @@ import AddItemButton from "../AddItemButton";
 import css from "./ShoppingListTable.module.css";
 import { useFetch } from "../../hooks/useFetch.js";
 import { useUser, getSession } from "@auth0/nextjs-auth0";
+import SwipeFoodListItem from "../SwipeFoodListItem";
 
 function ShoppingListTable({
   onFormRender, //grey out pantry button
@@ -26,7 +27,7 @@ function ShoppingListTable({
   useEffect(() => console.log("USERSUB PROP", userSub), []);
   //interactions with the database: swipe to add, swipe to delete, form submit,
   //for mvp create new list just deletes everything
-  
+
   async function handleSubmit(event) {
     event.preventDefault(); //stop page refresh
 
@@ -80,15 +81,17 @@ function ShoppingListTable({
           return (
             <>
               <Row>
-                <FoodListItem
-                  {...item}
-                  key={item._id}
-                  index={index}
-                  listItem={item}
-                  setShopListData={setShopListData}
-                  trueFalseArraySL={trueFalseArraySL}
-                  setTrueFalseArraySL={trueFalseArraySL}
-                />
+                <SwipeFoodListItem>
+                  <FoodListItem
+                    {...item}
+                    key={item._id}
+                    index={index}
+                    listItem={item}
+                    setShopListData={setShopListData}
+                    trueFalseArraySL={trueFalseArraySL}
+                    setTrueFalseArraySL={trueFalseArraySL}
+                  />
+                </SwipeFoodListItem>
               </Row>
               <Row>
                 <SwipeBar key={index} />
@@ -153,15 +156,17 @@ function ShoppingListTable({
           return (
             <Container>
               <Row>
-                <FoodListItem
-                  {...item}
-                  key={item._id}
-                  index={index}
-                  listItem={item}
-                  setShopListData={setShopListData}
-                  trueFalseArraySL={trueFalseArraySL}
-                  setTrueFalseArraySL={setTrueFalseArraySL}
-                />
+                <SwipeFoodListItem>
+                  <FoodListItem
+                    {...item}
+                    key={item._id}
+                    index={index}
+                    listItem={item}
+                    setShopListData={setShopListData}
+                    trueFalseArraySL={trueFalseArraySL}
+                    setTrueFalseArraySL={setTrueFalseArraySL}
+                  />
+                </SwipeFoodListItem>
               </Row>
               <SwipeBar key={index} />
             </Container>
