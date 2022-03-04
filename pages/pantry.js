@@ -32,6 +32,7 @@ const Pantry = () => {
         console.log(isChecked)
         isChecked.map((checked, index) => {
             if (position === index) {
+                let item = isChecked[index]
                 setIsChecked([isChecked[index] = !checked])
                 setOneChecked(!oneChecked)
             }     

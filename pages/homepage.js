@@ -77,17 +77,25 @@ const setColor = (number) => {
 
 function renderButtons() {
 
-  let sortedValues = pantry.sort()
-  return sortedValues.map((p, indev)=> {
+  let sortedValues = pantry.sort(function(a,b) {
+    console.log(a[0])
+    return a[1] - b[1]
+  })
+    console.log(pantry, sortedValues)
+  return sortedValues.map((p, index)=> {
+    // console.log(pantry)
+    if (pantry.length < 1 ) {
+      return <div className={css.err}>You have no items due to expire in your pantry</div>
+
+    } else {
     return p.map((a, index)=> {
+
       if(index < 3 && a[0] >= 0) {
         return <Col key={a[1]+a[0]} className={css.febtns}>
         <FoodExpiryButton color = {setColor(a[0])} link="/" message = {`${a[1]}. You have ${a[0]} day(s) left`}/>
       </Col>
-      } else {
-        return <div className={css.err}>You have no items due to expire in your pantry</div>
       }
-    })
+    })}
   })
 }
 
