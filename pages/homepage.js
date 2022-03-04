@@ -127,7 +127,7 @@ function renderButtons() {
                     <NavigationButton title="In my Pantry" color="#5CC971" link="/pantry"Icon={RiFridgeLine}/>
                 </Col>
                 <Col className={css.col}>
-                    <NavigationButton title="Meal Planner" color="#F1AC79" link="/mealPlan"Icon={GiForkKnifeSpoon}/>
+                    <NavigationButton title="My Meals" color="#F1AC79" link="/mealPlan"Icon={GiForkKnifeSpoon}/>
                 </Col>
                 <Col className={css.col}>
                     <NavigationButton title="My Donations" color="#EF8D4B" link="/donations"Icon={FaHandHoldingHeart}/>

@@ -6,6 +6,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import AddItemButton from "../AddItemButton";
 import css from "./ShoppingListTable.module.css";
 import { useFetch } from "../../hooks/useFetch.js";
+import { useUser, getSession } from "@auth0/nextjs-auth0";
 
 function ShoppingListTable({
   onFormRender, //grey out pantry button
@@ -14,6 +15,7 @@ function ShoppingListTable({
   setShopListData, //pass this down so we can spread new items into it when a user adds to shopping list
   trueFalseArraySL, // determine if checkbox is checked
   setTrueFalseArraySL, // set a false value for checkbox is checked when a new item is added to shopping list
+  userSub,
 }) {
   const [itemButtonClick, setItemButtonClick] = useState(false);
   const [item, setItem] = useState("Error");
@@ -21,29 +23,32 @@ function ShoppingListTable({
   const [qty, setQty] = useState("Error");
   const [unit, setUnit] = useState("Error");
 
+  useEffect(() => console.log("USERSUB PROP", userSub), []);
   //interactions with the database: swipe to add, swipe to delete, form submit,
   //for mvp create new list just deletes everything
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log(expiry); //Console Logging Date from form
-    let dataStructure = {
-      _itemid: "dont even need this",
-      name: item,
-      est_exp: new Date(), //Solution Needed
-      category: "not needed for MVP",
-      quantity: qty,
-      measurement: unit,
-      _id: "placeholder",
-    };
+  async function handleSubmit(event) {
+    event.preventDefault(); //stop page refresh
 
-    const fetchedData = shopListData;
-    const response = fetchedData;
+    let dataStructure = {
+      user_id: "google-oauth2|112451605105134992726",
+      shopping_items: [
+        {
+          _itemid: "dont even need this",
+          name: item,
+          est_exp: Date.now(),
+          category: "not needed for MVP",
+          quantity: qty,
+          measurement: unit,
+        },
+      ],
+    };
 
     useFetch(
       "shoppinglists",
       "PUT",
-      dataStructure,
-      "/?user_id=google-oauth2|112451605105134992726"
+      { shopping_items: dataStructure.shopping_items[0] },
+      //"/update/?user_id=google-oauth2|112451605105134992726" //this works
+      `/update/?user_id=${userSub}`
     );
 
     // if (response.payload.length < 1) {
@@ -59,7 +64,7 @@ function ShoppingListTable({
 
     // What we want to do is push the new added item onto the end of the users shopping list database
 
-    setShopListData([...shopListData, dataStructure]);
+    setShopListData([...shopListData, dataStructure.shopping_items[0]]);
     setTrueFalseArraySL([...trueFalseArraySL, false]);
     //Would be here POST REQUEST shopListData to database function is called
     console.log("shop list data:", shopListData, "");
@@ -72,7 +77,7 @@ function ShoppingListTable({
         <FoodCategoryRow />
         {shopListData.map(function (item, index) {
           return (
-            <Container>
+            <>
               <Row>
                 <FoodListItem
                   {...item}
@@ -84,8 +89,10 @@ function ShoppingListTable({
                   setTrueFalseArraySL={trueFalseArraySL}
                 />
               </Row>
-              <SwipeBar key={index} />
-            </Container>
+              <Row>
+                <SwipeBar key={index} />
+              </Row>
+            </>
           );
         })}
         <Container xs={{ span: 12 }}>

@@ -115,7 +115,7 @@ const TomTomMap = () => {
   return (
     <Container>
     <Container className={css.container}>
-          <Navbar Icon={GrMapLocation} color="#EF8D4B" title={"Donation Points"}>
+          <Navbar Icon={GrMapLocation} color="#EF8D4B" title={"Find Foodbanks"}>
          <IoIosArrowBack
          size={'1.5em'}
          style={{marginRight:'0.25em' }} onClick={()=> router.back()}/>
