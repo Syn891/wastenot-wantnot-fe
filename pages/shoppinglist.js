@@ -30,6 +30,13 @@ function handlePantryClick(trueFalseArraySL, shopListData, user) {
     user.user.sub
   );
 
+  useFetch(
+    "pantryList",
+    "PUT",
+    { pantry_items: pantryList },
+    "/update/?user_id=google-oauth2|112451605105134992726" //this works
+    //`/update/?user_id=${userSub}`
+  );
   //replicate shopping list use fetch
   //see what happens when we push pantryList to database
   //if it doesnt work map over it again and send a use fetch each time? MAYBE JANKY
@@ -44,13 +51,13 @@ function ShoppingList() {
   const [trueFalseArraySL, setTrueFalseArraySL] = useState(); //This is running after the usestate
 
   async function getUserShoppingList() {
-    console.log("getUserShopList ran");
+    console.log(user.user.sub, "getUserShopList ran");
     const fetchData = useFetch(
       "shoppinglists",
       "GET",
       null,
-      //"/?user_id=google-oauth2|112451605105134992726"
-      `/?user_id=${user.user.sub}`
+      "/?user_id=google-oauth2|112451605105134992726"
+      //`/?user_id=${user.user.sub}`
     );
     const response = await Promise.resolve(fetchData);
     const userShopData = response.payload[0].shopping_items;
