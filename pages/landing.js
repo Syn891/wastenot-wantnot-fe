@@ -82,11 +82,11 @@ function renderButtons() {
     return p.map((a, index)=> {
       if(index < 3 && a[0] >= 0) {
         return <Col key={a[1]+a[0]} className={css.febtns}>
-        <FoodExpiryButton color = {setColor(a[0])} link="/" message = {`${a[1]}. You have ${a[0]} day left`}/>
-      </Col>}
-      // } else {
-      //   return <div className={css.err}>You have no items due to expire in your pantry</div>
-      // }
+        <FoodExpiryButton color = {setColor(a[0])} link="/" message = {`${a[1]}. You have ${a[0]} day(s) left`}/>
+      </Col>
+      } else {
+        return <div className={css.err}>You have no items due to expire in your pantry</div>
+      }
     })
   })
 }
