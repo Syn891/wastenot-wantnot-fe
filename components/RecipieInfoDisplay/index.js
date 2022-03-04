@@ -4,7 +4,7 @@ import css from './RecipeInfoDisplay.module.css'
 import {useFetch} from '../../hooks/useFetch.js'
 
 
-function RecipeInfoDisplay({ image, title, prepTime, cookTime, url, data, userId, r,g,b }) {
+function RecipeInfoDisplay({ image, title, url, data, userId, r,g,b }) {
 
   const [isActive, setActive] = useState(false);
   const handleToggle = () => {
@@ -31,8 +31,6 @@ function RecipeInfoDisplay({ image, title, prepTime, cookTime, url, data, userId
       </Col>
       <Col className={css.col} xs={{span: 6}}>
       <h3>{title}</h3>
-      <p>Prep: {prepTime} mins</p>
-      <p>Cook: {cookTime} mins</p>
       <Row style={{display: 'flex', flexDirection: 'row'}}>
         <Col xs={{span:8}}>
         <a href={url} target="_blank">
