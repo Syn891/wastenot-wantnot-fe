@@ -9,7 +9,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import css from './Eat.module.css'
 
 
-const AssignItem = () => {
+const AssignItem = ({handleDoneClick, onClick}) => {
     
    const [isChecked, setIsChecked] = useState(false);
    const [show, setShow] = useState(false);
@@ -28,7 +28,24 @@ const AssignItem = () => {
     { name: "Wasted", value: "Wasted" },
     { name: "Donated", value: "Donated" }
   ];
+function temp(event){
+  setRadioValue(event.target.value);
+  console.log(event.target.value)
 
+}
+
+async function handleDoneClick({trueArray}){
+const fetchedData = useFetch('users', 'GET', null, `/?user_id=google-oauth2|108124826364307880117`)
+const data = await Promise.resolve(fetchedData)
+console.log(data)
+  //  if(radio.value === 'Eaten'){
+  let newConsumption = data.payload.consumption + trueArray.length
+  console.log(newConsumption)
+  let query= {consumption: newConsumption} //let user.consumption = consumption + ewdlist.length
+ useFetch('users', 'PUT', query, `/update/?user_id=google-oauth2|108124826364307880117`)
+
+ }
+   
   return (
     <>
     <div >
@@ -59,7 +76,7 @@ Eaten,  Donated, or Wasted!
             name="radio"
             value={radio.value}
             checked={radioValue === radio.value}
-            onChange={e => setRadioValue(e.currentTarget.value)}
+            onChange={e => temp(e.currentTarget.value)}
           >
             {radio.name}
           </ToggleButton>
@@ -77,7 +94,7 @@ Eaten,  Donated, or Wasted!
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="primary">Done</Button>
+          <Button variant="primary" onClick={handleDoneClick}>Done</Button>
         </Modal.Footer>
       </Modal>
     </>

@@ -57,8 +57,6 @@ function loadRecipes() {
       meal_plan: [{
         recipe_name: recipe.recipe.label,
         recipe_id: uri,
-        prep_time: 0,
-        cook_time: 0,
         calories: Math.round(recipe.recipe.calories)
       }],
     }

@@ -18,6 +18,7 @@ const MyMeals = () => {
     async function getMealPlan() {
         const fetchData = useFetch('mealPlan', 'GET', null, `/?user_id=${user.user.sub}`)
         let res = await Promise.resolve(fetchData)
+        console.log(res)
         setMealPlans(res.payload[0].meal_plan)
        
     }
