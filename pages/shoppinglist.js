@@ -19,6 +19,7 @@ function handlePantryClick(trueFalseArraySL, shopListData, user) {
       pantryList.push(item);
     }
   });
+
   console.log(
     "Checked List to go to Pantry is ",
     pantryList,
@@ -28,6 +29,10 @@ function handlePantryClick(trueFalseArraySL, shopListData, user) {
     "Sub/userID:",
     user.user.sub
   );
+
+  //replicate shopping list use fetch
+  //see what happens when we push pantryList to database
+  //if it doesnt work map over it again and send a use fetch each time? MAYBE JANKY
 
   return pantryList;
 }

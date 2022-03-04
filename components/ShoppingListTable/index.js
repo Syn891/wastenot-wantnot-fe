@@ -26,6 +26,7 @@ function ShoppingListTable({
   useEffect(() => console.log("USERSUB PROP", userSub), []);
   //interactions with the database: swipe to add, swipe to delete, form submit,
   //for mvp create new list just deletes everything
+  
   async function handleSubmit(event) {
     event.preventDefault(); //stop page refresh
 
