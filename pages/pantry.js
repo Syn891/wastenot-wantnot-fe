@@ -4,19 +4,21 @@ import { IoIosArrowBack } from "react-icons/io";
 import {GiForkKnifeSpoon} from 'react-icons/gi'
 import { useRouter } from 'next/router';
 import css from '../styles/Pantry.module.css'
-import { Container } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import FoodCategoryRow from '../components/FoodCategoryRow';
 import PantryListItem from '../components/PantryListItem'
 import SwipePantryBar from '../components/SwipePantryBar';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
 import SwipeBar from '../components/SwipeBar';
 import {useFetch} from "../hooks/useFetch.js"
+import AddItemModal from '../components/AddItemModal';
 
 const Pantry = () => {
     let user = useUser();
     const [pantry, setPantry] = useState ([])
     const [isChecked, setIsChecked] = useState([])
     const [oneChecked, setOneChecked] = useState(false)
+    const [modalShow, setModalShow] = useState(false)
 
     async function userPantry(){ 
         if(user.isLoading !== true) {
@@ -34,7 +36,6 @@ const Pantry = () => {
             if (position === index) {
                 let item = isChecked[index]
                 setIsChecked([isChecked[index] = !checked])
-                setOneChecked(!oneChecked)
             }     
         })
     }
@@ -117,9 +118,16 @@ const Pantry = () => {
         {renderListItems()}
         </Container>
 
-        <SwipeBar />
+        <Container className={css.input}>
+            <Button onClick={() => setModalShow(true)} className={css.addItem}>Add Item to Pantry</Button>
+        </Container>
+        <AddItemModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+        />
+
         </div>
     );
 };
 
-export default Pantry;
+export default Pantry

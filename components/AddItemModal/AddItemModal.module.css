@@ -1,0 +1,14 @@
+.grp {
+    margin: 2em 0 2em 0;
+    display: flex;
+    flex-direction: row;
+    row-gap: 0.5em;
+    border:2px solid red;
+    flex-wrap: wrap;
+
+}
+
+.formControl {
+    padding: 0.5em;
+    border: 1px solid grey;
+}
