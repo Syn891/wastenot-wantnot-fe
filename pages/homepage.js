@@ -17,11 +17,53 @@ import { useState, useEffect } from 'react';
 import {useFetch} from '../hooks/useFetch.js'
 import FindRecipes from '../components/Findrecipes';
 
-
-const Landing = () => {
+const Landing = ({properties}) => {
   const { user, error, isLoading } = useUser();
   const [pantry, setPantry] = useState ([])
 
+    const [waste, setWaste] =useState(10);
+    const [donations, setDonations] = useState(10);
+    const [consumption, setConsumption]= useState(0);
+
+    //  if(user) {
+       
+      async function userDashboard(){ 
+        const fetchData = useFetch('users', 'GET', null, `/?user_id=${properties.payload._id}`)
+        
+        const data = await Promise.resolve(fetchData)
+        console.log(fetchData)
+    return data.payload[3].consumption}
+
+    useEffect(()=>{
+      async function getUserWastage(){
+       
+      setWaste (data.payload.waste)
+     console.log(waste)
+      }
+     getUserWastage()
+    },[waste]);
+
+     useEffect(()=>{
+      async function getUserDonations(){
+       
+      setDonations (data.payload.donations)
+       console.log(donations)
+      }
+       getUserDonations()
+    },[]);
+
+      useEffect(()=>{
+      async function getUserConsumption(){
+      setConsumption (await userDashboard())
+       console.log(consumption)
+      }
+       getUserConsumption()
+
+       },[consumption]);
+      
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
   useEffect(()=> {
     userPantry()
 
@@ -136,7 +178,8 @@ function renderButtons() {
                     <NavigationButton title="Donations" color="#EF8D4B" link="/donations"Icon={FaHandHoldingHeart}/>
                 </Col>
             </Row>
-            <Row className={css.row}><Dashboard link="/userInformation" />
+            <Row className={css.row}><Dashboard waste={waste} donations={donations} consumption={consumption} link="/userInformation" />
+
 </Row>
         </Col>
     ));
