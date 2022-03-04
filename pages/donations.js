@@ -75,15 +75,15 @@ import FoodListItemDonate from "../components/FoodListItemDonate";
 
 
 const DonationsPage = ({trueFalseArraySL, setTrueFalseArraySL}) => {
-    let user = useUser();
-    const [donations, setDonations] = useState ([]);
+  const { user, error, isLoading } = useUser();
+  const [donations, setDonations] = useState ([]);
     const [trueFalseArrayDL, setTrueFalseArrayDL] = useState(
     //itll be this logic for donations and pantry
     // new Array(donations.length).fill(false)
   );//google-oauth2|108124826364307880117
 
     async function userDonations(){ 
-        const fetchData = useFetch('donations', 'GET', null, `/?user_id=google-oauth2|108124826364307880117`)
+        const fetchData = useFetch('donations', 'GET', null, `/?user_id=${user.sub}`)
        
         const data = await Promise.resolve(fetchData);
          console.log('data is fetched', data)
@@ -132,16 +132,17 @@ if(value === true){
   }
 
 async function handleDoneClick({trueArray}){
-const fetchedData = useFetch('users', 'GET', null, `/?user_id=google-oauth2|108124826364307880117`)
+  if(isLoading !== true) {
+const fetchedData = useFetch('users', 'GET', null, `/${user.sub}`)
 const data = await Promise.resolve(fetchedData)
 console.log(data)
   //  if(Togglebutton.checked === 'Eaten'){
-  let newConsumption = data.payload[3].consumption + trueArray.length
+  let newConsumption = data.payload.consumption + trueArray.length
   console.log(newConsumption)
   let query= {consumption: newConsumption} //let user.consumption = consumption + ewdlist.length
- useFetch('users', 'PUT', query, `/update/?user_id=google-oauth2|108124826364307880117`)
+ useFetch('users', 'PUT', query, `/update/?user_id=${user.sub}`)
 
- }
+ }}
    
 //on click of the modal done button 
 // fetch user collection and add this value to eaten, wasted or donated depending on which radio is selected.
