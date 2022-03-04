@@ -14,7 +14,6 @@ import {useFetch} from "../../hooks/useFetch.js"
 
 function SwipePantryBar({ className, children, data, object_id, userId, object }) {
   let cN = className;
-  console.log(data)
   async function removeFromDb(id){
     const remove = {id:id}
     const res = useFetch('pantryList', 'PUT', remove, `/${object_id}`)

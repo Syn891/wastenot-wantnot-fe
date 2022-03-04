@@ -7,7 +7,7 @@ function PantryListItem({
   measurement,
   index,
   color,
-  trueFalseArraySL,
+  onChange,
   expiry
 }) {
 
@@ -16,7 +16,7 @@ function PantryListItem({
     color = "#5CC971";
   }
   function handleChange(position) {
-    const updatedCheckedState = trueFalseArraySL.map((item, index) =>{
+    const updatedCheckedState = isChecked.map((item, index) =>{
     console.log(item)
 
       index === position ? !item : item
@@ -43,9 +43,7 @@ function PantryListItem({
         <input
           type="checkbox"
           // defaultChecked={trueFalseArraySL[index]}
-          onChange={() => {
-            handleChange(index);
-          }}
+          onChange={onChange}
           key={index}
         ></input>
       </Col>
