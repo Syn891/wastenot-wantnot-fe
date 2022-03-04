@@ -28,48 +28,44 @@ const Landing = ({properties}) => {
     //  if(user) {
        
       async function userDashboard(){ 
-        const fetchData = useFetch('users', 'GET', null, `/?user_id=${properties.payload._id}`)
+        if(isLoading !== true) {
+          const fetchData = useFetch('users', 'GET', null, `/${user.sub}`)
         
-        const data = await Promise.resolve(fetchData)
-        console.log(fetchData)
-    return data.payload[3].consumption}
-
-    useEffect(()=>{
-      async function getUserWastage(){
-       
-      setWaste (data.payload.waste)
-     console.log(waste)
-      }
-     getUserWastage()
-    },[waste]);
-
-     useEffect(()=>{
-      async function getUserDonations(){
-       
-      setDonations (data.payload.donations)
-       console.log(donations)
-      }
-       getUserDonations()
-    },[]);
+          const data = await Promise.resolve(fetchData)
+          console.log(data)
+          return [data.payload]}
+        }
+    
 
       useEffect(()=>{
       async function getUserConsumption(){
-      setConsumption (await userDashboard())
-       console.log(consumption)
-      }
-       getUserConsumption()
+        let data = await userDashboard()
+        console.log(consumption)
+       console.log(waste)
+       console.log(donations)
 
-       },[consumption]);
+       setConsumption(data[0].consumption)
+       setWaste(data[0].wastage)
+       setDonations(data[0].donations)
+
+       console.log(waste + donations + consumption)
+      }
+      if(isLoading !== true) {
+        getUserConsumption()
+
+      }
+
+       },[consumption, donations, waste, isLoading]);
       
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
+
   useEffect(()=> {
     userPantry()
 
   }, [isLoading])
   
-
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
     async function getData(){
       if(isLoading !== true) {
         const fetchData = useFetch('pantryList', 'GET', null, `/?user_id=${user.sub}`)
