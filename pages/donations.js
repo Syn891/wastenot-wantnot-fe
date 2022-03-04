@@ -18,29 +18,42 @@ import { useUser, getSession } from "@auth0/nextjs-auth0";
 import SwipeBar from "../components/SwipeBar";
 import { useFetch } from "../hooks/useFetch.js";
 import AssignItem from "../components/EatConsumeDonate";
+import FoodListItemDonate from "../components/FoodListItemDonate";
 
-function handleEatWasteDonateClick(trueFalseArrayDL, donations) {
-  console.log(trueFalseArrayDL, "Donations TF Array");
-  //tried for and mapping, tried spreading, think the use state is being continually called and resetting it
-  let ewdList = [];
-  donations.map(function (item, index) {
-    if (trueFalseArrayDL[index]) {
-      console.log(donations[index], "shop list data at index: ", index);
-      ewdList.push(item);
-    }
-    console.log(ewdList.length)
-    // console.log("Pantry List is ", pantryList);
-    return ewdList.length;
+
+
+  // .map(function (item, index) {
+  //   if (trueFalseArrayDL[index]) {
+  //     console.log(donations[index], "shop list data at index: ", index);
+  //     ewdList.push(item);
+  //   }
+  //   console.log(ewdList.length)
+  //   // console.log("Pantry List is ", pantryList);
+  //   return ewdList.length;
     //app.push pantry list to database
-  })}
+  
    
-    
+// function handleEatWasteDonateClick(donations) {
+//   console.log(trueFalseArrayDL, "Donations TF Array");
+//   //tried for and mapping, tried spreading, think the use state is being continually called and resetting it
+//   let ewdList = [];
+//   donations.map(function (item, index) {
+//     if (trueFalseArrayDL[index]) {
+//       console.log(donations[index], "shop list data at index: ", index);
+//       ewdList.push(item);
+//     }
+//     console.log(ewdList.length)
+//     // console.log("Pantry List is ", pantryList);
+//     return ewdList.length;
+//     //app.push pantry list to database
+//   })}
   
   
 
 //   //onclick of the green button call the handleEatWasteDonateClick function to make an array of the checked items
 //   // check the length of the array to calculate how many items are being assigned
-//   //on click of the modal done button add this value to eaten, wasted or donated depending on which radio is selected.
+//   //on click of the modal done button 
+// fetch user collection and add this value to eaten, wasted or donated depending on which radio is selected.
 //   //
   
 // //   async function submitMeal(event) {
@@ -71,12 +84,12 @@ function handleEatWasteDonateClick(trueFalseArrayDL, donations) {
 
 
 
-const DonationsPage = () => {
+const DonationsPage = ({trueFalseArraySL, setTrueFalseArraySL}) => {
     let user = useUser();
     const [donations, setDonations] = useState ([]);
-    const [trueFalseArrayDL, setTrueFalseArrayDL] = useState(
+    const [trueFalseArraySL, setTrueFalseArraySL] = useState(
     //itll be this logic for donations and pantry
-    new Array(donations.length).fill(false)
+    // new Array(donations.length).fill(false)
   );//google-oauth2|108124826364307880117
 
     async function userDonations(){ 
@@ -86,10 +99,12 @@ const DonationsPage = () => {
          console.log('data is fetched', data)
          const donationsData = data.payload.donated_items;
          console.log(donationsData)
-         setTrueFalseArrayDL(new Array(donationsData.length).fill(false));
+         setTrueFalseArraySL(new Array(donationsData.length).fill(false));
          setDonations(donationsData);
+         console.log(donations)
+    
          
-         console.log(trueFalseArrayDL)
+         console.log(trueFalseArraySL)
     }
     // return data.payload}
 
@@ -105,8 +120,17 @@ const DonationsPage = () => {
     
 useEffect(() => {
     userDonations();
+    console.log(donations)
   }, []);
   
+  function handleEatWasteDonateClick({trueFalseArrayDL}) {
+  console.log(trueFalseArrayDL, "Donations TF Array");
+  //tried for and mapping, tried spreading, think the use state is being continually called and resetting it
+  
+ let trueArray = trueFalseArrayDL.filter(true)
+ console.log('true Array', trueArray)
+ return trueArray.length
+  }
 
   //   function renderListItems(){
   //       if (donations){
@@ -162,7 +186,7 @@ useEffect(() => {
 
   //const router = useRouter()
   return  donations ?(
-    <Container className={css.container1}>
+    <Container >
       <Row>
         <Navbar
           Icon={FaHandHoldingHeart}
@@ -183,9 +207,12 @@ useEffect(() => {
       </Row>
       <Row>
         <FoodCategoryRow />
+        </Row>
+        <Row className={css.container1}>
+        {/* <Container className={css.container1}> */}
 {donations.map(function(item, index){
   return(
-           <Container>
+           
               <Row>
               <SwipePantryBar>
                 <FoodListItem
@@ -194,25 +221,32 @@ useEffect(() => {
                   index={index}
                   listItem={item}
                   name={item.name}
+                  quantity={item.quantity}
+                  measurement={item.measurement}
                   // setDonationsData={setDonationsData}
-                   trueFalseArrayDL={trueFalseArrayDL}
-                  setTrueFalseArrayDL={trueFalseArrayDL}
+                  defaultChecked={false}
+                  // trueFalseArraySL={trueFalseArraySL}
+                  // setTrueFalseArraySL={trueFalseArraySL}
                 />
                 </SwipePantryBar>
               </Row>
               
-            </Container>
-            
-  )
+           
+  ) })}
+  </Row>
  
 
-})}
+{/* })} </Container> */}
+            
         {/* <Container className={css.container1}>{renderListItems()}</Container> */}
 
-        <SwipeBar />
+        
         
 
-            </Row>
+           
+            <Row>
+<SwipeBar />
+</Row>
 
             <Row>
 {/* <SwipePantryBar > <FoodListItem name="chicken" quantity="1" measurement="kg" /></SwipePantryBar> */}
@@ -231,7 +265,7 @@ useEffect(() => {
             </Row>
             
        
-</Container>
+ </Container>
     ):(<>You haven't donated anything yet</>)
 };
 
