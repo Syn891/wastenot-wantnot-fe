@@ -40,9 +40,11 @@
 }
 
 .febtns {
+    font-size: 15px;
     display: flex;
     align-content: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .col {
@@ -59,4 +61,14 @@
     font-size: 0.9em;
     border-radius: 10px;
     padding: 0.5em;
+}
+
+.err {
+    background-color: #faf7f5;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 80%;
 }

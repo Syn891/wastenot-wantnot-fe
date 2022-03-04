@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import css from '../styles/Pantry.module.css'
 import { Container } from 'react-bootstrap';
 import FoodCategoryRow from '../components/FoodCategoryRow';
-import FoodListItem from '../components/FoodListItem'
+import PantryListItem from '../components/PantryListItem'
 import SwipePantryBar from '../components/SwipePantryBar';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
 import SwipeBar from '../components/SwipeBar';
@@ -15,22 +15,57 @@ import {useFetch} from "../hooks/useFetch.js"
 const Pantry = () => {
     let user = useUser();
     const [pantry, setPantry] = useState ([])
+    const [isChecked, setIsChecked] = useState([])
+    const [oneChecked, setOneChecked] = useState(false)
 
     async function userPantry(){ 
-        const fetchData = useFetch('pantryList', 'GET', null, `/?user_id=${user.user.sub}`)
-        console.log(fetchData)
-        const data = await Promise.resolve(fetchData)
-    return data.payload}
+        if(user.isLoading !== true) {
+            const fetchData = useFetch('pantryList', 'GET', null, `/?user_id=${user.user.sub}`)
+            const data = await Promise.resolve(fetchData)
+            console.log(data)
+            setIsChecked(new Array(data.payload.length).fill(false))
+        return data.payload
+        }
+    }
+
+    function isCheckedFunc(position) {
+        console.log(isChecked)
+        isChecked.map((checked, index) => {
+            if (position === index) {
+                setIsChecked([isChecked[index] = !checked])
+                setOneChecked(!oneChecked)
+            }     
+        })
+    }
+
+
+    useEffect(()=> {
+        function test() {
+            console.log(isChecked)
+            isChecked.map((ic, index)=> {
+                if(ic === true) {
+                    console.log(pantry)
+                }
+            })
+        }
+        test()
+    }, [oneChecked] )
+
+   
+
+  
 
     useEffect(async()=>{
       setPantry (await userPantry())
-       console.log(pantry)
-    },[]);
+    },[user.isLoading]);
+   
 
     function renderListItems(){
-        if (pantry){
+        if (pantry && user){
     {return pantry.map((f)=> {
-        return f.pantry_items.map((pi)=>{
+        return f.pantry_items.map((pi, index)=>{
+            let date = new Date(pi.est_exp)
+            let dateString = date.toLocaleDateString('en-GB');
                 const object = {user_id: user.user.sub,
                     donated_items:[ {
                        name: pi.name,
@@ -41,13 +76,11 @@ const Pantry = () => {
                   }]}
                 return<SwipePantryBar 
                 key={pi._id} 
-                userId={'google-oauth2|114208744455338261066'} 
+                userId={user.user.sub} 
                 data={pi._id} 
                 object_id={f._id}
                 object={object}>
-                    {/* <FoodListItem color={setColor(1)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quanity : ""} measurement={pi?.measurement ? pi.measurement : ""} />
-                     <FoodListItem color={setColor(1)} name={pi.name} quantity={ pi.quanity} measurement={pi.measurement} /> */}
-
+                    <PantryListItem onChange={() => isCheckedFunc(index)} color={setColor(1)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quanity : ""} measurement={pi?.measurement ? pi.measurement : ""} expiry={dateString}/>
                 </SwipePantryBar>
             })
         })

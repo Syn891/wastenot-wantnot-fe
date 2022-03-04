@@ -52,8 +52,7 @@ import FoodListItemDonate from "../components/FoodListItemDonate";
 
 //   //onclick of the green button call the handleEatWasteDonateClick function to make an array of the checked items
 //   // check the length of the array to calculate how many items are being assigned
-//   //on click of the modal done button 
-// fetch user collection and add this value to eaten, wasted or donated depending on which radio is selected.
+//   
 //   //
   
 // //   async function submitMeal(event) {
@@ -70,16 +69,7 @@ import FoodListItemDonate from "../components/FoodListItemDonate";
 // //   }
 // // let eatList=[]
 
-// async function handleDoneClick(){
-//    const fetchedData = useFetch('users', 'GET', null, `/?user_id=${userId}`)
-//     const response = await Promise.resolve(fetchedData)
-//    if(radioValue === 'Eaten'){
-//      let newConsumption = consumption + ewdList.length
-//      console.log(newConsumption)
-//      let query= {consumption} //let user.consumption = consumption + ewdlist.length
-//       useFetch('users', 'PUT', query, `/update/?user_id=${userId}`)
-
-// }
+//
 // }
 
 
@@ -87,7 +77,7 @@ import FoodListItemDonate from "../components/FoodListItemDonate";
 const DonationsPage = ({trueFalseArraySL, setTrueFalseArraySL}) => {
     let user = useUser();
     const [donations, setDonations] = useState ([]);
-    const [trueFalseArraySL, setTrueFalseArraySL] = useState(
+    const [trueFalseArrayDL, setTrueFalseArrayDL] = useState(
     //itll be this logic for donations and pantry
     // new Array(donations.length).fill(false)
   );//google-oauth2|108124826364307880117
@@ -99,12 +89,12 @@ const DonationsPage = ({trueFalseArraySL, setTrueFalseArraySL}) => {
          console.log('data is fetched', data)
          const donationsData = data.payload.donated_items;
          console.log(donationsData)
-         setTrueFalseArraySL(new Array(donationsData.length).fill(false));
+         setTrueFalseArrayDL(new Array(donationsData.length).fill(false));
          setDonations(donationsData);
          console.log(donations)
     
          
-         console.log(trueFalseArraySL)
+         console.log(trueFalseArrayDL)
     }
     // return data.payload}
 
@@ -122,54 +112,40 @@ useEffect(() => {
     userDonations();
     console.log(donations)
   }, []);
+
+  function isTrue(value){
+if(value === true){
+  return value
+}
+  }
   
-  function handleEatWasteDonateClick({trueFalseArrayDL}) {
+  // const tfArray = [false, true, false, true]
+  function handleEatWasteDonateClick() {
   console.log(trueFalseArrayDL, "Donations TF Array");
   //tried for and mapping, tried spreading, think the use state is being continually called and resetting it
-  
- let trueArray = trueFalseArrayDL.filter(true)
- console.log('true Array', trueArray)
- return trueArray.length
+ const tfArray = [false, true, false, true]
+ let trueArray = tfArray.filter(isTrue)
+ console.log('true Array', tfArray)
+ console.log('true Array length', trueArray.length)
+ return trueArray
+
   }
 
-  //   function renderListItems(){
-  //       if (donations){
-  //   {return donations.map((f)=> {
-  //       return f.donations_items.map((di)=>{
-  //               const object = {user_id:  user.user.sub,
-  //                   donated_items:[ {
-  //                      name: di.name,
-  //                      est_exp: di.est_exp,
-  //                      category: "", 
-  //                      quanitiy: 0,
-  //                      measurement: ""
-  //                 }]}
-  //               return<SwipePantryBar 
-  //               key={di._id} 
-  //               userId={"google-oauth2|108124826364307880117"} 
-  //               data={di._id} 
-  //               object_id={f._id}
-  //               object={object}
-  //             >
-  //               <FoodListItem
-  //                 color={setColor(1)}
-  //                 name={di?.name ? di.name : ""}
-  //                 quantity={di?.quantity ? di.quanity : ""}
-  //                 measurement={di?.measurement ? di.measurement : ""}
-  //               />
-  //               {/* <FoodListItem
-  //                 color={setColor(1)}
-  //                 name={di.name}
-  //                 quantity={di.quanity}
-  //                 measurement={di.measurement}
-  //               /> */}
-  //             </SwipePantryBar>
-  //           ;
-  //         });
-  //       });
-  //     }
-  //   }
-  // }
+async function handleDoneClick({trueArray}){
+const fetchedData = useFetch('users', 'GET', null, `/?user_id=google-oauth2|108124826364307880117`)
+const data = await Promise.resolve(fetchedData)
+console.log(data)
+  //  if(Togglebutton.checked === 'Eaten'){
+  let newConsumption = data.payload[3].consumption + trueArray.length
+  console.log(newConsumption)
+  let query= {consumption: newConsumption} //let user.consumption = consumption + ewdlist.length
+ useFetch('users', 'PUT', query, `/update/?user_id=google-oauth2|108124826364307880117`)
+
+ }
+   
+//on click of the modal done button 
+// fetch user collection and add this value to eaten, wasted or donated depending on which radio is selected.
+  
 
   const router = useRouter();
   const setColor = (number) => {
@@ -258,7 +234,7 @@ useEffect(() => {
               </div>
             </Row>
             <Row>
-              <AssignItem onClick={handleEatWasteDonateClick} /> 
+              <AssignItem onClick={handleEatWasteDonateClick} handleDoneClick={handleDoneClick} /> 
             </Row> 
             <Row>
                 <DonationsLink link="./donationPoints"/>

@@ -44,14 +44,16 @@ function ShoppingList() {
       "shoppinglists",
       "GET",
       null,
-      "/?user_id=google-oauth2|112451605105134992726"
-      // `/?user_id=${user.user.sub}`
+      //"/?user_id=google-oauth2|112451605105134992726"
+      `/?user_id=${user.user.sub}`
     );
     const response = await Promise.resolve(fetchData);
     const userShopData = response.payload[0].shopping_items;
     setTrueFalseArraySL(new Array(userShopData.length).fill(false));
     setShopListData(userShopData);
     console.log(
+      "user",
+      user,
       "user Shop Data from database",
       userShopData,
       "True False Array in get users",
@@ -75,6 +77,7 @@ function ShoppingList() {
             setShopListData={setShopListData}
             trueFalseArraySL={trueFalseArraySL}
             setTrueFalseArraySL={setTrueFalseArraySL}
+            userSub={user.user.sub}
           />
           <Col>
             <Row className={css.row}>
@@ -103,7 +106,7 @@ function ShoppingList() {
       </Row>
     </Container>
   ) : (
-    <>Loading hehe :D</>
+    <>Loading hehe :D - YOU ARE PROBABLY NOT LOGGED IN</>
   ); //CONVERSATION TO HAVE: save button to push user shopping list to database to remove the need to push everytime a user adds an item? Look into local storage solution for shopping list?
 }
 
