@@ -7,54 +7,62 @@ import css from '../styles/Mealplan.module.css'
 import {useFetch} from '../hooks/useFetch'
 import RecipeInfoDisplay from '../components/RecipieInfoDisplay';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
+import { useRouter } from 'next/router';
 
 const MyMeals = () => {
 
     const [mealPlans, setMealPlans] = useState([])
     const [recipes, setRecipes] = useState([])
     const latest = useRef(recipes)
-    const user = useUser()
+    const {user, isLoading} = useUser()
+    const router = useRouter()
+
 
     async function getMealPlan() {
-        const fetchData = useFetch('mealPlan', 'GET', null, `/?user_id=${user.user.sub}`)
-        let res = await Promise.resolve(fetchData)
-        console.log(res)
-        setMealPlans(res.payload[0].meal_plan)
-       
+        if(isLoading !== true) {
+            const fetchData = useFetch('mealPlan', 'GET', null, `/?user_id=${user.sub}`)
+            let res = await Promise.resolve(fetchData)
+            setMealPlans(res.payload[0].meal_plan)
+            return res.payload[0].meal_plan
+
+        }
     }
 
-
-    useEffect(()=> {
-        getMealPlan() 
+    useEffect(async ()=> {
+       const res = await getMealPlan() 
+    //    setMealPlans(res)
       
-    }, [])
+    }, [isLoading])
 
     useEffect(()=> {
-        mealPlans.map(async (meal)=> {
-            try {
-                const rec = useFetch('api/search', 'GET', null, `/?recipe_id=${meal.recipe_id}`)
-                let response = await Promise.resolve(rec)
-                setRecipes([...recipes, latest.current = response.recipe])
-                
-            } catch (err) {
-                console.log(err) 
-            }
-        })
+            mealPlans.map(async (meal)=> {
+                try {
+                    const rec = useFetch('api/search', 'GET', null, `/?recipe_id=${meal.recipe_id}`)
+                    let response = await Promise.resolve(rec)
+                    setRecipes([...recipes, latest.current = response.recipe])
+                    
+                } catch (err) { 
+                    console.log(err) 
+                }
+            })
+
     }, [mealPlans])
 
 
     function loadRecipes() {
-        return recipes.map((recipe)=> {
+        // console.log(latest.current)
+        // return recipes.map((recipe)=> {
             return <RecipeInfoDisplay 
-                    image={recipe.image} 
-                    title={recipe.label} 
-                    prepTime={recipe.totalTime} 
-                    cookTime={recipe.totalTime} 
-                    url={recipe.url} 
+                    key={latest.current.recipe_id}
+                    image={latest.current.image} 
+                    title={latest.current.label} 
+                    prepTime={latest.current.totalTime} 
+                    cookTime={latest.current.totalTime} 
+                    url={latest.current.url} 
                     r={241}
                     g={172}
                     b={121} />
-        })
+        // })
     }
 
     return (
@@ -65,7 +73,9 @@ const MyMeals = () => {
           style={{marginRight:'0.25em' }} onClick={()=> router.back()}/>
         </Navbar> 
             <Container>
-                {loadRecipes()}
+                {useEffect(()=>{
+                    loadRecipes()
+                }, [latest.current])}
             </Container>
         </Container>
     );

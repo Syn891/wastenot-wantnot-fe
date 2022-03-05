@@ -1,12 +1,14 @@
 .swipeBarCss {
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  border: 3px solid #FFEADB;
+  border: 3px solid #f2f2f2;
   margin-bottom: 1em;
   border-radius: 10px;
   display: flex;
   align-items: center;
-  width: 100%
+  width: 100%;
+  background-color: #F9F9F9;
 }
+
 .swipeableList{
 flex: unset;
 height: unset;

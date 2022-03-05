@@ -1,7 +1,5 @@
 .grp {
-    margin: 2em 0 2em 0;
     display: flex;
-    flex-direction: row;
     row-gap: 0.5em;
     flex-wrap: wrap;
 
@@ -10,4 +8,13 @@
 .formControl {
     padding: 0.5em;
     border: 1px solid grey;
+}
+
+.inputGroup {
+display: unset;
+}
+
+.inputGroup > .formControl {
+    width: 100%;
+    margin-bottom: 0.75em;
 }

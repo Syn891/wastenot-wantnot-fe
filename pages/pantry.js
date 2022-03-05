@@ -9,7 +9,6 @@ import FoodCategoryRow from '../components/FoodCategoryRow';
 import PantryListItem from '../components/PantryListItem'
 import SwipePantryBar from '../components/SwipePantryBar';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
-import SwipeBar from '../components/SwipeBar';
 import {useFetch} from "../hooks/useFetch.js"
 import AddItemModal from '../components/AddItemModal';
 
@@ -19,12 +18,12 @@ const Pantry = () => {
     const [isChecked, setIsChecked] = useState([])
     const [oneChecked, setOneChecked] = useState(false)
     const [modalShow, setModalShow] = useState(false)
+    const [newEntryCount, setNewEntryCount] = useState(0)
 
     async function userPantry(){ 
         if(user.isLoading !== true) {
             const fetchData = useFetch('pantryList', 'GET', null, `/?user_id=${user.user.sub}`)
             const data = await Promise.resolve(fetchData)
-            console.log(data)
             setIsChecked(new Array(data.payload.length).fill(false))
         return data.payload
         }
@@ -40,6 +39,16 @@ const Pantry = () => {
         })
     }
 
+    async function save(object) {
+
+        let query= {pantry_items: object}
+        const fetchData = useFetch('pantryList', 'PUT', query, `/update/?user_id=${user.user.sub}`)
+        let res = await Promise.resolve(fetchData)
+        setModalShow(false)
+        setNewEntryCount(newEntryCount+1)
+        
+    }
+
 
     useEffect(()=> {
         function test() {
@@ -53,21 +62,31 @@ const Pantry = () => {
         test()
     }, [oneChecked] )
 
-   
-
-  
-
     useEffect(async()=>{
       setPantry (await userPantry())
-    },[user.isLoading]);
-   
+      
+    },[user.isLoading, newEntryCount]);
+
+    function calcDate(expiryDate){
+        let dates = [new Date(), new Date(expiryDate)]
+  
+      function daysDifference(d0) {
+        var diff = new Date(+d0[1]).setHours(12) - new Date(+d0[0]).setHours(12);
+          return Math.round(diff/8.64e7);
+        }
+  
+        let dateFound = daysDifference(dates);
+        return dateFound
+    }
 
     function renderListItems(){
+
         if (pantry && user){
     {return pantry.map((f)=> {
         return f.pantry_items.map((pi, index)=>{
             let date = new Date(pi.est_exp)
             let dateString = date.toLocaleDateString('en-GB');
+            let dateDif = calcDate(pi.est_exp)
                 const object = {user_id: user.user.sub,
                     donated_items:[ {
                        name: pi.name,
@@ -82,7 +101,8 @@ const Pantry = () => {
                 data={pi._id} 
                 object_id={f._id}
                 object={object}>
-                    <PantryListItem onChange={() => isCheckedFunc(index)} color={setColor(1)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quanity : ""} measurement={pi?.measurement ? pi.measurement : ""} expiry={dateString}/>
+                    
+                    <PantryListItem onChange={() => isCheckedFunc(index)} color={setColor(dateDif)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quantity : ""} measurement={pi?.measurement ? pi.measurement : ""} expiry={dateString}/>
                 </SwipePantryBar>
             })
         })
@@ -124,6 +144,7 @@ const Pantry = () => {
         <AddItemModal
           show={modalShow}
           onHide={() => setModalShow(false)}
+          save={save}
         />
 
         </div>
