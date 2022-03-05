@@ -37,7 +37,7 @@ function NavbarCustom({ title, color, children, Icon }) {
       <Offcanvas.Body className={styles.offcanvasBody}>
         <Nav className="justify-content-end flex-grow-1 pe-3">
           <Nav.Link className={styles.navLink} href="/about">About Us</Nav.Link>
-          <Nav.Link className={styles.navLink} href="/shoppingList">Grocery List</Nav.Link>
+          <Nav.Link className={styles.navLink} href="/shoppinglist">Grocery List</Nav.Link>
           <Nav.Link className={styles.navLink} href="/pantry">In My Pantry</Nav.Link>
           <Nav.Link className={styles.navLink} href="/mealPlan">Meal Planner</Nav.Link>
           <Nav.Link className={styles.navLink} href="/donations">My Donations</Nav.Link>
