@@ -8,16 +8,24 @@ function AddItemModal(props) {
         name: "",
         est_exp: "",
         category: "",
-        quantity: 0,
+        quantity: "",
         measurement: ""
     }
     const [searchInput, setSearchInput] = useState(initialState)
 
 
     function handleChange(event) {
-        let header = event.target.name
-        setSearchInput({header: event.target.value})
-      }
+        event.preventDefault()
+        let value = event.target.value
+
+        if(event.target.name === 'quantity') {
+            value = value.toString()
+        }
+ 
+        setSearchInput({...searchInput, [event.target.name]:value })
+
+    }
+      
     
     return (
       <Modal
@@ -31,65 +39,56 @@ function AddItemModal(props) {
             add item to pantry
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-        <InputGroup className={css.grp}>
+        <Modal.Body className={css.grp}>
+        <InputGroup className={css.inputGroup} >
            <FormControl
            placeholder="Item name"
-           aria-label="search recipes"
-           aria-describedby="basic-addon2"
            onChange={handleChange}
-           value={searchInput.name}
            name="name"
-           class={css.formControl}
+           type="text"
+           className={css.formControl}
            />
            <FormControl
            placeholder="Expiry date"
-           aria-label="search recipes"
-           aria-describedby="basic-addon2"
            onChange={handleChange}
            name="est_exp"
            type='date'
-           class={css.formControl}
-
+           className={css.formControl}
            />
            <FormControl
            placeholder="Category"
-           aria-label="search recipes"
-           aria-describedby="basic-addon2"
            onChange={handleChange}
-           value={searchInput.category}
-           name="category"
-           type="dropdown"
+            name="category"
+           type="text"
            className={css.formControl}
            />
 
            <FormControl
            placeholder="Quantity"
-           aria-label="search recipes"
-           aria-describedby="basic-addon2"
            onChange={handleChange}
-           value={searchInput.quantity}
            name="quantity"
            className={css.formControl}
+           type="text"
+
            />
 
            <FormControl
            placeholder="Measurement"
-           aria-label="search recipes"
-           aria-describedby="basic-addon2"
            onChange={handleChange}
-           value={searchInput.measurement}
            name="measurement"
            className={css.formControl}
+           type="text"
+
            />
+      
            
        </InputGroup>
 
  
         </Modal.Body>
         <Modal.Footer>
-            <Button onClick={() => props.onSave(searchInput)}>Save</Button>
-          <Button onClick={props.onHide}>Close</Button>
+            <Button onClick={() => props.save(searchInput)}>Save</Button>
+            <Button onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );

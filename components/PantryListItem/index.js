@@ -11,6 +11,7 @@ function PantryListItem({
   expiry
 }) {
 
+  console.log(quantity)
   // const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000); //silly maths no functionality
   if (!color) {
     color = "#5CC971";
@@ -27,19 +28,19 @@ function PantryListItem({
   }
   return (
     <>
-      <Col className={css.col} xs={{ span: 3 }}>
+      <Col style={{color: color}} className={css.col} xs={{ span: 3 }}>
         <div>{name}</div>
       </Col>
-      <Col className={css.col} xs={{ span: 3 }}>
+      <Col style={{color: color}} className={css.col} xs={{ span: 3 }}>
         <div>{expiry}</div>
       </Col>
-      <Col className={css.col} xs={{ span: 2 }}>
+      <Col style={{color: color}} className={css.col} xs={{ span: 3 }}>
         <div>{quantity}</div>
       </Col>
-      <Col className={css.col} xs={{ span: 2 }}>
+      <Col style={{color: color}} className={css.col} xs={{ span: 2 }}>
         <div>{measurement}</div>
       </Col>
-      <Col className={css.col} xs={{ span: 1 }}>
+      <Col style={{color: color}} className={css.col} xs={{ span: 1 }}>
         <input
           type="checkbox"
           // defaultChecked={trueFalseArraySL[index]}
