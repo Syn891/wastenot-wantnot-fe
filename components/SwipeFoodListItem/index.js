@@ -9,6 +9,7 @@ import "react-swipeable-list/dist/styles.css";
 import css from "./swipeFoodListItem.module.css";
 
 function SwipeFoodListItem({
+  _id,
   className,
   children,
   data,
@@ -62,12 +63,13 @@ function SwipeFoodListItem({
         <div>Donate</div>
       </SwipeAction>
     </TrailingActions>
-  );
+  ); 
+  console.log(_id);
   return (
     <SwipeableList className={css.swipeableList}>
       <SwipeableListItem
         className={css.swipeBarCss}
-        leadingActions={leadingActions("goodbye")}
+        leadingActions={leadingActions(_id)}
         // leadingActions={leadingActions(data)}
         trailingActions={trailingActions("hello")}
         // trailingActions={trailingActions(object_id)}
