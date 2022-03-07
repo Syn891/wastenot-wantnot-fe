@@ -13,18 +13,21 @@ import { useFetch } from "../hooks/useFetch";
 import { GiForkKnifeSpoon } from "react-icons/gi";
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/router";
-//add in delete selected shopping list items to add to pantry button functionality
 
+//delete items on swipe
+//look into solution for comparing shopping list and pantry list
 //add remove shopping list item functionality (swipe?)
-
 // styling of buttons, etc
 
 function handlePantryClick(trueFalseArraySL, shopListData, user) {
   console.log(trueFalseArraySL, "ShopList TF Array");
   let pantryList = [];
+  let remainingPantryList = [];
   shopListData.map(function (item, index) {
     if (trueFalseArraySL[index]) {
       pantryList.push(item);
+    } else {
+      remainingPantryList.push(item);
     }
   });
 
@@ -35,20 +38,44 @@ function handlePantryClick(trueFalseArraySL, shopListData, user) {
     "Name:",
     user.user.name,
     "Sub/userID:",
-    user.user.sub
+    user.user.sub,
+    "Remaining items to go back into users shopping list",
+    remainingPantryList,
+    "time is",
+    new Date()
   );
 
   useFetch(
+    //COMMENTED OUT TO TEST 55-61
     "pantryList",
     "PUT",
     { pantry_items: pantryList },
-    "/update/?user_id=google-oauth2|112451605105134992726" //this works
+    `/?user_id=${user.user.sub}`
+    // "/update/?user_id=google-oauth2|112451605105134992726" //this works
+  );
+
+  useFetch(
+    // replace user shopping list here, delete in one above
+    "shoppinglists",
+    "DELETE",
+    { user_id: user.user.sub },
+    // { user_id: "google-oauth2|11245" }, //REQ.BODY
+    `/?user_id=${user.user.sub}`
+    // "/?user_id=google-oauth2|11245" //REQ.QUERY
+  );
+
+  useFetch(
+    // replace user shopping list here, delete in one above
+    "shoppinglists",
+    "POST",
+    { shopping_items: remainingPantryList }, //REQ.BODY
+    `/?user_id=${user.user.sub}`
+    // "/?user_id=google-oauth2|11245" //REQ.QUERY
     //`/update/?user_id=${userSub}`
   );
-  //replicate shopping list use fetch
-  //see what happens when we push pantryList to database
-  //if it doesnt work map over it again and send a use fetch each time? MAYBE JANKY
 
+  console.log("after 2nd useFetch", new Date());
+  getUserShoppingList();
   return pantryList;
 }
 
@@ -64,11 +91,12 @@ function ShoppingList() {
       "shoppinglists",
       "GET",
       null,
-      "/?user_id=google-oauth2|112451605105134992726"
-      //`/?user_id=${user.user.sub}`
+      // "/?user_id=google-oauth2|112451605105134992726"
+      `/?user_id=${user.user.sub}`
     );
     const response = await Promise.resolve(fetchData);
     const userShopData = response.payload[0].shopping_items;
+    // if userShopData.length less than 2 put placeholder items in
     setTrueFalseArraySL(new Array(userShopData.length).fill(false));
     setShopListData(userShopData);
     console.log(
@@ -127,7 +155,10 @@ function ShoppingList() {
             <Row className={css.row}>
               <CreateNewListButton message={"Create new List"} />
             </Row>
-            <DonationPromptInfo />
+            <DonationPromptInfo
+              text="Donations needed in your area"
+              className={css.dpiSVG}
+            />
           </Col>
         </Container>
       </Row>
