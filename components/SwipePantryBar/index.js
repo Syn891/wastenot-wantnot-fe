@@ -16,17 +16,26 @@ function SwipePantryBar({ className, children, data, object_id, userId, object }
   let cN = className;
 
   async function removeFromDb(id){
-    console.log(object_id)
     const remove = {pantry_items: {_id:id}}
-    console.log("remove from be")
     const res = useFetch('pantryList', 'DELETE', remove, `/?user_id=${userId}`)
-    const test = await Promise.resolve(res)
+    await Promise.resolve(res)    
+    incrementUserStats('wastage')
+  }
+
+  async function incrementUserStats(key) {
+    let userInfo = useFetch('users', 'GET', null, `/${userId}`)
+    userInfo = await Promise.resolve(userInfo)
+    console.log(key)
+    let data = userInfo.payload[key] + 1
+    console.log(data)
+
+      let query = {[key]: data}
+      let res1 = useFetch('users', 'PUT', query,`/${userId}` )
+      res1 = await Promise.resolve(res1)
+      console.log(res1)
   }
   async function addToDonationsDb(id){
-    // const remove = {id:id}
-    // const res = useFetch('pantryList', 'PUT', remove, `/${object_id}`)
-    // const test = await Promise.resolve(res)
-    // console.log(test)
+
     const donUser = useFetch('donations', 'GET', null, `/?user_id=${userId}`)
     const res = await Promise.resolve(donUser)
     if(res.payload.length < 1){
@@ -37,6 +46,7 @@ function SwipePantryBar({ className, children, data, object_id, userId, object }
       useFetch('donations', 'PUT', query,`/update/?user_id=${userId}` )
     }
     removeFromDb(data)
+    incrementUserStats('donations')
   }
   const leadingActions = (id) => (
     <LeadingActions>
@@ -45,7 +55,7 @@ function SwipePantryBar({ className, children, data, object_id, userId, object }
         destructive={true}
         onClick={() => removeFromDb(id)}
       >
-        <div>Delete</div>
+        <div>Waste</div>
       </SwipeAction>
     </LeadingActions>
   );

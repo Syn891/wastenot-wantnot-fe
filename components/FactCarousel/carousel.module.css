@@ -1,0 +1,23 @@
+.carousel{
+    display: flex;
+    justify-content: center;
+    height: 10em;
+    align-content: center;
+    flex-wrap: nowrap;
+    border: blue solid;
+}
+.carouselText{
+     color:  #243E36;
+     text-align: center;
+}
+
+.item{
+    z-index: 1;
+    border: green solid 2px;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    padding: 1em;
+}

@@ -12,6 +12,8 @@ import { useUser, getSession } from '@auth0/nextjs-auth0';
 import {useFetch} from "../hooks/useFetch.js"
 import AddItemModal from '../components/AddItemModal';
 import DonationPromptInfo from "../components/DonationPromptInfo";
+import FactCarousel from "../components/FactCarousel";
+import { Row } from "react-bootstrap";
 
 const Pantry = () => {
     let user = useUser();
@@ -43,15 +45,31 @@ const Pantry = () => {
         return color;
       };
 
-    function isCheckedFunc(position) {
-        console.log(isChecked)
-        isChecked.map((checked, index) => {
-            if (position === index) {
-                let item = isChecked[index]
-                setIsChecked([isChecked[index] = !checked])
-            }     
-        })
+    async function isCheckedFunc(id, position) {
+            let tempState  = [...isChecked]
+            tempState[position] = !tempState[position]
+            setIsChecked(tempState)
+
+            
+                const remove = {pantry_items: {_id:id}}
+                const res = useFetch('pantryList', 'DELETE', remove, `/?user_id=${user.user.sub}`)
+                await Promise.resolve(res)    
+
+                let userInfo = useFetch('users', 'GET', null, `/${user.user.sub}`)
+                userInfo = await Promise.resolve(userInfo)
+                let data = userInfo.payload.consumption + 1
+            
+                  let query = {consumption: data}
+                  let res1 = useFetch('users', 'PUT', query,`/${user.user.sub}` )
+                  res1 = await Promise.resolve(res1)
+                  console.log(res1)
+                console.log(isChecked)
+     
     }
+
+    useEffect(() => {
+
+    }, [isChecked])
 
     async function save(object) {
 
@@ -63,18 +81,6 @@ const Pantry = () => {
         
     }
 
-
-    useEffect(()=> {
-        function test() {
-            console.log(isChecked)
-            isChecked.map((ic, index)=> {
-                if(ic === true) {
-                    console.log(pantry)
-                }
-            })
-        }
-        test()
-    }, [oneChecked] )
 
     useEffect(async()=>{
       setPantry (await userPantry())
@@ -116,7 +122,7 @@ const Pantry = () => {
                 object_id={f._id}
                 object={object}>
                     
-                    <PantryListItem onChange={() => isCheckedFunc(index)} color={setColor(dateDif)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quantity : ""} measurement={pi?.measurement ? pi.measurement : ""} expiry={dateString}/>
+                    <PantryListItem onChange={() => isCheckedFunc(pi._id, index)} color={setColor(dateDif)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quantity : ""} measurement={pi?.measurement ? pi.measurement : ""} expiry={dateString}/>
                 </SwipePantryBar>
             })
         })
@@ -152,6 +158,9 @@ const Pantry = () => {
           onHide={() => setModalShow(false)}
           save={save}
         />
+        {/* <Row className={css.cRow}> */}
+        <FactCarousel/>
+        {/* </Row> */}
 
     <DonationPromptInfo text="Donations needed in your area"
                     className={css.dpiSVG}/>
