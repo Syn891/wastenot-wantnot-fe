@@ -1,5 +1,8 @@
 .body {
-    padding: 1em
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+  
 }
 
 .container {
@@ -34,4 +37,9 @@
 
 .plus {
     justify-self: flex-end;
+}
+
+.dpiSVG {
+    width: unset;
+    align-self: center;
 }

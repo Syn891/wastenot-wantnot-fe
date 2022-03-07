@@ -7,6 +7,7 @@
     align-items: center;
     width: 90%;
     padding: 1em;
+    align-self: center;
 }
 
 .dpiSVG {

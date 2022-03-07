@@ -11,6 +11,7 @@ import SwipePantryBar from '../components/SwipePantryBar';
 import { useUser, getSession } from '@auth0/nextjs-auth0';
 import {useFetch} from "../hooks/useFetch.js"
 import AddItemModal from '../components/AddItemModal';
+import DonationPromptInfo from "../components/DonationPromptInfo";
 
 const Pantry = () => {
     let user = useUser();
@@ -152,6 +153,8 @@ const Pantry = () => {
           save={save}
         />
 
+    <DonationPromptInfo text="Donations needed in your area"
+                    className={css.dpiSVG}/>
         </div>
     );
 };
