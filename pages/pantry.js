@@ -45,8 +45,9 @@ const Pantry = () => {
         return color;
       };
 
-    function isCheckedFunc(position) {
+    async function isCheckedFunc(id, position) {
     
+<<<<<<< HEAD
             // let tempState  = [...isChecked]
             // tempState[position] = !tempState[position]
             // setIsChecked(tempState)
@@ -84,8 +85,32 @@ const Pantry = () => {
             //     data = await Promise.resolve(data)
             //     console.log(data)
             // }
+=======
+            let tempState  = [...isChecked]
+            tempState[position] = !tempState[position]
+            setIsChecked(tempState)
+
+            
+                const remove = {pantry_items: {_id:id}}
+                const res = useFetch('pantryList', 'DELETE', remove, `/?user_id=${user.user.sub}`)
+                await Promise.resolve(res)    
+
+                let userInfo = useFetch('users', 'GET', null, `/${user.user.sub}`)
+                userInfo = await Promise.resolve(userInfo)
+                let data = userInfo.payload.consumption + 1
+            
+                  let query = {consumption: data}
+                  let res1 = useFetch('users', 'PUT', query,`/${user.user.sub}` )
+                  res1 = await Promise.resolve(res1)
+                  console.log(res1)
+                console.log(isChecked)
+>>>>>>> 1c07767c345ae114d2b31661b0240a3611dc426a
      
     }
+
+    useEffect(() => {
+
+    }, [isChecked])
 
     async function save(object) {
 
@@ -97,18 +122,6 @@ const Pantry = () => {
         
     }
 
-
-    useEffect(()=> {
-        function test() {
-            console.log(isChecked)
-            isChecked.map((ic, index)=> {
-                if(ic === true) {
-                    console.log(pantry)
-                }
-            })
-        }
-        test()
-    }, [oneChecked] )
 
     useEffect(async()=>{
       setPantry (await userPantry())
@@ -150,7 +163,7 @@ const Pantry = () => {
                 object_id={f._id}
                 object={object}>
                     
-                    <PantryListItem onChange={() => isCheckedFunc(index)} color={setColor(dateDif)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quantity : ""} measurement={pi?.measurement ? pi.measurement : ""} expiry={dateString}/>
+                    <PantryListItem onChange={() => isCheckedFunc(pi._id, index)} color={setColor(dateDif)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quantity : ""} measurement={pi?.measurement ? pi.measurement : ""} expiry={dateString}/>
                 </SwipePantryBar>
             })
         })
