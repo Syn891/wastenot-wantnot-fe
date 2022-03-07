@@ -17,12 +17,23 @@ function SwipeFoodListItem({
   userId,
   object,
 }) {
+
+  async function removeFromSl(id){
+    const remove = {pantry_items: {_id:id}}
+    console.log("remove", remove, "id", id)
+    const res = useFetch('pantryList', 'DELETE', remove, `/?user_id=${userId}`)
+    await Promise.resolve(res)    
+    incrementUserStats('wastage')
+  }
+
   // let cN = className;
   // async function removeFromDb(id){
   //   const remove = {id:id}
   //   const res = useFetch('pantryList', 'PUT', remove, `/${object_id}`)
   //   const test = await Promise.resolve(res)
   // }
+
+
   // async function addToDonationsDb(id){
   //   // const remove = {id:id}
   //   // const res = useFetch('pantryList', 'PUT', remove, `/${object_id}`)
