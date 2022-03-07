@@ -1,7 +1,7 @@
 import React from 'react'
 import css from './DonationsLink.module.css';
 import { Row, Col } from 'react-bootstrap';
-import {GrMapLocation} from 'react-icons/Gr'; 
+import {GrMapLocation} from 'react-icons/gr'; 
 import Link from 'next/link'
 
 const DonationsLink = ({link}) => {
