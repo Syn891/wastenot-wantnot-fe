@@ -43,7 +43,12 @@ const Pantry = () => {
         return color;
       };
 
-    async function isCheckedFunc(id) {
+    async function isCheckedFunc(id, position) {
+    
+            let tempState  = [...isChecked]
+            tempState[position] = !tempState[position]
+            setIsChecked(tempState)
+
             
                 const remove = {pantry_items: {_id:id}}
                 const res = useFetch('pantryList', 'DELETE', remove, `/?user_id=${user.user.sub}`)
@@ -52,16 +57,18 @@ const Pantry = () => {
                 let userInfo = useFetch('users', 'GET', null, `/${user.user.sub}`)
                 userInfo = await Promise.resolve(userInfo)
                 let data = userInfo.payload.consumption + 1
-                console.log(data)
             
                   let query = {consumption: data}
                   let res1 = useFetch('users', 'PUT', query,`/${user.user.sub}` )
                   res1 = await Promise.resolve(res1)
                   console.log(res1)
                 console.log(isChecked)
-                userPantry()
      
     }
+
+    useEffect(() => {
+
+    }, [isChecked])
 
     async function save(object) {
 
@@ -73,18 +80,6 @@ const Pantry = () => {
         
     }
 
-
-    useEffect(()=> {
-        function test() {
-            console.log(isChecked)
-            isChecked.map((ic, index)=> {
-                if(ic === true) {
-                    console.log(pantry)
-                }
-            })
-        }
-        test()
-    }, [oneChecked] )
 
     useEffect(async()=>{
       setPantry (await userPantry())
