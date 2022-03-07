@@ -14,6 +14,7 @@ import AddItemModal from '../components/AddItemModal';
 
 const Pantry = () => {
     let user = useUser();
+    let router = useRouter()
     const [pantry, setPantry] = useState ([])
     const [isChecked, setIsChecked] = useState([])
     const [oneChecked, setOneChecked] = useState(false)
