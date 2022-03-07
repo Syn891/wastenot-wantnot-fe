@@ -8,7 +8,7 @@ import { Row, Col } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import css from "../styles/donations.module.css";
 import { useRouter } from "next/router";
-import SwipePantryBar from "../components/SwipePantryBar";
+import SwipeDonationsBar from "../components/SwipeDonationsBar";
 import FoodListItem from "../components/FoodListItem";
 import DonationsLink from "../components/DonationsLink";
 
@@ -22,55 +22,7 @@ import FoodListItemDonate from "../components/FoodListItemDonate";
 
 
 
-  // .map(function (item, index) {
-  //   if (trueFalseArrayDL[index]) {
-  //     console.log(donations[index], "shop list data at index: ", index);
-  //     ewdList.push(item);
-  //   }
-  //   console.log(ewdList.length)
-  //   // console.log("Pantry List is ", pantryList);
-  //   return ewdList.length;
-    //app.push pantry list to database
-  
-   
-// function handleEatWasteDonateClick(donations) {
-//   console.log(trueFalseArrayDL, "Donations TF Array");
-//   //tried for and mapping, tried spreading, think the use state is being continually called and resetting it
-//   let ewdList = [];
-//   donations.map(function (item, index) {
-//     if (trueFalseArrayDL[index]) {
-//       console.log(donations[index], "shop list data at index: ", index);
-//       ewdList.push(item);
-//     }
-//     console.log(ewdList.length)
-//     // console.log("Pantry List is ", pantryList);
-//     return ewdList.length;
-//     //app.push pantry list to database
-//   })}
-  
-  
-
-//   //onclick of the green button call the handleEatWasteDonateClick function to make an array of the checked items
-//   // check the length of the array to calculate how many items are being assigned
-//   
-//   //
-  
-// //   async function submitMeal(event) {
-// //     const fetchedData = useFetch('donationslist', 'GET', null, `/?user_id=${userId}`)
-// //     const response = await Promise.resolve(fetchedData)
-// //     if(response.payload.length < 1) {
-// //       useFetch('mealPlan', 'POST', data, '' )
-// //     }
-// //     else {
-// //       let query = {meal_plan: data.meal_plan[0]}
-// //       useFetch('mealPlan', 'PUT', query,`/update/?user_id=${userId}` )
-// //     }
-// //     handleToggle()
-// //   }
-// // let eatList=[]
-
-//
-// }
+ 
 
 
 
@@ -82,7 +34,13 @@ const DonationsPage = ({trueFalseArraySL, setTrueFalseArraySL}) => {
     // new Array(donations.length).fill(false)
   );//google-oauth2|108124826364307880117
 
+
+
+
     async function userDonations(){ 
+      if(isLoading !== true){
+        console.log(user);
+        console.log(user.sub)
         const fetchData = useFetch('donations', 'GET', null, `/?user_id=${user.sub}`)
        
         const data = await Promise.resolve(fetchData);
@@ -96,6 +54,7 @@ const DonationsPage = ({trueFalseArraySL, setTrueFalseArraySL}) => {
          
          console.log(trueFalseArrayDL)
     }
+  }
     // return data.payload}
 
     // useEffect(()=>{
@@ -120,29 +79,29 @@ if(value === true){
   }
   
   // const tfArray = [false, true, false, true]
-  function handleEatWasteDonateClick() {
-  console.log(trueFalseArrayDL, "Donations TF Array");
-  //tried for and mapping, tried spreading, think the use state is being continually called and resetting it
- const tfArray = [false, true, false, true]
- let trueArray = tfArray.filter(isTrue)
- console.log('true Array', tfArray)
- console.log('true Array length', trueArray.length)
- return trueArray
+//   function handleEatWasteDonateClick() {
+//   console.log(trueFalseArrayDL, "Donations TF Array");
+//   //tried for and mapping, tried spreading, think the use state is being continually called and resetting it
+//  const tfArray = [false, true, false, true]
+//  let trueArray = tfArray.filter(isTrue)
+//  console.log('true Array', tfArray)
+//  console.log('true Array length', trueArray.length)
+//  return trueArray
 
-  }
+//   }
 
-async function handleDoneClick({trueArray}){
-  if(isLoading !== true) {
-const fetchedData = useFetch('users', 'GET', null, `/${user.sub}`)
-const data = await Promise.resolve(fetchedData)
-console.log(data)
-  //  if(Togglebutton.checked === 'Eaten'){
-  let newConsumption = data.payload.consumption + trueArray.length
-  console.log(newConsumption)
-  let query= {consumption: newConsumption} //let user.consumption = consumption + ewdlist.length
- useFetch('users', 'PUT', query, `/update/?user_id=${user.sub}`)
+// async function handleDoneClick({trueArray}){
+//   if(isLoading !== true) {
+// const fetchedData = useFetch('users', 'GET', null, `/${user.sub}`)
+// const data = await Promise.resolve(fetchedData)
+// console.log(data)
+//   //  if(Togglebutton.checked === 'Eaten'){
+//   let newConsumption = data.payload.consumption + trueArray.length
+//   console.log(newConsumption)
+//   let query= {consumption: newConsumption} //let user.consumption = consumption + ewdlist.length
+//  useFetch('users', 'PUT', query, `/update/?user_id=${user.sub}`)
 
- }}
+//  }}
    
 //on click of the modal done button 
 // fetch user collection and add this value to eaten, wasted or donated depending on which radio is selected.
@@ -191,7 +150,7 @@ console.log(data)
   return(
            
               <Row>
-              <SwipePantryBar>
+              <SwipeDonationsBar>
                 <FoodListItem
                   // {...item}
                   key={item._id}
@@ -205,7 +164,7 @@ console.log(data)
                   // trueFalseArraySL={trueFalseArraySL}
                   // setTrueFalseArraySL={trueFalseArraySL}
                 />
-                </SwipePantryBar>
+                </SwipeDonationsBar>
               </Row>
               
            
@@ -222,7 +181,7 @@ console.log(data)
 
            
             <Row>
-<SwipeBar />
+{/* <SwipeBar /> */}
 </Row>
 
             <Row>
@@ -234,9 +193,9 @@ console.log(data)
                 <p>Saved Donation Points:</p>
               </div>
             </Row>
-            <Row>
+            {/* <Row>
               <AssignItem onClick={handleEatWasteDonateClick} handleDoneClick={handleDoneClick} /> 
-            </Row> 
+            </Row>  */}
             <Row>
                 <DonationsLink link="./donationPoints"/>
             </Row>
