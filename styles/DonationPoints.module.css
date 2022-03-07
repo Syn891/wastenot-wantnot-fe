@@ -53,3 +53,12 @@ background-color: rgba(255,255,255,0.75);
 .grp {
     z-index: 1
 }
+
+.right {
+    display: flex;
+    flex-direction: column;
+}
+
+.heart {
+    align-self: center;
+}

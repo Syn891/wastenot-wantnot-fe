@@ -9,7 +9,10 @@ import css from '../../styles/DonationPoints.module.css'
 import Link from "next/link";
 import {BsSearch} from 'react-icons/bs'
 import { GrMapLocation } from "react-icons/gr";
+import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
+import { useUser } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
+import { useFetch } from "../../hooks/useFetch";
 
 
 const TomTomMap = () => {
@@ -19,8 +22,82 @@ const TomTomMap = () => {
   const [latitude, setLatitude] = useState(0);
   const [foodBanks, setFoodBanks] = useState([]) 
   const [searchInput, setSearchInput] = useState("")
+  const [fave, setFave] = useState([]) 
+  const [isClicked, setIsClicked] = useState(false)
   const router = useRouter()
 
+  let user = useUser();
+
+  function renderHearts(position) {
+    
+    if(fave[position] === true) {
+     return <AiTwotoneHeart color="red" onClick={()=> addToFavourites(position)} className={css.heart} size={25}/>
+
+    } else {
+      return <AiOutlineHeart onClick={()=> addToFavourites(position)} className={css.heart} size={25}/>
+
+    }
+  }
+
+  async function addToFavourites(position) {
+    let tempState  = [...fave]
+    tempState[position] = !tempState[position]
+    setFave(tempState)
+
+    let donationsfaves = await useFetch('donationbank', 'GET', null, `/?user_id=${user.user.sub}`)
+    console.log(donationsfaves)
+    
+    if(donationsfaves.payload.length < 1 && tempState[position] === true){
+
+      let object = {
+        user_id: user.user.sub,
+        donation_banks: [{
+          ...foodBanks[position]
+        }]
+      }
+        await useFetch('donationbank', 'POST', object, '' )
+     } else if (tempState[position] === true) {
+
+      var containing = donationsfaves.payload[0].donation_banks.find(function(ele) {
+        return ele.name === foodBanks[position].name;
+      });
+      
+       if(containing === undefined) {
+              
+        let query = {donation_banks: foodBanks[position]}
+        useFetch('donationbank', 'PUT', query,`/update/?user_id=${user.user.sub}` )
+       }
+
+    } else if (tempState[position] === false ){
+      var containing = donationsfaves.payload[0].donation_banks.find(function(ele) {
+        return ele.name === foodBanks[position].name;
+      });
+              const remove = {donation_banks: {_id:containing._id}}
+        let data = useFetch('donationbank', 'DELETE', remove, `/?user_id=${user.user.sub}`)
+        data = await Promise.resolve(data)
+        console.log(data)
+    }
+  }
+
+  // useEffect(async()=> {
+  //   let donationsfaves = await useFetch('donationbank', 'GET', null, `/?user_id=${user.user.sub}`)
+
+  //   console.log(donationsfaves)
+  //     if(donationsfaves.payload.length < 1 && fave[position] === true){
+  //       let data = await useFetch('donationbanks', 'POST', fave[position], '' )
+  //       console.log(data)
+  //     } else if (fave[position]===true) {
+  //       let query = {donation_banks: fave[position]}
+  //       let data = useFetch('donationbanks', 'PUT', query,`/update/?user_id=${userId}` )
+  //       console.log(data)
+  //     } else {
+  //       let data = await useFetch('donationbanks', 'DELETE', {donation_banks: {id:fave[position._id]}})
+  //       console.log(data)
+  //     }
+    
+    
+
+  // }, [isClicked])
     
   function handleChange(event) {
     setSearchInput(event.target.value)
@@ -108,8 +185,10 @@ const TomTomMap = () => {
           }
           addMarker('This is you', longitude, latitude);
           fetchFoodBank()
+          
           setMap(map)
     }
+    setFave(new Array(foodBanks.length).fill(false))
   }, [longitude, latitude]);
 
   return (
@@ -144,21 +223,21 @@ const TomTomMap = () => {
          <div className={css.donationsTitle}>Food Bank donation points & info</div>
          <div className={css.charities}>
          {foodBanks.map((f, index)=> {
-             
              const uri = "http://maps.google.com/maps?saddr=" + latitude + "," + longitude + "&daddr=" + f.lat + "," + f.long;
              return <div className={css.charityInfo}>
-                 <Row>
+                 <Row key={f.name}>
                    <div style={{textDecoration: 'underline'}}><strong>Organisation</strong></div>
                  <Col xs={{span: 8}}>
                    <div>{f.name}</div>
                    <div>{f.address}</div>
                    <div onClick={()=> window.open(`tel:${f.phone}`, '_self')}>{f.phone}</div>
                  </Col>
-                 <Col style={{fontSize: '85%'}} xs={{span: 4}}>
+                 <Col style={{fontSize: '85%'}} xs={{span: 4}} className={css.right}>
                  <div>{f.distance} miles</div>
-                 <Link href={uri}>Get Directions</Link>
-
+                 <Link href={uri}>Get Directions</Link><br/>
+                 {renderHearts(index)}
                  </Col>
+                 
                  </Row>
              </div>
        })}
