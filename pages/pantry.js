@@ -79,38 +79,6 @@ const Pantry = () => {
         return dateFound
     }
 
-    function renderListItems(){
-
-        if (pantry && user){
-    {return pantry.map((f)=> {
-        return f.pantry_items.map((pi, index)=>{
-            let date = new Date(pi.est_exp)
-            let dateString = date.toLocaleDateString('en-GB');
-            let dateDif = calcDate(pi.est_exp)
-                const object = {user_id: user.user.sub,
-                    donated_items:[ {
-                       name: pi.name,
-                       est_exp: pi.est_exp,
-                       category: "", 
-                       quanitiy: 0,
-                       measurement: ""
-                  }]}
-                return<SwipePantryBar 
-                key={pi._id} 
-                userId={user.user.sub} 
-                data={pi._id} 
-                object_id={f._id}
-                object={object}>
-                    
-                    <PantryListItem onChange={() => isCheckedFunc(index)} color={setColor(dateDif)} name={pi?.name ? pi.name : ""} quantity={pi?.quantity ? pi.quantity : ""} measurement={pi?.measurement ? pi.measurement : ""} expiry={dateString}/>
-                </SwipePantryBar>
-            })
-        })
-
-        }} 
-    }
-    test();
-  }, [oneChecked]);
 
   useEffect(async () => {
     setPantry(await userPantry());
@@ -118,7 +86,7 @@ const Pantry = () => {
 
   function renderListItems() {
     if (pantry && user) {
-      {
+      
         return pantry.map((f) => {
           return f.pantry_items.map((pi, index) => {
             let date = new Date(pi.est_exp);
@@ -155,8 +123,8 @@ const Pantry = () => {
             );
           });
         });
-      }
-
+    }      
+  }
     return (
         <div className={css.body}>
         <Navbar Icon={GiForkKnifeSpoon} color="#EF8D4B" title={"My Pantry"}>
