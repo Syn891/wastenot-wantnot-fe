@@ -17,14 +17,16 @@ function SwipeFoodListItem({
   userId,
   object,
 }) {
-
+  const id = _id;
   async function removeFromSl(id){
-    const remove = {pantry_items: {_id:id}}
+    const remove = {shopping_items: {_id:id}}
     console.log("remove", remove, "id", id)
     const res = useFetch('pantryList', 'DELETE', remove, `/?user_id=${userId}`)
     await Promise.resolve(res)    
     incrementUserStats('wastage')
   }
+//end of play monday - to pick up tuesday
+
 
   // let cN = className;
   // async function removeFromDb(id){
