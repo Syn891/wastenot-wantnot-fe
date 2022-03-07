@@ -14,7 +14,6 @@ import { GiForkKnifeSpoon } from "react-icons/gi";
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/router";
 
-//add in delete selected shopping list items to add to pantry button functionality
 //delete items on swipe
 //look into solution for comparing shopping list and pantry list
 //add remove shopping list item functionality (swipe?)
@@ -76,13 +75,6 @@ function handlePantryClick(trueFalseArraySL, shopListData, user) {
   );
 
   console.log("after 2nd useFetch", new Date());
-
-  //USEFETCH(REPLACE SHOPPING LIST IN DATABASE WITH remainingPantryList)
-
-  //replicate shopping list use fetch
-  //see what happens when we push pantryList to database
-  //if it doesnt work map over it again and send a use fetch each time? MAYBE JANKY
-  //make a new array of objects with unclicked items, delete all shopping-list items in datbase and put new object inside, means only 1 request instead of potentially loads.
   getUserShoppingList();
   return pantryList;
 }
