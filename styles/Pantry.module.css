@@ -43,3 +43,7 @@
     width: unset;
     align-self: center;
 }
+
+.cRow{
+    border: solid red 2px;
+}

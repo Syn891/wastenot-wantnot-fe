@@ -12,6 +12,8 @@ import { useUser, getSession } from '@auth0/nextjs-auth0';
 import {useFetch} from "../hooks/useFetch.js"
 import AddItemModal from '../components/AddItemModal';
 import DonationPromptInfo from "../components/DonationPromptInfo";
+import FactCarousel from "../components/FactCarousel";
+import { Row } from "react-bootstrap";
 
 const Pantry = () => {
     let user = useUser();
@@ -45,43 +47,43 @@ const Pantry = () => {
 
     function isCheckedFunc(position) {
     
-            let tempState  = [...isChecked]
-            tempState[position] = !tempState[position]
-            setIsChecked(tempState)
+            // let tempState  = [...isChecked]
+            // tempState[position] = !tempState[position]
+            // setIsChecked(tempState)
         
-            let donationsfaves = await useFetch('donationbank', 'GET', null, `/?user_id=${user.user.sub}`)
-            console.log(donationsfaves)
+            // let donationsfaves = await useFetch('donationbank', 'GET', null, `/?user_id=${user.user.sub}`)
+            // console.log(donationsfaves)
             
-            if(donationsfaves.payload.length < 1 && tempState[position] === true){
+            // if(donationsfaves.payload.length < 1 && tempState[position] === true){
         
-              let object = {
-                user_id: user.user.sub,
-                donation_banks: [{
-                  ...foodBanks[position]
-                }]
-              }
-                await useFetch('donationbank', 'POST', object, '' )
-             } else if (tempState[position] === true) {
+            //   let object = {
+            //     user_id: user.user.sub,
+            //     donation_banks: [{
+            //       ...foodBanks[position]
+            //     }]
+            //   }
+            //     await useFetch('donationbank', 'POST', object, '' )
+            //  } else if (tempState[position] === true) {
         
-              var containing = donationsfaves.payload[0].donation_banks.find(function(ele) {
-                return ele.name === foodBanks[position].name;
-              });
+            //   var containing = donationsfaves.payload[0].donation_banks.find(function(ele) {
+            //     return ele.name === foodBanks[position].name;
+            //   });
               
-               if(containing === undefined) {
+            //    if(containing === undefined) {
                       
-                let query = {donation_banks: foodBanks[position]}
-                useFetch('donationbank', 'PUT', query,`/update/?user_id=${user.user.sub}` )
-               }
+            //     let query = {donation_banks: foodBanks[position]}
+            //     useFetch('donationbank', 'PUT', query,`/update/?user_id=${user.user.sub}` )
+            //    }
         
-            } else if (tempState[position] === false ){
-              var containing = donationsfaves.payload[0].donation_banks.find(function(ele) {
-                return ele.name === foodBanks[position].name;
-              });
-                      const remove = {donation_banks: {_id:containing._id}}
-                let data = useFetch('donationbank', 'DELETE', remove, `/?user_id=${user.user.sub}`)
-                data = await Promise.resolve(data)
-                console.log(data)
-            }
+            // } else if (tempState[position] === false ){
+            //   var containing = donationsfaves.payload[0].donation_banks.find(function(ele) {
+            //     return ele.name === foodBanks[position].name;
+            //   });
+            //           const remove = {donation_banks: {_id:containing._id}}
+            //     let data = useFetch('donationbank', 'DELETE', remove, `/?user_id=${user.user.sub}`)
+            //     data = await Promise.resolve(data)
+            //     console.log(data)
+            // }
      
     }
 
@@ -184,6 +186,9 @@ const Pantry = () => {
           onHide={() => setModalShow(false)}
           save={save}
         />
+        {/* <Row className={css.cRow}> */}
+        <FactCarousel/>
+        {/* </Row> */}
 
     <DonationPromptInfo text="Donations needed in your area"
                     className={css.dpiSVG}/>
