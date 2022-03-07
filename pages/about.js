@@ -4,9 +4,9 @@ import { IoIosArrowBack } from "react-icons/io";
 import css from '../styles/About.module.css'
 import {Col, Row} from 'react-bootstrap'
 import DonationPromptInfo from "../components/DonationPromptInfo";
-
+import { useRouter } from "next/router";
 const About = ()=>{
-
+const router = useRouter()
 return (
     <div className={css.main}>
     <Navbar color="#EF8D4B" title={"About"}>

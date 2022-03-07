@@ -10,7 +10,7 @@ function FoodCategoryRow() {
       <Col className={css.cls} xs={{ span: 3 }}>
         <div>Expiry Date</div>
       </Col>
-      <Col className={css.cls} xs={{ span: 2 }}>
+      <Col className={css.cls} xs={{ span: 3 }}>
         <div>Quantity</div>
       </Col>
       <Col className={css.cls} xs={{ span: 2 }}>

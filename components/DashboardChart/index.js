@@ -25,7 +25,7 @@ const DashboardChart = ({value}) => {
      {
      color: "#C13C37",
      title: "Two",
-     value: 30,
+     value: 100-value,
      },
      
    ]}
