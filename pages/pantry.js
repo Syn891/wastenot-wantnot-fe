@@ -1,5 +1,5 @@
-import {React, useEffect, useState} from 'react';
-import Navbar from '../components/Navbar';
+import { React, useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
 import { IoIosArrowBack } from "react-icons/io";
 import {GiForkKnifeSpoon} from 'react-icons/gi'
 import { useRouter } from 'next/router';
@@ -109,21 +109,53 @@ const Pantry = () => {
 
         }} 
     }
-    
+    test();
+  }, [oneChecked]);
 
-    const router = useRouter()
-    const setColor = (number) => {
-        let color = ''
-        if (number < 3){
-             color = '#F96D6D'
-        }else if (number < 7 && number > 2){
-            color = '#EF8D4B'
-        }else{
-            color = '#5CC971'
-        }
-        return color
+  useEffect(async () => {
+    setPantry(await userPantry());
+  }, [user.isLoading]);
+
+  function renderListItems() {
+    if (pantry && user) {
+      {
+        return pantry.map((f) => {
+          return f.pantry_items.map((pi, index) => {
+            let date = new Date(pi.est_exp);
+            let dateString = date.toLocaleDateString("en-GB");
+            const object = {
+              user_id: user.user.sub,
+              donated_items: [
+                {
+                  name: pi.name,
+                  est_exp: pi.est_exp,
+                  category: "",
+                  quanitiy: 0,
+                  measurement: "",
+                },
+              ],
+            };
+            return (
+              <SwipePantryBar
+                key={pi._id}
+                userId={user.user.sub}
+                data={pi._id}
+                object_id={f._id}
+                object={object}
+              >
+                <PantryListItem
+                  onChange={() => isCheckedFunc(index)}
+                  color={setColor(1)}
+                  name={pi?.name ? pi.name : ""}
+                  quantity={pi?.quantity ? pi.quanity : ""}
+                  measurement={pi?.measurement ? pi.measurement : ""}
+                  expiry={dateString}
+                />
+              </SwipePantryBar>
+            );
+          });
+        });
       }
-
 
     return (
         <div className={css.body}>

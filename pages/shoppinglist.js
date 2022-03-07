@@ -10,7 +10,9 @@ import React, { useState, useEffect, useRef } from "react";
 import shopListTestData from "../testdata/testshoppinglists";
 import { useUser, getSession } from "@auth0/nextjs-auth0";
 import { useFetch } from "../hooks/useFetch";
-
+import { GiForkKnifeSpoon } from "react-icons/gi";
+import { IoIosArrowBack } from "react-icons/io";
+import { useRouter } from "next/router";
 //add in delete selected shopping list items to add to pantry button functionality
 
 //add remove shopping list item functionality (swipe?)
@@ -21,7 +23,6 @@ function handlePantryClick(trueFalseArraySL, shopListData, user) {
   console.log(trueFalseArraySL, "ShopList TF Array");
   let pantryList = [];
   shopListData.map(function (item, index) {
-    
     if (trueFalseArraySL[index]) {
       pantryList.push(item);
     }
@@ -84,10 +85,17 @@ function ShoppingList() {
     getUserShoppingList();
   }, []);
 
+  const router = useRouter();
   return shopListData ? ( // the ? is so lines 105-107 run whgile we are waiting for our getUserShoppingList promises to resolve
     <Container>
       <Row className={css.row}>
-        <Navbar title={"Grocery List"} />
+        <Navbar Icon={GiForkKnifeSpoon} color="#EF8D4B" title={"Grocery List"}>
+          <IoIosArrowBack
+            size={"1.5em"}
+            style={{ marginRight: "0.25em" }}
+            onClick={() => router.back()}
+          />
+        </Navbar>
         <Container className={css.innercontainer}>
           <ShoppingListTable
             onFormRender={() => setAddPantryDisable(true)}
