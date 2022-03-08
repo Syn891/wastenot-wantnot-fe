@@ -90,26 +90,33 @@ const Landing = ({ properties }) => {
 
   async function createUserShoppingListTable() {
     let dbShopping = useFetch(
-      "shoppinglist",
+      "shoppinglists",
       "GET",
       null,
       `/?user_id=${user.sub}`
     );
 
     dbShopping = await Promise.resolve(dbShopping);
-    if (!dbShopping.payload) {
-      let newShoppingItem = {
-        user_id: user.sub,
-        shopping_items: [],
-      };
+
+    console.log("databaseShopping", dbShopping);
+
+    if (dbShopping.payload.length < 1) {
+      console.log("yay want to see this");
+      //Acting really strangely, need to actually populate Shopping List right now to get page to work(were close to getting that sorted), when running on 3001 everything is statusing 304 or 200. useFetch POST inside shoppinglist.js works fine sending an array of new objects to the users db after it has been deleted in the use fetch above. Can we just call the shopping list post request inside of a different one? like after the user donations?
+
+      // let newShoppingItem = {
+      //   user_id: user.sub,
+      //   shopping_items: [],
+      // };
       let newShopping = useFetch(
-        "shoppinglist",
+        "shoppinglists",
         "POST",
-        newShoppingItem,
+        // { shopping_items: newShoppingItem },
+        { shopping_items: [] },
         `/?user_id=${user.sub}`
       );
       newShopping = await Promise.resolve(newShopping);
-      console.log(newShopping);
+      console.log("ns", newShopping);
     }
   }
 

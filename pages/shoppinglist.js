@@ -20,19 +20,18 @@ import { useRouter } from "next/router";
 // styling of buttons, etc
 
 function ShoppingList() {
-  const user = useUser();
+  const { user, error, isLoading } = useUser();
   const [addPantryDisable, setAddPantryDisable] = useState(false); //Pantry button greyed out when new item form is rendered
   const [shopListData, setShopListData] = useState(undefined); //undefined for line 66
   const [trueFalseArraySL, setTrueFalseArraySL] = useState(); //This is running after the usestate
 
   async function getUserShoppingList() {
-    console.log(user.user.sub, "getUserShopList ran");
     const fetchData = useFetch(
       "shoppinglists",
       "GET",
       null,
       // "/?user_id=google-oauth2|112451605105134992726"
-      `/?user_id=${user.user.sub}`
+      `/?user_id=${user.sub}`
     );
     const response = await Promise.resolve(fetchData);
     console.log(response);
@@ -45,8 +44,8 @@ function ShoppingList() {
   }
 
   useEffect(() => {
-    getUserShoppingList();
-  }, []);
+    if (isLoading !== true) getUserShoppingList();
+  }, [isLoading]);
 
   function handlePantryClick(trueFalseArraySL, shopListData, user) {
     console.log(trueFalseArraySL, "ShopList TF Array");
@@ -65,9 +64,9 @@ function ShoppingList() {
       pantryList,
       "to be put into Users List For",
       "Name:",
-      user.user.name,
+      user.name,
       "Sub/userID:",
-      user.user.sub,
+      user.sub,
       "Remaining items to go back into users shopping list",
       remainingPantryList,
       "time is",
@@ -79,7 +78,7 @@ function ShoppingList() {
       "pantryList",
       "PUT",
       { pantry_items: pantryList },
-      `/update/?user_id=${user.user.sub}`
+      `/update/?user_id=${user.sub}`
       // "/update/?user_id=google-oauth2|112451605105134992726" //this works
     );
 
@@ -87,9 +86,9 @@ function ShoppingList() {
       // replace user shopping list here, delete in one above
       "shoppinglists",
       "DELETE",
-      { user_id: user.user.sub },
+      { user_id: user.sub },
       // { user_id: "google-oauth2|11245" }, //REQ.BODY
-      `/?user_id=${user.user.sub}`
+      `/all/?user_id=${user.sub}`
       // "/?user_id=google-oauth2|11245" //REQ.QUERY
     );
 
@@ -98,13 +97,15 @@ function ShoppingList() {
       "shoppinglists",
       "POST",
       { shopping_items: remainingPantryList }, //REQ.BODY
-      `/?user_id=${user.user.sub}`
+      //{ shopping_items: [{ name: "delete" }, { name: "delete2" }] },
+      `/?user_id=${user.sub}`
       // "/?user_id=google-oauth2|11245" //REQ.QUERY
       //`/update/?user_id=${userSub}`
     );
 
-    console.log("after 2nd useFetch", new Date());
+    console.log("remaining pantry list", remainingPantryList);
     // getUserShoppingList();
+    setShopListData(remainingPantryList);
     return pantryList;
   }
 
@@ -120,7 +121,7 @@ function ShoppingList() {
           setShopListData={setShopListData}
           trueFalseArraySL={trueFalseArraySL}
           setTrueFalseArraySL={setTrueFalseArraySL}
-          userSub={user.user.sub}
+          userSub={user.sub}
         />
       );
     }
@@ -145,7 +146,7 @@ function ShoppingList() {
             <Row className={css.row}>
               <AddItemToPantryButton
                 message={"Add checked list items to My Pantry:"}
-                addPantryDisable={addPantryDisable}
+                // addPantryDisable={addPantryDisable}
                 onClick={() =>
                   handlePantryClick(trueFalseArraySL, shopListData, user)
                 }
