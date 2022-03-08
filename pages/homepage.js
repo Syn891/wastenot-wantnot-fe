@@ -152,7 +152,7 @@ function renderButtons() {
             </Row>
             <Row className={css.row}>
               <div className={css.pantryTitle}>
-                <div>Food in your Pantry which is going out of date:</div>
+                <div>Food in your Pantry due to go out of date:</div>
               </div>
             </Row>
             <Row className={css.row}>
@@ -165,7 +165,7 @@ function renderButtons() {
             </Row>
             <Row className={css.row}>
                 <DonationPromptInfo 
-                    text="...Or donate items to orgnisations in need, here:"
+                    text="Or donate items to orgnisations in need, here:"
                     className={css.dpiSVG}/>
             </Row>
             <Row className={css.row}>
