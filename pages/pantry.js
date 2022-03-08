@@ -13,6 +13,7 @@ import AddItemModal from '../components/AddItemModal';
 import DonationPromptInfo from "../components/DonationPromptInfo";
 import FactCarousel from "../components/FactCarousel";
 import { Row } from "react-bootstrap";
+import {RiFridgeLine} from 'react-icons/ri'
 
 const Pantry = () => {
     let user = useUser();
@@ -138,7 +139,7 @@ const Pantry = () => {
 
     return (
         <div className={css.body}>
-        <Navbar color="#EF8D4B" title={"My Pantry"}>
+        <Navbar Icon={RiFridgeLine} color="#EF8D4B" title={"My Pantry"}>
           <IoIosArrowBack
           size={'1.5em'}
           style={{marginRight:'0.25em' }} onClick={()=> router.back()}/>
