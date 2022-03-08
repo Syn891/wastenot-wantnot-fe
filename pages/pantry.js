@@ -1,7 +1,6 @@
 import { React, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { IoIosArrowBack } from "react-icons/io";
-import {GiForkKnifeSpoon} from 'react-icons/gi'
 import { useRouter } from 'next/router';
 import css from '../styles/Pantry.module.css'
 import { Button, Container } from 'react-bootstrap';
@@ -14,6 +13,7 @@ import AddItemModal from '../components/AddItemModal';
 import DonationPromptInfo from "../components/DonationPromptInfo";
 import FactCarousel from "../components/FactCarousel";
 import { Row } from "react-bootstrap";
+import {RiFridgeLine} from 'react-icons/ri'
 
 const Pantry = () => {
     let user = useUser();
@@ -139,7 +139,7 @@ const Pantry = () => {
 
     return (
         <div className={css.body}>
-        <Navbar Icon={GiForkKnifeSpoon} color="#EF8D4B" title={"My Pantry"}>
+        <Navbar Icon={RiFridgeLine} color="#EF8D4B" title={"My Pantry"}>
           <IoIosArrowBack
           size={'1.5em'}
           style={{marginRight:'0.25em' }} onClick={()=> router.back()}/>
@@ -158,9 +158,9 @@ const Pantry = () => {
           onHide={() => setModalShow(false)}
           save={save}
         />
-        {/* <Row className={css.cRow}> */}
+        <Row className={css.cRow}>
         <FactCarousel/>
-        {/* </Row> */}
+        </Row>
 
     <DonationPromptInfo text="Donations needed in your area"
                     className={css.dpiSVG}/>

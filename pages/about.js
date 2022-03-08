@@ -1,18 +1,20 @@
 import React from "react"
 import Navbar from '../components/Navbar';
 import { IoIosArrowBack } from "react-icons/io";
-import css from '../styles/About.module.css'
-import {Col, Row} from 'react-bootstrap'
+import {RiTeamLine} from "react-icons/ri";
+import css from '../styles/About.module.css';
+import {Col, Row} from 'react-bootstrap';
 import DonationPromptInfo from "../components/DonationPromptInfo";
 import { useRouter } from "next/router";
 const About = ()=>{
 const router = useRouter()
+
 return (
     <div className={css.main}>
-    <Navbar color="#EF8D4B" title={"About"}>
+    <Navbar Icon={RiTeamLine} color="#EF8D4B" title={"About Us"}>
     <IoIosArrowBack
     size={'1.5em'}
-    style={{marginRight:'0.25em' }} onClick={()=> router.back()}/>
+    style={{marginRight:'0.40em' }} onClick={()=> router.back()}/>
   </Navbar>
     <div className={css.body}>
         <Row className={css.row}>

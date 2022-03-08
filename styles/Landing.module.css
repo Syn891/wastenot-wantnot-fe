@@ -8,6 +8,9 @@
 }
 .row:nth-child(2) {
     margin-bottom: unset;
+    display: flex;
+    padding-left: 15px;
+    padding-bottom: 5px;
 }
 .row:nth-child(5) {
     margin-bottom: unset;
@@ -31,7 +34,7 @@
     align-items: center;
     align-content: center;
     justify-content: center;
-    padding: 0 1em 0.5em 1em;
+    padding: 0 1.3em 0.5em 1.3em;
     margin-bottom: 0.5em;
 
 }

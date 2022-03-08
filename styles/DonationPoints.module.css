@@ -8,6 +8,7 @@
     height: 45vh;
     margin: 2em;
     padding: 1em;
+    border-radius: 10px;
 }
 
 .marker {
@@ -21,17 +22,22 @@
     font-size: 0.9em;
     border-radius: 10px;
     padding: 0.5em;
+    margin-right: 1.2em;
+    margin-left: 1.2em;
 }
 
 .charityInfo {
     margin: 0.8em;
     padding: 0.6em;
-    background-color: lightblue;
+    background-color: #5CC971;
+    border-radius: 10px;
 }
 
 .charities {
     height: 40vh;
     overflow-x: scroll;
+    margin-right: 0.4em;
+    margin-left: 0.4em;
 }
 
 .address:hover {
