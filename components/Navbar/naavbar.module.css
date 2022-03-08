@@ -1,8 +1,15 @@
 
   .offcanvas {
-    background-color: rgba(255, 255, 255, 0.5);
+
+    background-color: rgba(255, 255, 255, 1);
+    
   }
   
+  .offcanvasHom {
+    background-color: rgba(255, 255, 255, 0.5);
+
+  }
+
   .offcanvasHeader {
     background-color: rgba(63, 142, 39, 0.85);
   
@@ -11,11 +18,26 @@
   .brand {
     height: 8vh;
   }
+
   
   .navLink {
     color: #F1AC79;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
+
+   
+  .navLinkHome {
+    color: white;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+
+
+  .navLinkLanding {
+    text-decoration: none;
+    color: black;
+  }
+
   
   .heading {
     height: 20%;
@@ -64,12 +86,17 @@
  }
 
  .navbar>.container {
+
     justify-content: start;
     padding-left: 0;
+    display: flex;
+    flex-wrap: nowrap;
+
  }
 
   .title {
     letter-spacing: 0.05em;
+
     font-size: large;
     margin-right: 2em;
     padding: 0;
@@ -88,3 +115,19 @@
     display: flex;
     margin-left: auto;
   }
+
+    font-size:x-large;
+    padding: 0;
+    justify-self: center;
+    margin-left: 0.5em;
+  }
+
+
+
+  .logout {
+    background-color: rgba(63, 142, 39, 1);  
+    border: rgba(63, 142, 39, 1);
+    margin-top: 2em;
+
+  }  
+

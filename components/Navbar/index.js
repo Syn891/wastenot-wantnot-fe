@@ -1,8 +1,8 @@
 import React from "react";
 import { Navbar, Container, Offcanvas, Nav, Button } from "react-bootstrap";
 import styles from "./Navbar.module.css";
+import styles from "./naavbar.module.css";
 import { useUser } from "@auth0/nextjs-auth0";
-
 function NavbarCustom({ title, color, children, Icon }) {
   const { user } = useUser();
 
@@ -22,7 +22,7 @@ function NavbarCustom({ title, color, children, Icon }) {
         {children}
         <div className={styles.divc} style={{ backgroundColor: color }}>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
-          <Navbar.Brand className={styles.title} href="#">
+          <Navbar.Brand className={styles.navbarBrand} href="#">
             {title}
           </Navbar.Brand>
           <Icon className={styles.icon}size={'2em'} />
@@ -36,8 +36,9 @@ function NavbarCustom({ title, color, children, Icon }) {
           <Offcanvas.Header closeButton className={styles.offcanvasHeader}>
             <Nav.Link className={styles.navLinkLanding} href="/homepage">
               <Offcanvas.Title id="offcanvasNavbarLabel">
-              WasteNot: WantNot
-            </Offcanvas.Title></Nav.Link>
+                WasteNot: WantNot
+              </Offcanvas.Title>
+            </Nav.Link>
             <img
               className={styles.brand}
               src="https://i.ibb.co/MV46RZx/Recycle-icon-by-rudezstudio-2-580x386-copy.png"
