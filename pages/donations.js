@@ -193,7 +193,7 @@ useEffect(() => {
         {donations.map(function (item, index) {
           return (
             <Row>
-              <SwipePantryBar>
+              <SwipeDonationsBar>
                 <FoodListItem
                   // {...item}
                   key={item._id}
