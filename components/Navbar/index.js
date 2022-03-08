@@ -22,7 +22,7 @@ function NavbarCustom({ title, color, children, Icon }) {
         {children}
         <div className={styles.divc} style={{ backgroundColor: color }}>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
-          <Navbar.Brand className={styles.title} href="#">
+          <Navbar.Brand className={styles.navbarBrand} href="#">
             {title}
           </Navbar.Brand>
           {/* <Icon size={'2em'} /> */}
