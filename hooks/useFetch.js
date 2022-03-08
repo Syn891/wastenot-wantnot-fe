@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 export async function useFetch(endpoint, requestType, data, query) {
   if (
     requestType === "POST" ||
@@ -17,8 +16,7 @@ export async function useFetch(endpoint, requestType, data, query) {
       },
       body: JSON.stringify(data), // body data type must match "Content-Type" header
     });
-
-    const res = await response.json();
+   const res = await response.json();
     return res;
   } else {
     const response = await fetch(
@@ -28,7 +26,6 @@ export async function useFetch(endpoint, requestType, data, query) {
         method: requestType,
       }
     );
-
     const res = response.json();
     return res;
   }
