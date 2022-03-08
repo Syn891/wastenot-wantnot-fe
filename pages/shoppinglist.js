@@ -20,39 +20,31 @@ import { useRouter } from "next/router";
 // styling of buttons, etc
 
 function ShoppingList() {
-  const user = useUser();
+  const { user, error, isLoading } = useUser();
   const [addPantryDisable, setAddPantryDisable] = useState(false); //Pantry button greyed out when new item form is rendered
   const [shopListData, setShopListData] = useState(undefined); //undefined for line 66
   const [trueFalseArraySL, setTrueFalseArraySL] = useState(); //This is running after the usestate
 
   async function getUserShoppingList() {
-    console.log(user.user.sub, "getUserShopList ran");
     const fetchData = useFetch(
       "shoppinglists",
       "GET",
       null,
-      `/?user_id=${user.user.sub}`
-    ); // "/?user_id=google-oauth2|112451605105134992726"
-    // "/?user_id=google-oauth2|11245"
-    const response = await Promise.resolve(fetchData);
-    console.log("response line 39", response);
-    const userShopData = response.payload[0].shopping_items;
-    // if userShopData.length less than 2 put placeholder items in
-    setTrueFalseArraySL(new Array(userShopData.length).fill(false));
-    setShopListData(userShopData);
-    console.log(
-      "user",
-      user,
-      "user Shop Data from database",
-      userShopData,
-      "True False Array in get users",
-      trueFalseArraySL
+      // "/?user_id=google-oauth2|112451605105134992726"
+      `/?user_id=${user.sub}`
     );
-  }
-
+    const response = await Promise.resolve(fetchData);
+    console.log(response);
+    if (response.payload.length > 0) {
+      const userShopData = response.payload[0].shopping_items;
+      // if userShopData.length less than 2 put placeholder items in
+      setTrueFalseArraySL(new Array(userShopData.length).fill(false));
+      setShopListData(userShopData);
+    }
+    
   useEffect(() => {
-    getUserShoppingList();
-  }, []);
+    if (isLoading !== true) getUserShoppingList();
+  }, [isLoading]);
 
   function handlePantryClick(trueFalseArraySL, shopListData, user) {
     console.log(trueFalseArraySL, "ShopList TF Array");
@@ -71,9 +63,9 @@ function ShoppingList() {
       pantryList,
       "to be put into Users List For",
       "Name:",
-      user.user.name,
+      user.name,
       "Sub/userID:",
-      user.user.sub,
+      user.sub,
       "Remaining items to go back into users shopping list",
       remainingPantryList,
       "time is",
@@ -85,39 +77,60 @@ function ShoppingList() {
       "pantryList",
       "PUT",
       { pantry_items: pantryList },
-      `/update/?user_id=${user.user.sub}`
-    ); // "/update/?user_id=google-oauth2|11245"
-    // "/update/?user_id=google-oauth2|112451605105134992726" //this works
+      `/update/?user_id=${user.sub}`
+      // "/update/?user_id=google-oauth2|112451605105134992726" //this works
+    );
+
 
     useFetch(
       // replace user shopping list here, delete in one above
       "shoppinglists",
       "DELETE",
-      { user_id: user.user.sub }, //REQ.BODY
-      `/all/?user_id=${user.user.sub}` //REQ.QUERY
-    ); // { user_id: "google-oauth2|11245" },
-    // "/all/?user_id=google-oauth2|11245"
+      { user_id: user.sub },
+      // { user_id: "google-oauth2|11245" }, //REQ.BODY
+      `/all/?user_id=${user.sub}`
+      // "/?user_id=google-oauth2|11245" //REQ.QUERY
+    );
+
 
     useFetch(
       // replace user shopping list here, delete in one above
       "shoppinglists",
       "POST",
       { shopping_items: remainingPantryList }, //REQ.BODY
-      `/?user_id=${user.user.sub}`
+      //{ shopping_items: [{ name: "delete" }, { name: "delete2" }] },
+      `/?user_id=${user.sub}`
+      // "/?user_id=google-oauth2|11245" //REQ.QUERY
+      //`/update/?user_id=${userSub}`
     );
-
-    //`/update/?user_id=${userSub}`
-    // `/?user_id=${user.user.sub}`
-    // "/?user_id=google-oauth2|11245" //REQ.QUERY
-    console.log("after 2nd useFetch", new Date());
+    console.log("remaining pantry list", remainingPantryList);
+    // getUserShoppingList();
     setShopListData(remainingPantryList);
-    //getUserShoppingList();//Wont run fast enough
-    console.log("after get user shoppinglists");
     return pantryList;
   }
 
+  function loadShopListTable() {
+    if (shopListData) {
+      console.log(shopListData);
+      return (
+        <ShoppingListTable
+          getUserShoppingList={getUserShoppingList}
+          onFormRender={() => setAddPantryDisable(true)}
+          onNoFormRender={() => setAddPantryDisable(false)}
+          shopListData={shopListData}
+          setShopListData={setShopListData}
+          trueFalseArraySL={trueFalseArraySL}
+          setTrueFalseArraySL={setTrueFalseArraySL}
+          userSub={user.sub}
+        />
+      );
+    }
+  }
+
   const router = useRouter();
-  return shopListData ? ( // the ? is so lines 105-107 run whgile we are waiting for our getUserShoppingList promises to resolve
+  // return shopListData ? (
+  return shopListData ? (
+    // the ? is so lines 105-107 run whgile we are waiting for our getUserShoppingList promises to resolve
     <Container>
       <Row className={css.row}>
         <Navbar Icon={GiForkKnifeSpoon} color="#EF8D4B" title={"Grocery List"}>
@@ -128,29 +141,12 @@ function ShoppingList() {
           />
         </Navbar>
         <Container className={css.innercontainer}>
-          <ShoppingListTable
-            getUserShoppingList={getUserShoppingList}
-            onFormRender={() => setAddPantryDisable(true)}
-            onNoFormRender={() => setAddPantryDisable(false)}
-            shopListData={shopListData}
-            setShopListData={setShopListData}
-            trueFalseArraySL={trueFalseArraySL}
-            setTrueFalseArraySL={setTrueFalseArraySL}
-            userSub={user.user.sub}
-          />
+          {loadShopListTable()}
           <Col>
             <Row className={css.row}>
-              <SaveListButton
-                message={"Save List (temp button incase of weird DB issues"}
-                addPantryDisable={addPantryDisable}
-                onClick={
-                  () => console.log("save button clicked", trueFalseArraySL)
-                  // handleSaveListClick(trueFalseArraySL, shopListData, user)
-                }
-              />
               <AddItemToPantryButton
                 message={"Add checked list items to My Pantry:"}
-                addPantryDisable={addPantryDisable}
+                // addPantryDisable={addPantryDisable}
                 onClick={() =>
                   handlePantryClick(trueFalseArraySL, shopListData, user)
                 }
