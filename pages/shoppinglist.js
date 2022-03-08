@@ -19,8 +19,6 @@ import { useRouter } from "next/router";
 //add remove shopping list item functionality (swipe?)
 // styling of buttons, etc
 
-
-
 function ShoppingList() {
   const user = useUser();
   const [addPantryDisable, setAddPantryDisable] = useState(false); //Pantry button greyed out when new item form is rendered
@@ -33,10 +31,11 @@ function ShoppingList() {
       "shoppinglists",
       "GET",
       null,
-      // "/?user_id=google-oauth2|112451605105134992726"
       `/?user_id=${user.user.sub}`
-    );
+    ); // "/?user_id=google-oauth2|112451605105134992726"
+    // "/?user_id=google-oauth2|11245"
     const response = await Promise.resolve(fetchData);
+    console.log("response line 39", response);
     const userShopData = response.payload[0].shopping_items;
     // if userShopData.length less than 2 put placeholder items in
     setTrueFalseArraySL(new Array(userShopData.length).fill(false));
@@ -66,7 +65,7 @@ function ShoppingList() {
         remainingPantryList.push(item);
       }
     });
-  
+
     console.log(
       "Checked List to go to Pantry is ",
       pantryList,
@@ -80,38 +79,40 @@ function ShoppingList() {
       "time is",
       new Date()
     );
-  
+
     useFetch(
-      //COMMENTED OUT TO TEST 55-61
+      //THIS ONE IS WORKING
       "pantryList",
       "PUT",
       { pantry_items: pantryList },
       `/update/?user_id=${user.user.sub}`
-      // "/update/?user_id=google-oauth2|112451605105134992726" //this works
-    );
-  
+    ); // "/update/?user_id=google-oauth2|11245"
+    // "/update/?user_id=google-oauth2|112451605105134992726" //this works
+
     useFetch(
       // replace user shopping list here, delete in one above
       "shoppinglists",
       "DELETE",
-      { user_id: user.user.sub },
-      // { user_id: "google-oauth2|11245" }, //REQ.BODY
-      `/?user_id=${user.user.sub}`
-      // "/?user_id=google-oauth2|11245" //REQ.QUERY
-    );
-  
+      { user_id: user.user.sub }, //REQ.BODY
+      `/all/?user_id=${user.user.sub}` //REQ.QUERY
+    ); // { user_id: "google-oauth2|11245" },
+    // "/all/?user_id=google-oauth2|11245"
+
     useFetch(
       // replace user shopping list here, delete in one above
       "shoppinglists",
       "POST",
       { shopping_items: remainingPantryList }, //REQ.BODY
       `/?user_id=${user.user.sub}`
-      // "/?user_id=google-oauth2|11245" //REQ.QUERY
-      //`/update/?user_id=${userSub}`
     );
-  
+
+    //`/update/?user_id=${userSub}`
+    // `/?user_id=${user.user.sub}`
+    // "/?user_id=google-oauth2|11245" //REQ.QUERY
     console.log("after 2nd useFetch", new Date());
-    getUserShoppingList();
+    setShopListData(remainingPantryList);
+    //getUserShoppingList();//Wont run fast enough
+    console.log("after get user shoppinglists");
     return pantryList;
   }
 
@@ -167,7 +168,7 @@ function ShoppingList() {
       </Row>
     </Container>
   ) : (
-    <>Loading hehe :D - YOU ARE PROBABLY NOT LOGGED IN</>
+    <>YOU ARE PROBABLY NOT LOGGED IN</>
   ); //CONVERSATION TO HAVE: save button to push user shopping list to database to remove the need to push everytime a user adds an item? Look into local storage solution for shopping list?
 }
 
