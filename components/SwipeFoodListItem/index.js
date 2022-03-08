@@ -9,6 +9,7 @@ import "react-swipeable-list/dist/styles.css";
 import css from "./swipeFoodListItem.module.css";
 
 function SwipeFoodListItem({
+  _id,
   className,
   children,
   data,
@@ -16,12 +17,25 @@ function SwipeFoodListItem({
   userId,
   object,
 }) {
+  const id = _id;
+  async function removeFromSl(id){
+    const remove = {shopping_items: {_id:id}}
+    console.log("remove", remove, "id", id)
+    const res = useFetch('pantryList', 'DELETE', remove, `/?user_id=${userId}`)
+    await Promise.resolve(res)    
+    incrementUserStats('wastage')
+  }
+//end of play monday - to pick up tuesday
+
+
   // let cN = className;
   // async function removeFromDb(id){
   //   const remove = {id:id}
   //   const res = useFetch('pantryList', 'PUT', remove, `/${object_id}`)
   //   const test = await Promise.resolve(res)
   // }
+
+
   // async function addToDonationsDb(id){
   //   // const remove = {id:id}
   //   // const res = useFetch('pantryList', 'PUT', remove, `/${object_id}`)
@@ -62,12 +76,13 @@ function SwipeFoodListItem({
         <div>Donate</div>
       </SwipeAction>
     </TrailingActions>
-  );
+  ); 
+  console.log(_id);
   return (
     <SwipeableList className={css.swipeableList}>
       <SwipeableListItem
         className={css.swipeBarCss}
-        leadingActions={leadingActions("goodbye")}
+        leadingActions={leadingActions(_id)}
         // leadingActions={leadingActions(data)}
         trailingActions={trailingActions("hello")}
         // trailingActions={trailingActions(object_id)}

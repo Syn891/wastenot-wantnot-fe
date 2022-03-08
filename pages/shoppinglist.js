@@ -126,6 +126,7 @@ function ShoppingList() {
         </Navbar>
         <Container className={css.innercontainer}>
           <ShoppingListTable
+            getUserShoppingList={getUserShoppingList}
             onFormRender={() => setAddPantryDisable(true)}
             onNoFormRender={() => setAddPantryDisable(false)}
             shopListData={shopListData}
@@ -140,7 +141,7 @@ function ShoppingList() {
                 message={"Save List (temp button incase of weird DB issues"}
                 addPantryDisable={addPantryDisable}
                 onClick={
-                  () => console.log("save button clicked")
+                  () => console.log("save button clicked", trueFalseArraySL)
                   // handleSaveListClick(trueFalseArraySL, shopListData, user)
                 }
               />
