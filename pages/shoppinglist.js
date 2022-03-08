@@ -19,65 +19,7 @@ import { useRouter } from "next/router";
 //add remove shopping list item functionality (swipe?)
 // styling of buttons, etc
 
-function handlePantryClick(trueFalseArraySL, shopListData, user) {
-  console.log(trueFalseArraySL, "ShopList TF Array");
-  let pantryList = [];
-  let remainingPantryList = [];
-  shopListData.map(function (item, index) {
-    if (trueFalseArraySL[index]) {
-      pantryList.push(item);
-    } else {
-      remainingPantryList.push(item);
-    }
-  });
 
-  console.log(
-    "Checked List to go to Pantry is ",
-    pantryList,
-    "to be put into Users List For",
-    "Name:",
-    user.user.name,
-    "Sub/userID:",
-    user.user.sub,
-    "Remaining items to go back into users shopping list",
-    remainingPantryList,
-    "time is",
-    new Date()
-  );
-
-  useFetch(
-    //COMMENTED OUT TO TEST 55-61
-    "pantryList",
-    "PUT",
-    { pantry_items: pantryList },
-    `/?user_id=${user.user.sub}`
-    // "/update/?user_id=google-oauth2|112451605105134992726" //this works
-  );
-
-  useFetch(
-    // replace user shopping list here, delete in one above
-    "shoppinglists",
-    "DELETE",
-    { user_id: user.user.sub },
-    // { user_id: "google-oauth2|11245" }, //REQ.BODY
-    `/?user_id=${user.user.sub}`
-    // "/?user_id=google-oauth2|11245" //REQ.QUERY
-  );
-
-  useFetch(
-    // replace user shopping list here, delete in one above
-    "shoppinglists",
-    "POST",
-    { shopping_items: remainingPantryList }, //REQ.BODY
-    `/?user_id=${user.user.sub}`
-    // "/?user_id=google-oauth2|11245" //REQ.QUERY
-    //`/update/?user_id=${userSub}`
-  );
-
-  console.log("after 2nd useFetch", new Date());
-  getUserShoppingList();
-  return pantryList;
-}
 
 function ShoppingList() {
   const user = useUser();
@@ -112,6 +54,66 @@ function ShoppingList() {
   useEffect(() => {
     getUserShoppingList();
   }, []);
+
+  function handlePantryClick(trueFalseArraySL, shopListData, user) {
+    console.log(trueFalseArraySL, "ShopList TF Array");
+    let pantryList = [];
+    let remainingPantryList = [];
+    shopListData.map(function (item, index) {
+      if (trueFalseArraySL[index]) {
+        pantryList.push(item);
+      } else {
+        remainingPantryList.push(item);
+      }
+    });
+  
+    console.log(
+      "Checked List to go to Pantry is ",
+      pantryList,
+      "to be put into Users List For",
+      "Name:",
+      user.user.name,
+      "Sub/userID:",
+      user.user.sub,
+      "Remaining items to go back into users shopping list",
+      remainingPantryList,
+      "time is",
+      new Date()
+    );
+  
+    useFetch(
+      //COMMENTED OUT TO TEST 55-61
+      "pantryList",
+      "PUT",
+      { pantry_items: pantryList },
+      `/update/?user_id=${user.user.sub}`
+      // "/update/?user_id=google-oauth2|112451605105134992726" //this works
+    );
+  
+    useFetch(
+      // replace user shopping list here, delete in one above
+      "shoppinglists",
+      "DELETE",
+      { user_id: user.user.sub },
+      // { user_id: "google-oauth2|11245" }, //REQ.BODY
+      `/?user_id=${user.user.sub}`
+      // "/?user_id=google-oauth2|11245" //REQ.QUERY
+    );
+  
+    useFetch(
+      // replace user shopping list here, delete in one above
+      "shoppinglists",
+      "POST",
+      { shopping_items: remainingPantryList }, //REQ.BODY
+      `/?user_id=${user.user.sub}`
+      // "/?user_id=google-oauth2|11245" //REQ.QUERY
+      //`/update/?user_id=${userSub}`
+    );
+  
+    console.log("after 2nd useFetch", new Date());
+    getUserShoppingList();
+    return pantryList;
+  }
 
   const router = useRouter();
   return shopListData ? ( // the ? is so lines 105-107 run whgile we are waiting for our getUserShoppingList promises to resolve
