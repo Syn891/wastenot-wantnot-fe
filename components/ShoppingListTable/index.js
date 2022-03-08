@@ -46,19 +46,18 @@ function ShoppingListTable({
         },
       ],
     };
-async function newShoppingItem(){
-    const fetchData = useFetch(
-      "shoppinglists",
-      "PUT",
-      { shopping_items: dataStructure.shopping_items[0] },
-      //"/update/?user_id=google-oauth2|112451605105134992726" //this works
-      `/update/?user_id=${userSub}`
-
-    )
-    const fetchedData = await Promise.resolve(fetchData)
-    console.log(fetchedData)
-    getUserShoppingList()
-    ;}
+    async function newShoppingItem() {
+      const fetchData = useFetch(
+        "shoppinglists",
+        "PUT",
+        { shopping_items: dataStructure.shopping_items[0] },
+        //"/update/?user_id=google-oauth2|112451605105134992726" //this works
+        `/update/?user_id=${userSub}`
+      );
+      const fetchedData = await Promise.resolve(fetchData);
+      console.log(fetchedData);
+      getUserShoppingList();
+    }
 
     newShoppingItem();
     // if (response.payload.length < 1) {
@@ -73,7 +72,7 @@ async function newShoppingItem(){
     // }
 
     // What we want to do is push the new added item onto the end of the users shopping list database
-    
+
     //setShopListData([...shopListData, dataStructure.shopping_items[0]]);
     setTrueFalseArraySL([...trueFalseArraySL, false]);
     //Would be here POST REQUEST shopListData to database function is called
@@ -89,7 +88,12 @@ async function newShoppingItem(){
           return (
             <>
               <Row>
-                <SwipeFoodListItem>
+                <SwipeFoodListItem
+                  {...item}
+                  listItem={item}
+                  _id={item._id}
+                  userSub={userSub}
+                >
                   <FoodListItem
                     {...item}
                     key={item._id}
@@ -164,11 +168,12 @@ async function newShoppingItem(){
           return (
             <Container>
               <Row>
-                <SwipeFoodListItem 
-                {...item}
-                listItem={item}
-                _id={item._id}
-                userSub={userSub}>
+                <SwipeFoodListItem
+                  {...item}
+                  listItem={item}
+                  _id={item._id}
+                  userSub={userSub}
+                >
                   <FoodListItem
                     {...item}
                     key={item._id}
@@ -179,7 +184,6 @@ async function newShoppingItem(){
                     setTrueFalseArraySL={setTrueFalseArraySL}
                   />
                 </SwipeFoodListItem>
-                
               </Row>
               <SwipeBar key={index} />
             </Container>
