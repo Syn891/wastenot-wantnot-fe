@@ -29,8 +29,10 @@ const DonationsPage = ({ trueFalseArraySL, setTrueFalseArraySL }) => {
       let data = useFetch('donationbank', 'GET', null, `/?user_id=${user.sub}`)
       data = await Promise.resolve(data)
       console.log(data)
-      setDonationBanks(data.payload[0].donation_banks)
+      if(data.payload.length > 0){
+        setDonationBanks(data.payload[0].donation_banks)
     }
+  }
   }
   const setColor = (number) => {
     let color = "";
@@ -60,16 +62,15 @@ const DonationsPage = ({ trueFalseArraySL, setTrueFalseArraySL }) => {
 
   function loadDonationBanks() {
     if(donationBanks.length > 0) {
-      donationBanks.map((d)=> {
-        console.log(d.name)
-
-        return <div>d.name</div>
-
-        // return  <Dropdown.Item className={css.dropDownItem}>
-        //             {d.name}
-        //             {d.address} 
-        //             {d.phone}
-        //           </Dropdown.Item>
+     return  donationBanks.map((d)=> {
+        
+        return  <><Dropdown.ItemText className={css.dropDownItem}>
+                    <strong>{d.name}</strong>
+                    <br/>
+                    {d.address} 
+                    <br/>
+                     <p className={css.phone} onClick={()=> window.open(`tel:${d.phone}`, '_self')}>{d.phone}</p>
+                  </Dropdown.ItemText><Dropdown.Divider/></>
       })
     }
   }
