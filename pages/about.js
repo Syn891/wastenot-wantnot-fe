@@ -12,7 +12,7 @@ return (
     <Navbar color="#EF8D4B" title={"About"}>
     <IoIosArrowBack
     size={'1.5em'}
-    style={{marginRight:'0.25em' }} onClick={()=> router.back()}/>
+    style={{marginRight:'0.40em' }} onClick={()=> router.back()}/>
   </Navbar>
     <div className={css.body}>
         <Row className={css.row}>
