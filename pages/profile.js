@@ -7,11 +7,12 @@ import {Row, Col} from 'react-bootstrap'
 import { BsFilterSquare} from 'react-icons/bs'
 import { AiFillSetting} from 'react-icons/ai'
 import { useUser } from '@auth0/nextjs-auth0';
-import { FaHandHoldingHeart, FaTrashAlt } from "react-icons/fa";
+import { FaHandHoldingHeart, FaTrashAlt, FaUserAlt } from "react-icons/fa";
 import { GiForkKnifeSpoon } from "react-icons/gi";
 import { useFetch } from '../hooks/useFetch';
 
 const profile = () => {
+    
     const router = useRouter()
     const user = useUser()
     const [userData, setUserData] = useState()
@@ -27,9 +28,8 @@ const profile = () => {
 
     useEffect(async()=> {
        const data = await getUserData()
-       setUserData(latest.current = data)
-       console.log(data)
-    
+       setUserData(data)
+        
     }, [user.isLoading])
 
     function getUserInfo() {
@@ -41,17 +41,19 @@ const profile = () => {
         }
     }
 
-    function calculatePercentage() {
-       
-            console.log(latest.current) 
+    function calculatePercentage(key) {
         
-        let total = latest.current.wastage + latest.current.consumption + latest.current.donations
-        console.log(total)
+        if(userData) {
+            let total = userData.wastage + userData.consumption + userData.donations
+            total = userData[key]/total * 100
+            return total
+        }
+        
     }
     return user &&(
         <>
         <div className={css.navDiv}>
-           <Navbar  color="#EF8D4B" title={"User Dashboard"}>
+           <Navbar  color="#EF8D4B" title={"User Dashboard"} Icon={FaUserAlt}>
          <IoIosArrowBack
          size={'1.5em'}
          style={{marginRight:'0.25em' }} onClick={()=> router.back()}/>
@@ -87,7 +89,8 @@ const profile = () => {
                     </Col>
                     <Col xs={{span: 8}} className={css.info}>
                         <div>
-                            15% of your food has been donated
+                            {calculatePercentage('donations')}% 
+                             of your food has been donated
                         </div>
                     </Col>
                 </div>
@@ -99,7 +102,8 @@ const profile = () => {
                     </Col>
                     <Col xs={{span: 8}} className={css.info}>
                         <div>
-                            65% of your food has been eaten
+                            {calculatePercentage('consumption')}% 
+                             of your food has been eaten
                         </div>
                     </Col>
                 </div>
@@ -111,7 +115,8 @@ const profile = () => {
                     </Col>
                     <Col xs={{span: 8}} className={css.info}>
                         <div>
-                            20% of your food has been donated
+                        {calculatePercentage('wastage')}%
+                         of your food has been wasted
                         </div>
                     </Col>
                 </div>
