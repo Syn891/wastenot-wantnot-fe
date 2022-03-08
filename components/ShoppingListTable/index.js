@@ -166,7 +166,9 @@ async function newShoppingItem(){
               <Row>
                 <SwipeFoodListItem 
                 {...item}
-                _id={item._id}>
+                listItem={item}
+                _id={item._id}
+                userSub={userSub}>
                   <FoodListItem
                     {...item}
                     key={item._id}
@@ -177,6 +179,7 @@ async function newShoppingItem(){
                     setTrueFalseArraySL={setTrueFalseArraySL}
                   />
                 </SwipeFoodListItem>
+                
               </Row>
               <SwipeBar key={index} />
             </Container>
