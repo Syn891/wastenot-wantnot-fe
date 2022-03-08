@@ -6,7 +6,7 @@ import {
   TrailingActions,
 } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
-import css from "./swipePantryBar.module.css";
+import css from "./swipeDonationsBar.module.css";
 import FoodListItem from "../FoodListItem";
 import {useFetch} from "../../hooks/useFetch.js"
 import {useUser} from '@auth0/nextjs-auth0'

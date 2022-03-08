@@ -38,10 +38,10 @@ function FoodListItemDonate({
   }; 
   return (
     <>
-      <Col className={css.col} xs={{ span: 2 }}>
+      <Col className={css.col} xs={{ span: 3 }}>
         <div>{name}</div>
       </Col>
-      <Col className={css.col} xs={{ span: 2 }}>
+      <Col className={css.col} xs={{ span: 3 }}>
         <div>1/1/11</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
@@ -53,9 +53,7 @@ function FoodListItemDonate({
       <Col className={css.col} xs={{ span: 2 }}>
         <p>{measurement}</p>
       </Col>
-      <Col className={css.col} xs={{ span: 2 }}>
-       <input type="checkbox" onChange={handleChange}></input>
-      </Col>
+    
     </>
   );
 }
