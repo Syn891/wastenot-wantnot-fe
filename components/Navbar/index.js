@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar, Container, Offcanvas, Nav, Button } from "react-bootstrap";
-import styles from "./navbar.module.css";
+import styles from "./Navbar.module.css";
 import { useUser } from "@auth0/nextjs-auth0";
 
 function NavbarCustom({ title, color, children, Icon }) {
