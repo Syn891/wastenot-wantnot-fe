@@ -9,6 +9,7 @@ import {FaHandHoldingHeart } from "react-icons/fa";
 import {TiShoppingCart} from 'react-icons/ti'
 import {RiFridgeLine} from 'react-icons/ri'
 import {GiForkKnifeSpoon} from 'react-icons/gi'
+import {MdLabelImportant} from 'react-icons/md'
 import { useUser, getSession } from '@auth0/nextjs-auth0';
 import Dashboard from '../components/Dashboard';
 import DashboardChart from '../components/DashboardChart';
@@ -16,6 +17,7 @@ import Navbar from '../components/Navbar';
 import { useState, useEffect } from 'react';
 import {useFetch} from '../hooks/useFetch.js'
 import FindRecipes from '../components/Findrecipes';
+
 
 const Landing = ({properties}) => {
   const { user, error, isLoading } = useUser();
@@ -25,7 +27,98 @@ const Landing = ({properties}) => {
     const [donations, setDonations] = useState(10);
     const [consumption, setConsumption]= useState(0);
 
-    //  if(user) {
+     async function createUserPantryTable(){
+      let dbPantry = useFetch('pantryList', 'GET', null, `/?user_id=${user.sub}`)
+      
+    dbPantry = await Promise.resolve (dbPantry)
+    if(dbPantry.payload.length <1){
+      let newPantry = { 
+        user_id: user.sub,
+        pantry_items: [],
+     }
+     let newdbPantry = useFetch('pantryList', 'POST', newPantry, `/?user_id=${user.sub}`)
+     newdbPantry = await Promise.resolve (newdbPantry)
+  }
+    
+  }
+
+   async function createUserDonationsTable(){
+
+      let dbDonations = useFetch('donations', 'GET', null, `/?user_id=${user.sub}`)
+      
+      dbDonations = await Promise.resolve (dbDonations)
+    console.log(dbDonations)
+    if(dbDonations.payload.length <1){
+      console.log(user.sub)
+      let newDonation = { 
+        user_id: user.sub,
+        donated_items: [],
+     }
+     let newdbDonation = useFetch('donations', 'POST', newDonation, '')
+     newdbDonation = await Promise.resolve (newdbDonation)
+  }
+
+  }
+
+     async function createUserDonationBanksTable(){
+
+      let dbBanks = useFetch('donationbank', 'GET', null, `/?user_id=${user.sub}`)
+      
+    dbBanks = await Promise.resolve (dbBanks)
+  
+    if(dbBanks.payload.length <1){
+      console.log(user.sub)
+      let newBank = { 
+        user_id: user.sub,
+        donation_banks: [],
+     }
+     let newdbBank = useFetch('donationbank', 'POST', newBank, '')
+     newdbBank = await Promise.resolve (newdbBank)
+     console.log(newdbBank)
+  }
+  }
+
+   async function createUserShoppingListTable(){
+
+      let dbShopping = useFetch('shoppinglist', 'GET', null, `/?user_id=${user.sub}`)
+      
+      dbShopping = await Promise.resolve (dbShopping)
+    if(!dbShopping.payload){
+      let newShoppingItem = { 
+        user_id: user.sub,
+        shopping_items: [],
+     }
+     let newShopping = useFetch('shoppinglist', 'POST', newShoppingItem, `/?user_id=${user.sub}`)
+     newShopping = await Promise.resolve (newShopping)
+  }
+
+  }
+
+   async function createUserMealPlanTable(){
+
+      let dbMealPlan = useFetch('mealplan', 'GET', null, `/?user_id=${user.sub}`)
+      
+      dbMealPlan = await Promise.resolve (dbMealPlan)
+    if(dbMealPlan.payload.length <1){
+      let newMealPlanItem = { 
+        user_id: user.sub,
+        meal_plan: [],
+     }
+     let newMealPlan = useFetch('mealplan', 'POST', newMealPlanItem, `/?user_id=${user.sub}`)
+     newMealPlan = await Promise.resolve (newMealPlan)
+  }
+    
+  }
+
+      useEffect(()=>{
+        if(isLoading !== true){
+        createUserPantryTable()
+        createUserDonationsTable()
+        createUserMealPlanTable()
+        createUserDonationBanksTable()
+        createUserShoppingListTable()
+        }
+      }, [isLoading])
        
       async function userDashboard(){ 
         if(isLoading !== true) {
@@ -148,11 +241,11 @@ function renderButtons() {
               <Banner title="WasteNot-WantNot"/>  
             </Row>
             <Row className={css.row}>
-              <Navbar title="Food Waste Matters!" Icon={RiFridgeLine} />
+              <Navbar title="Food Waste Matters!" Icon={MdLabelImportant}/>
             </Row>
             <Row className={css.row}>
               <div className={css.pantryTitle}>
-                <div>Food in your Pantry which is going out of date:</div>
+                <div>Food in your Pantry due to go out of date:</div>
               </div>
             </Row>
             <Row className={css.row}>
@@ -165,7 +258,7 @@ function renderButtons() {
             </Row>
             <Row className={css.row}>
                 <DonationPromptInfo 
-                    text="...Or donate items to orgnisations in need, here:"
+                    text="Or donate items to orgnisations in need, here:"
                     className={css.dpiSVG}/>
             </Row>
             <Row className={css.row}>
@@ -190,7 +283,7 @@ function renderButtons() {
     
 };
 
-  export async function getServerSideProps(ctx) {
+   async function getServerSideProps(ctx) {
    const session = getSession(ctx.req, ctx.res);
   
    if(session) {
@@ -210,21 +303,20 @@ function renderButtons() {
       }
 
       const response = await useFetch('users', 'POST', newUser, '')
-      // const response = await fetch(`https://waste-want.herokuapp.com/users/` , {
-      //       method: 'POST', 
-      //       mode: 'cors', // no-cors, *cors, same-origin
-      //       cache: 'no-cache', 
-      //       credentials: 'same-origin', // include, *same-origin, omit
-      //       headers: {
-      //         'Content-Type': 'application/json'
-      //       },
-      //       redirect: 'follow', // manual, *follow, error
-      //       referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      //       body: JSON.stringify(newUser) // body data type must match "Content-Type" header
-          console.log(response.json); // parses JSON response into native JavaScript objects
+     
+          console.log(response.json);
+           // parses JSON response into native JavaScript objects
         } else {
           console.log("user already in db")
         }
+        
+
+// const responseuseFetch('pantryList', 'POST', listItem, `/?user_id=${userSub}`)
+     
+//           console.log(response.json); // parses JSON response into native JavaScript objects
+//         } else {
+//           console.log("user already in db")
+//         }
   
     return {
             props: { properties: dbUser},
@@ -234,10 +326,13 @@ function renderButtons() {
             props: {properties: {}}
           }
         }
+        
    }
 
 
 
 
 
+
 export default Landing;
+

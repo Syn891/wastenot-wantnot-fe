@@ -1,8 +1,8 @@
 import React from "react";
 import { Navbar, Container, Offcanvas, Nav, Button } from "react-bootstrap";
+import styles from "./Navbar.module.css";
 import styles from "./naavbar.module.css";
 import { useUser } from "@auth0/nextjs-auth0";
-
 function NavbarCustom({ title, color, children, Icon }) {
   const { user } = useUser();
 
@@ -22,10 +22,10 @@ function NavbarCustom({ title, color, children, Icon }) {
         {children}
         <div className={styles.divc} style={{ backgroundColor: color }}>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
-          <Navbar.Brand className={styles.title} href="#">
+          <Navbar.Brand className={styles.navbarBrand} href="#">
             {title}
           </Navbar.Brand>
-          {/* <Icon size={'2em'} /> */}
+          <Icon className={styles.icon}size={'2em'} />
         </div>
         <Navbar.Offcanvas
           id="offcanvasNavbar"
