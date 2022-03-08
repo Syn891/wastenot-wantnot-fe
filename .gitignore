@@ -2,4 +2,8 @@ node_modules
 .next
 .env.local
 .babelrc
+<<<<<<< HEAD
 .components/Navbar/Navbar.module.css
+=======
+components/Navbar/Navbar.module.css
+>>>>>>> 030257b9c5d14198ecf7c49b1e351f48343b0067
