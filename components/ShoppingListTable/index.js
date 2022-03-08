@@ -51,6 +51,7 @@ function ShoppingListTable({
     //       },
     //     ],
     //   };
+
     async function newShoppingItem() {
       const fetchData = useFetch(
         "shoppinglists",

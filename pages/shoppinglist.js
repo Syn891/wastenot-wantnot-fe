@@ -41,8 +41,7 @@ function ShoppingList() {
       setTrueFalseArraySL(new Array(userShopData.length).fill(false));
       setShopListData(userShopData);
     }
-  }
-
+    
   useEffect(() => {
     if (isLoading !== true) getUserShoppingList();
   }, [isLoading]);
@@ -74,13 +73,14 @@ function ShoppingList() {
     );
 
     useFetch(
-      //COMMENTED OUT TO TEST 55-61
+      //THIS ONE IS WORKING
       "pantryList",
       "PUT",
       { pantry_items: pantryList },
       `/update/?user_id=${user.sub}`
       // "/update/?user_id=google-oauth2|112451605105134992726" //this works
     );
+
 
     useFetch(
       // replace user shopping list here, delete in one above
@@ -92,6 +92,7 @@ function ShoppingList() {
       // "/?user_id=google-oauth2|11245" //REQ.QUERY
     );
 
+
     useFetch(
       // replace user shopping list here, delete in one above
       "shoppinglists",
@@ -102,7 +103,6 @@ function ShoppingList() {
       // "/?user_id=google-oauth2|11245" //REQ.QUERY
       //`/update/?user_id=${userSub}`
     );
-
     console.log("remaining pantry list", remainingPantryList);
     // getUserShoppingList();
     setShopListData(remainingPantryList);
@@ -164,7 +164,7 @@ function ShoppingList() {
       </Row>
     </Container>
   ) : (
-    <>Loading hehe :D - YOU ARE PROBABLY NOT LOGGED IN</>
+    <>YOU ARE PROBABLY NOT LOGGED IN</>
   ); //CONVERSATION TO HAVE: save button to push user shopping list to database to remove the need to push everytime a user adds an item? Look into local storage solution for shopping list?
 }
 

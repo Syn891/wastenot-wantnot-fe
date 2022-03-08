@@ -2,3 +2,5 @@ node_modules
 .next
 .env.local
 .babelrc
+.components/Navbar/Navbar.module.css
+

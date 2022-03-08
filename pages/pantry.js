@@ -14,6 +14,7 @@ import AddItemModal from "../components/AddItemModal";
 import DonationPromptInfo from "../components/DonationPromptInfo";
 import FactCarousel from "../components/FactCarousel";
 import { Row } from "react-bootstrap";
+import {RiFridgeLine} from 'react-icons/ri'
 
 const Pantry = () => {
   let user = useUser();
@@ -154,39 +155,36 @@ const Pantry = () => {
     setPantry(await userPantry());
   }, [user.isLoading]);
 
-  return (
-    <div className={css.body}>
-      <Navbar Icon={GiForkKnifeSpoon} color="#EF8D4B" title={"My Pantry"}>
-        <IoIosArrowBack
-          size={"1.5em"}
-          style={{ marginRight: "0.25em" }}
-          onClick={() => router.back()}
+    return (
+        <div className={css.body}>
+        <Navbar Icon={RiFridgeLine} color="#EF8D4B" title={"My Pantry"}>
+          <IoIosArrowBack
+          size={'1.5em'}
+          style={{marginRight:'0.25em' }} onClick={()=> router.back()}/>
+        </Navbar>
+         <FoodCategoryRow />
+
+        <Container className={css.container}>
+        {renderListItems()}
+        </Container>
+
+        <Container className={css.input}>
+            <Button onClick={() => setModalShow(true)} className={css.addItem}>Add Item to Pantry</Button>
+        </Container>
+        <AddItemModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          save={save}
         />
-      </Navbar>
-      <FoodCategoryRow />
+        <Row className={css.cRow}>
+        <FactCarousel/>
+        </Row>
 
-      <Container className={css.container}>{renderListItems()}</Container>
+    <DonationPromptInfo text="Donations needed in your area"
+                    className={css.dpiSVG}/>
+        </div>
+    );
 
-      <Container className={css.input}>
-        <Button onClick={() => setModalShow(true)} className={css.addItem}>
-          Add Item to Pantry
-        </Button>
-      </Container>
-      <AddItemModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-        save={save}
-      />
-      {/* <Row className={css.cRow}> */}
-      <FactCarousel />
-      {/* </Row> */}
-
-      <DonationPromptInfo
-        text="Donations needed in your area"
-        className={css.dpiSVG}
-      />
-    </div>
-  );
 };
 
 export default Pantry;

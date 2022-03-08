@@ -1,23 +1,24 @@
-import React from "react";
-import Banner from "../components/Banner";
-import DonationPromptInfo from "../components/DonationPromptInfo";
-import { Button, Col, Row } from "react-bootstrap";
-import css from "../styles/Landing.module.css";
-import NavigationButton from "../components/NavigationButton";
-import FoodExpiryButton from "../components/FoodExpiryButton";
-import { FaHandHoldingHeart } from "react-icons/fa";
-import { TiShoppingCart } from "react-icons/ti";
-import { RiFridgeLine } from "react-icons/ri";
-import { GiForkKnifeSpoon } from "react-icons/gi";
-import { useUser, getSession } from "@auth0/nextjs-auth0";
-import Dashboard from "../components/Dashboard";
-import DashboardChart from "../components/DashboardChart";
-import Navbar from "../components/Navbar";
-import { useState, useEffect } from "react";
-import { useFetch } from "../hooks/useFetch.js";
-import FindRecipes from "../components/Findrecipes";
+import React from 'react';
+import Banner from '../components/Banner';
+import DonationPromptInfo from '../components/DonationPromptInfo';
+import {Button, Col, Row} from 'react-bootstrap'
+import css from '../styles/Landing.module.css'
+import NavigationButton from '../components/NavigationButton';
+import FoodExpiryButton from '../components/FoodExpiryButton';
+import {FaHandHoldingHeart } from "react-icons/fa";
+import {TiShoppingCart} from 'react-icons/ti'
+import {RiFridgeLine} from 'react-icons/ri'
+import {GiForkKnifeSpoon} from 'react-icons/gi'
+import {MdLabelImportant} from 'react-icons/md'
+import { useUser, getSession } from '@auth0/nextjs-auth0';
+import Dashboard from '../components/Dashboard';
+import DashboardChart from '../components/DashboardChart';
+import Navbar from '../components/Navbar';
+import { useState, useEffect } from 'react';
+import {useFetch} from '../hooks/useFetch.js'
+import FindRecipes from '../components/Findrecipes';
+const Landing = ({properties}) => {
 
-const Landing = ({ properties }) => {
   const { user, error, isLoading } = useUser();
   const [pantry, setPantry] = useState([]);
   console.log(user);
@@ -271,76 +272,53 @@ const Landing = ({ properties }) => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
-  return (
-    user && (
-      <Col className={css.view}>
-        <Row className={css.row}>
-          <Banner title="WasteNot-WantNot" />
-        </Row>
-        <Row className={css.row}>
-          <Navbar title="Food Waste Matters!" Icon={RiFridgeLine} />
-        </Row>
-        <Row className={css.row}>
-          <div className={css.pantryTitle}>
-            <div>Food in your Pantry which is going out of date:</div>
-          </div>
-        </Row>
-        <Row className={css.row}>{renderButtons()}</Row>
+    return (
+      user && (
+        <Col className={css.view}>
+            <Row className={css.row}>
+              <Banner title="WasteNot-WantNot"/>  
+            </Row>
+            <Row className={css.row}>
+              <Navbar title="Food Waste Matters!" Icon={MdLabelImportant}/>
+            </Row>
+            <Row className={css.row}>
+              <div className={css.pantryTitle}>
+                <div>Food in your Pantry due to go out of date:</div>
+              </div>
+            </Row>
+            <Row className={css.row}>
 
-        <Row className={css.row}>
-          <FindRecipes text="Find recipes to use these items here" />
-        </Row>
-        <Row className={css.row}>
-          <DonationPromptInfo
-            text="...Or donate items to orgnisations in need, here:"
-            className={css.dpiSVG}
-          />
-        </Row>
-        <Row className={css.row}>
-          <Col className={css.col}>
-            <NavigationButton
-              title="Grocery List"
-              color="#94DEB2"
-              link="/shoppinglist"
-              Icon={TiShoppingCart}
-            />
-          </Col>
-          <Col className={css.col}>
-            <NavigationButton
-              title="In my Pantry"
-              color="#5CC971"
-              link="/pantry"
-              Icon={RiFridgeLine}
-            />
-          </Col>
-          <Col className={css.col}>
-            <NavigationButton
-              title="My Meals"
-              color="#F1AC79"
-              link="/mealPlan"
-              Icon={GiForkKnifeSpoon}
-            />
-          </Col>
-          <Col className={css.col}>
-            <NavigationButton
-              title="Donations"
-              color="#EF8D4B"
-              link="/donations"
-              Icon={FaHandHoldingHeart}
-            />
-          </Col>
-        </Row>
-        <Row className={css.row}>
-          <Dashboard
-            waste={waste}
-            donations={donations}
-            consumption={consumption}
-            link="/userInformation"
-          />
-        </Row>
-      </Col>
-    )
-  );
+              { renderButtons() }
+            </Row>
+                                           
+            <Row className={css.row}>
+            <FindRecipes text='Find recipes to use these items here'/>
+            </Row>
+            <Row className={css.row}>
+                <DonationPromptInfo 
+                    text="Or donate items to orgnisations in need, here:"
+                    className={css.dpiSVG}/>
+            </Row>
+            <Row className={css.row}>
+                <Col className={css.col}>
+                    <NavigationButton title="Grocery List" color="#94DEB2" link="/shoppinglist"Icon={TiShoppingCart}/>
+                </Col>
+                <Col className={css.col}>
+                    <NavigationButton title="In my Pantry" color="#5CC971" link="/pantry"Icon={RiFridgeLine}/>
+                </Col>
+                <Col className={css.col}>
+                    <NavigationButton title="My Meals" color="#F1AC79" link="/mealPlan"Icon={GiForkKnifeSpoon}/>
+                </Col>
+                <Col className={css.col}>
+                    <NavigationButton title="Donations" color="#EF8D4B" link="/donations"Icon={FaHandHoldingHeart}/>
+                </Col>
+            </Row>
+            <Row className={css.row}><Dashboard waste={waste} donations={donations} consumption={consumption} link="/userInformation" />
+
+</Row>
+        </Col>
+    ));
+    
 };
 
 async function getServerSideProps(ctx) {
