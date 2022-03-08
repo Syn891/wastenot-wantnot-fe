@@ -9,6 +9,7 @@ import {FaHandHoldingHeart } from "react-icons/fa";
 import {TiShoppingCart} from 'react-icons/ti'
 import {RiFridgeLine} from 'react-icons/ri'
 import {GiForkKnifeSpoon} from 'react-icons/gi'
+import {MdLabelImportant} from 'react-icons/md'
 import { useUser, getSession } from '@auth0/nextjs-auth0';
 import Dashboard from '../components/Dashboard';
 import DashboardChart from '../components/DashboardChart';
@@ -148,7 +149,7 @@ function renderButtons() {
               <Banner title="WasteNot-WantNot"/>  
             </Row>
             <Row className={css.row}>
-              <Navbar title="Food Waste Matters!" Icon={RiFridgeLine} />
+              <Navbar title="Food Waste Matters!" Icon={MdLabelImportant}/>
             </Row>
             <Row className={css.row}>
               <div className={css.pantryTitle}>
