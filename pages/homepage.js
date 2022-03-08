@@ -26,6 +26,27 @@ const Landing = ({properties}) => {
     const [consumption, setConsumption]= useState(0);
 
     //  if(user) {
+     async function createUserPantryTable(){
+        if(isLoading !== true){
+          let dbPantry = useFetch('pantryList', 'GET', null, `/?user_id=${user.sub}`)
+        dbPantry = await Promise.resolve (dbPantry)
+        console.log(dbPantry)
+        if(dbPantry.payload.length <1){
+          console.log(user.sub)
+          let newPantry = { user_id: user.sub,
+            pantry_items: [
+            ],
+        }
+        console.log(newPantry.user_id)
+         let newdbPantry = useFetch('pantryList', 'POST', newPantry, ``)
+         newdbPantry = await Promise.resolve (newdbPantry)
+         console.log(newdbPantry)
+    }
+        }
+      }
+      useEffect(()=>{
+        createUserPantryTable()
+      }, [isLoading])
        
       async function userDashboard(){ 
         if(isLoading !== true) {
@@ -210,21 +231,20 @@ function renderButtons() {
       }
 
       const response = await useFetch('users', 'POST', newUser, '')
-      // const response = await fetch(`https://waste-want.herokuapp.com/users/` , {
-      //       method: 'POST', 
-      //       mode: 'cors', // no-cors, *cors, same-origin
-      //       cache: 'no-cache', 
-      //       credentials: 'same-origin', // include, *same-origin, omit
-      //       headers: {
-      //         'Content-Type': 'application/json'
-      //       },
-      //       redirect: 'follow', // manual, *follow, error
-      //       referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      //       body: JSON.stringify(newUser) // body data type must match "Content-Type" header
-          console.log(response.json); // parses JSON response into native JavaScript objects
+     
+          console.log(response.json);
+           // parses JSON response into native JavaScript objects
         } else {
           console.log("user already in db")
         }
+        
+
+// const responseuseFetch('pantryList', 'POST', listItem, `/?user_id=${userSub}`)
+     
+//           console.log(response.json); // parses JSON response into native JavaScript objects
+//         } else {
+//           console.log("user already in db")
+//         }
   
     return {
             props: { properties: dbUser},
@@ -234,7 +254,9 @@ function renderButtons() {
             props: {properties: {}}
           }
         }
+        
    }
+
 
 
 
