@@ -9,75 +9,58 @@ import "react-swipeable-list/dist/styles.css";
 import css from "./swipePantryBar.module.css";
 import FoodListItem from "../FoodListItem";
 import {useFetch} from "../../hooks/useFetch.js"
+import {useUser} from '@auth0/nextjs-auth0'
 
 
 
-function SwipeDonationsBar({ className, children, data, object_id, userId, object }) {
+function SwipeDonationsBar({ className, children, data, object_id, object }) {
   let cN = className;
+  let user = useUser()
 
-  async function removeFromDb(id){
+  async function removeFromDbAndEffectUserValues(id){
     const remove = {donated_items: {_id:id}}
-    const res = useFetch('donation', 'DELETE', remove, `/?user_id=${userId}`)
+    const res = useFetch('donations', 'DELETE', remove, `/?user_id=${user.user.sub}`)
     await Promise.resolve(res)    
     incrementUserStats('wastage')
-    // decrementUserStats('donations')
+    decrementUserStats('donations')
   }
 
   async function incrementUserStats(key) {
-    let userInfo = useFetch('users', 'GET', null, `/${userId}`)
-    userInfo = await Promise.resolve(userInfo)
     console.log(key)
+    let userInfo = useFetch('users', 'GET', null, `/${user.user.sub}`)
+    userInfo = await Promise.resolve(userInfo)
     let data = userInfo.payload
-    console.log(data)
-
-      // let query = {[key]: data}
-      // let res1 = useFetch('users', 'PUT', query,`/${userId}` )
-      // res1 = await Promise.resolve(res1)
-      // console.log(res1)
+    
+    let query = {[key]: data[key] +1}
+    let res1 = useFetch('users', 'PUT', query,`/${user.user.sub}` )
+    res1 = await Promise.resolve(res1)
   }
 
 
   async function decrementUserStats(key) {
-    let userInfo = useFetch('users', 'GET', null, `/${userId}`)
+    let userInfo = useFetch('users', 'GET', null, `/${user.user.sub}`)
     userInfo = await Promise.resolve(userInfo)
-    console.log(key)
-    let data = userInfo.payload[key] - 1
-    console.log(data)
-
-      let query = {[key]: data}
-      let res1 = useFetch('users', 'PUT', query,`/${userId}` )
-      res1 = await Promise.resolve(res1)
-      console.log(res1)
+    let data = userInfo.payload
+    
+    let query = {[key]: data[key] -1}
+    let res1 = useFetch('users', 'PUT', query,`/${user.user.sub}` )
+    res1 = await Promise.resolve(res1)
   }
 
 
   async function removeFromDonations(id){
     const remove = {donated_items: {_id:id}}
-    const res = useFetch('donation', 'DELETE', remove, `/?user_id=${userId}`)
+    const res = useFetch('donations', 'DELETE', remove, `/?user_id=${user.user.sub}`)
     await Promise.resolve(res)    
   
   }
 
-  // async function addToDonationsDb(id){
-
-  //   const donUser = useFetch('donations', 'GET', null, `/?user_id=${userId}`)
-  //   const res = await Promise.resolve(donUser)
-  //   if(res.payload.length < 1){
-  //     const newDonUser = useFetch('donations', 'POST', object, ``)
-  //   }else{
-  
-  //     let query = {donated_items: object.donated_items[0]}
-  //     useFetch('donations', 'PUT', query,`/update/?user_id=${userId}` )
-  //   }
-  //   removeFromDb(data)
-  //   incrementUserStats('donations')
-  // }
   const leadingActions = (id) => (
     <LeadingActions>
       <SwipeAction
           className={css.actionDelete}
         destructive={true}
-        onClick={() => removeFromDb(id)}
+        onClick={() => removeFromDbAndEffectUserValues(id)}
       >
         <div>Waste</div>
       </SwipeAction>
@@ -100,7 +83,7 @@ function SwipeDonationsBar({ className, children, data, object_id, userId, objec
       <SwipeableListItem
         className={css.swipeBarCss}
         leadingActions={leadingActions(data)}
-        trailingActions={trailingActions(object_id)}
+        trailingActions={trailingActions(data)}
       >
          
           {children}

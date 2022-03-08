@@ -76,7 +76,20 @@ const DonationsPage = ({ trueFalseArraySL, setTrueFalseArraySL }) => {
     //itll be this logic for donations and pantry
     // new Array(donations.length).fill(false)
   );//google-oauth2|108124826364307880117
+  const router = useRouter();
 
+
+  const setColor = (number) => {
+    let color = "";
+    if (number < 3) {
+      color = "#F96D6D";
+    } else if (number < 7 && number > 2) {
+      color = "#EF8D4B";
+    } else {
+      color = "#5CC971";
+    }
+    return color;
+  };
 
 
 
@@ -88,38 +101,22 @@ const DonationsPage = ({ trueFalseArraySL, setTrueFalseArraySL }) => {
        
         const data = await Promise.resolve(fetchData);
          console.log('data is fetched', data)
-         const donationsData = data.payload.donated_items;
+         const donationsData = data.payload[0].donated_items;
          console.log(donationsData)
-         setTrueFalseArrayDL(new Array(donationsData.length).fill(false));
+        //  setTrueFalseArrayDL(new Array(donationsData.length).fill(false));
          setDonations(donationsData);
-         console.log(donations)
-    
-         
-         console.log(trueFalseArrayDL)
+     
+        //  console.log(trueFalseArrayDL)
     }
   }
-    // return data.payload}
 
-    // useEffect(()=>{
-    //   async function getUserDonations(){
-    //   setDonations (await userDonations())
-    //   console.log(data)
-    //    console.log(donations)
-    // }
-    // getUserDonations()}
-    // ,[]);
-
-    
+ 
 useEffect(() => {
-    userDonations();
-    console.log(donations);
-  }, []);
 
-  function isTrue(value) {
-    if (value === true) {
-      return value;
-    }
-  }
+    userDonations();
+
+  }, [isLoading]);
+
 
   // const tfArray = [false, true, false, true]
   
@@ -150,18 +147,7 @@ useEffect(() => {
 //on click of the modal done button 
 // fetch user collection and add this value to eaten, wasted or donated depending on which radio is selected.
 
-  const router = useRouter();
-  const setColor = (number) => {
-    let color = "";
-    if (number < 3) {
-      color = "#F96D6D";
-    } else if (number < 7 && number > 2) {
-      color = "#EF8D4B";
-    } else {
-      color = "#5CC971";
-    }
-    return color;
-  };
+ 
 
   //const router = useRouter()
   return donations ? (
@@ -191,9 +177,12 @@ useEffect(() => {
         {/* <Container className={css.container1}> */}
 
         {donations.map(function (item, index) {
+          console.log(item)
           return (
             <Row>
-              <SwipeDonationsBar>
+              <SwipeDonationsBar
+                data={item._id}
+              >
                 <FoodListItem
                   // {...item}
                   key={item._id}
