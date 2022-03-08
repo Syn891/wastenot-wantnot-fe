@@ -41,9 +41,12 @@ function ShoppingList() {
       setTrueFalseArraySL(new Array(userShopData.length).fill(false));
       setShopListData(userShopData);
     }
-    
+  }
+
   useEffect(() => {
-    if (isLoading !== true) getUserShoppingList();
+    if (isLoading !== true) {
+      getUserShoppingList();
+    }
   }, [isLoading]);
 
   function handlePantryClick(trueFalseArraySL, shopListData, user) {
@@ -81,7 +84,6 @@ function ShoppingList() {
       // "/update/?user_id=google-oauth2|112451605105134992726" //this works
     );
 
-
     useFetch(
       // replace user shopping list here, delete in one above
       "shoppinglists",
@@ -91,7 +93,6 @@ function ShoppingList() {
       `/all/?user_id=${user.sub}`
       // "/?user_id=google-oauth2|11245" //REQ.QUERY
     );
-
 
     useFetch(
       // replace user shopping list here, delete in one above

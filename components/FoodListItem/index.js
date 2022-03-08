@@ -13,7 +13,7 @@ function FoodListItem({
   trueFalseArraySL,
   setTrueFalseArraySL,
 }) {
-  const dateFormatted = est_exp.toLocaleDateString("en-GB");
+  // const dateFormatted = est_exp.toLocaleDateString("en-GB");
   // const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000); //silly maths no functionality
   if (!color) {
     color = "#5CC971";
@@ -27,7 +27,7 @@ function FoodListItem({
     setTrueFalseArraySL(updatedCheckedState);
   }
 
-  console.log("date formatted", dateFormatted);
+  // console.log("date formatted", dateFormatted);
 
   return (
     <>
@@ -35,7 +35,7 @@ function FoodListItem({
         <div>{name}</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
-        <div>{dateFormatted}</div>
+        <div>{est_exp}</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
         <div>{quantity}</div>
