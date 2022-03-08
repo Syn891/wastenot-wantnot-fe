@@ -1,7 +1,7 @@
 import { Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
 import css from "./FoodListItem.module.css";
-function FoodListItem({
+function  FoodListItem({
   name,
   est_exp,
   category,
@@ -31,7 +31,7 @@ function FoodListItem({
         <div>{name}</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
-        <div>1/1/11</div>
+        <div>{est_exp}</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
         <div>{quantity}</div>

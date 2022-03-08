@@ -20,13 +20,56 @@ import { useFetch } from "../hooks/useFetch.js";
 import AssignItem from "../components/EatConsumeDonate";
 import FoodListItemDonate from "../components/FoodListItemDonate";
 
+// .map(function (item, index) {
+//   if (trueFalseArrayDL[index]) {
+//     console.log(donations[index], "shop list data at index: ", index);
+//     ewdList.push(item);
+//   }
+//   console.log(ewdList.length)
+//   // console.log("Pantry List is ", pantryList);
+//   return ewdList.length;
+//app.push pantry list to database
 
 
- 
+// function handleEatWasteDonateClick(donations) {
+//   console.log(trueFalseArrayDL, "Donations TF Array");
+//   //tried for and mapping, tried spreading, think the use state is being continually called and resetting it
+//   let ewdList = [];
+//   donations.map(function (item, index) {
+//     if (trueFalseArrayDL[index]) {
+//       console.log(donations[index], "shop list data at index: ", index);
+//       ewdList.push(item);
+//     }
+//     console.log(ewdList.length)
+//     // console.log("Pantry List is ", pantryList);
+//     return ewdList.length;
+//     //app.push pantry list to database
+//   })}
+
+//   //onclick of the green button call the handleEatWasteDonateClick function to make an array of the checked items
+//   // check the length of the array to calculate how many items are being assigned
+//
+//   //
+
+// //   async function submitMeal(event) {
+// //     const fetchedData = useFetch('donationslist', 'GET', null, `/?user_id=${userId}`)
+// //     const response = await Promise.resolve(fetchedData)
+// //     if(response.payload.length < 1) {
+// //       useFetch('mealPlan', 'POST', data, '' )
+// //     }
+// //     else {
+// //       let query = {meal_plan: data.meal_plan[0]}
+// //       useFetch('mealPlan', 'PUT', query,`/update/?user_id=${userId}` )
+// //     }
+// //     handleToggle()
+// //   }
+// // let eatList=[]
+
+//
+// }
 
 
-
-const DonationsPage = ({trueFalseArraySL, setTrueFalseArraySL}) => {
+const DonationsPage = ({ trueFalseArraySL, setTrueFalseArraySL }) => {
   const { user, error, isLoading } = useUser();
   const [donations, setDonations] = useState ([]);
     const [trueFalseArrayDL, setTrueFalseArrayDL] = useState(
@@ -69,16 +112,17 @@ const DonationsPage = ({trueFalseArraySL, setTrueFalseArraySL}) => {
     
 useEffect(() => {
     userDonations();
-    console.log(donations)
+    console.log(donations);
   }, []);
 
-  function isTrue(value){
-if(value === true){
-  return value
-}
+  function isTrue(value) {
+    if (value === true) {
+      return value;
+    }
   }
-  
+
   // const tfArray = [false, true, false, true]
+  
 //   function handleEatWasteDonateClick() {
 //   console.log(trueFalseArrayDL, "Donations TF Array");
 //   //tried for and mapping, tried spreading, think the use state is being continually called and resetting it
@@ -105,7 +149,6 @@ if(value === true){
    
 //on click of the modal done button 
 // fetch user collection and add this value to eaten, wasted or donated depending on which radio is selected.
-  
 
   const router = useRouter();
   const setColor = (number) => {
@@ -121,8 +164,8 @@ if(value === true){
   };
 
   //const router = useRouter()
-  return  donations ?(
-    <Container >
+  return donations ? (
+    <Container>
       <Row>
         <Navbar
           Icon={FaHandHoldingHeart}
@@ -143,14 +186,14 @@ if(value === true){
       </Row>
       <Row>
         <FoodCategoryRow />
-        </Row>
-        <Row className={css.container1}>
+      </Row>
+      <Row className={css.container1}>
         {/* <Container className={css.container1}> */}
-{donations.map(function(item, index){
-  return(
-           
-              <Row>
-              <SwipeDonationsBar>
+
+        {donations.map(function (item, index) {
+          return (
+            <Row>
+              <SwipePantryBar>
                 <FoodListItem
                   // {...item}
                   key={item._id}
@@ -206,4 +249,3 @@ if(value === true){
 };
 
 export default DonationsPage;
-
