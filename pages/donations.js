@@ -8,7 +8,7 @@ import { Row, Col } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import css from "../styles/donations.module.css";
 import { useRouter } from "next/router";
-import SwipePantryBar from "../components/SwipePantryBar";
+import SwipeDonationsBar from "../components/SwipeDonationsBar";
 import FoodListItem from "../components/FoodListItem";
 import DonationsLink from "../components/DonationsLink";
 
@@ -29,6 +29,7 @@ import FoodListItemDonate from "../components/FoodListItemDonate";
 //   // console.log("Pantry List is ", pantryList);
 //   return ewdList.length;
 //app.push pantry list to database
+
 
 // function handleEatWasteDonateClick(donations) {
 //   console.log(trueFalseArrayDL, "Donations TF Array");
@@ -67,45 +68,49 @@ import FoodListItemDonate from "../components/FoodListItemDonate";
 //
 // }
 
+
 const DonationsPage = ({ trueFalseArraySL, setTrueFalseArraySL }) => {
   const { user, error, isLoading } = useUser();
-  const [donations, setDonations] = useState([]);
-  const [trueFalseArrayDL, setTrueFalseArrayDL] =
-    useState();
-    
+  const [donations, setDonations] = useState ([]);
+    const [trueFalseArrayDL, setTrueFalseArrayDL] = useState(
     //itll be this logic for donations and pantry
-    // new Array(donations.length).fill(false) //google-oauth2|108124826364307880117
+    // new Array(donations.length).fill(false)
+  );//google-oauth2|108124826364307880117
 
-  async function userDonations() {
-    const fetchData = useFetch(
-      "donations",
-      "GET",
-      null,
-      `/?user_id=${user.user.sub}`
-    );
 
-    const data = await Promise.resolve(fetchData);
-    console.log("data is fetched", data);
-    const donationsData = data.payload.donated_items;
-    console.log(donationsData);
-    setTrueFalseArrayDL(new Array(donationsData.length).fill(false));
-    setDonations(donationsData);
-    console.log(donations);
 
-    console.log(trueFalseArrayDL);
+
+    async function userDonations(){ 
+      if(isLoading !== true){
+        console.log(user);
+        console.log(user.sub)
+        const fetchData = useFetch('donations', 'GET', null, `/?user_id=${user.sub}`)
+       
+        const data = await Promise.resolve(fetchData);
+         console.log('data is fetched', data)
+         const donationsData = data.payload.donated_items;
+         console.log(donationsData)
+         setTrueFalseArrayDL(new Array(donationsData.length).fill(false));
+         setDonations(donationsData);
+         console.log(donations)
+    
+         
+         console.log(trueFalseArrayDL)
+    }
   }
-  // return data.payload}
+    // return data.payload}
 
-  // useEffect(()=>{
-  //   async function getUserDonations(){
-  //   setDonations (await userDonations())
-  //   console.log(data)
-  //    console.log(donations)
-  // }
-  // getUserDonations()}
-  // ,[]);
+    // useEffect(()=>{
+    //   async function getUserDonations(){
+    //   setDonations (await userDonations())
+    //   console.log(data)
+    //    console.log(donations)
+    // }
+    // getUserDonations()}
+    // ,[]);
 
-  useEffect(() => {
+    
+useEffect(() => {
     userDonations();
     console.log(donations);
   }, []);
@@ -117,31 +122,33 @@ const DonationsPage = ({ trueFalseArraySL, setTrueFalseArraySL }) => {
   }
 
   // const tfArray = [false, true, false, true]
-  function handleEatWasteDonateClick() {
-    console.log(trueFalseArrayDL, "Donations TF Array");
-    //tried for and mapping, tried spreading, think the use state is being continually called and resetting it
-    const tfArray = [false, true, false, true];
-    let trueArray = tfArray.filter(isTrue);
-    console.log("true Array", tfArray);
-    console.log("true Array length", trueArray.length);
-    return trueArray;
-  }
+  
+//   function handleEatWasteDonateClick() {
+//   console.log(trueFalseArrayDL, "Donations TF Array");
+//   //tried for and mapping, tried spreading, think the use state is being continually called and resetting it
+//  const tfArray = [false, true, false, true]
+//  let trueArray = tfArray.filter(isTrue)
+//  console.log('true Array', tfArray)
+//  console.log('true Array length', trueArray.length)
+//  return trueArray
 
-  async function handleDoneClick({ trueArray }) {
-    if (isLoading !== true) {
-      const fetchedData = useFetch("users", "GET", null, `/${user.sub}`);
-      const data = await Promise.resolve(fetchedData);
-      console.log(data);
-      //  if(Togglebutton.checked === 'Eaten'){
-      let newConsumption = data.payload.consumption + trueArray.length;
-      console.log(newConsumption);
-      let query = { consumption: newConsumption }; //let user.consumption = consumption + ewdlist.length
-      useFetch("users", "PUT", query, `/update/?user_id=${user.sub}`);
-    }
-  }
+//   }
 
-  //on click of the modal done button
-  // fetch user collection and add this value to eaten, wasted or donated depending on which radio is selected.
+// async function handleDoneClick({trueArray}){
+//   if(isLoading !== true) {
+// const fetchedData = useFetch('users', 'GET', null, `/${user.sub}`)
+// const data = await Promise.resolve(fetchedData)
+// console.log(data)
+//   //  if(Togglebutton.checked === 'Eaten'){
+//   let newConsumption = data.payload.consumption + trueArray.length
+//   console.log(newConsumption)
+//   let query= {consumption: newConsumption} //let user.consumption = consumption + ewdlist.length
+//  useFetch('users', 'PUT', query, `/update/?user_id=${user.sub}`)
+
+//  }}
+   
+//on click of the modal done button 
+// fetch user collection and add this value to eaten, wasted or donated depending on which radio is selected.
 
   const router = useRouter();
   const setColor = (number) => {
@@ -182,6 +189,7 @@ const DonationsPage = ({ trueFalseArraySL, setTrueFalseArraySL }) => {
       </Row>
       <Row className={css.container1}>
         {/* <Container className={css.container1}> */}
+
         {donations.map(function (item, index) {
           return (
             <Row>
@@ -199,42 +207,45 @@ const DonationsPage = ({ trueFalseArraySL, setTrueFalseArraySL }) => {
                   // trueFalseArraySL={trueFalseArraySL}
                   // setTrueFalseArraySL={trueFalseArraySL}
                 />
-              </SwipePantryBar>
+                </SwipeDonationsBar>
+              </Row>
+              
+           
+  ) })}
+  </Row>
+ 
+
+{/* })} </Container> */}
+            
+        {/* <Container className={css.container1}>{renderListItems()}</Container> */}
+
+        
+        
+
+           
+            <Row>
+{/* <SwipeBar /> */}
+</Row>
+
+            <Row>
+{/* <SwipePantryBar > <FoodListItem name="chicken" quantity="1" measurement="kg" /></SwipePantryBar> */}
             </Row>
-          );
-        })}
-      </Row>
-
-      {/* })} </Container> */}
-
-      {/* <Container className={css.container1}>{renderListItems()}</Container> */}
-
-      <Row>
-        <SwipeBar />
-      </Row>
-
-      <Row>
-        {/* <SwipePantryBar > <FoodListItem name="chicken" quantity="1" measurement="kg" /></SwipePantryBar> */}
-      </Row>
-
-      <Row className={css.row}>
-        <div className={css.donationsTitle}>
-          <p>Saved Donation Points:</p>
-        </div>
-      </Row>
-      <Row>
-        <AssignItem
-          onClick={handleEatWasteDonateClick}
-          handleDoneClick={handleDoneClick}
-        />
-      </Row>
-      <Row>
-        <DonationsLink link="./donationPoints" />
-      </Row>
-    </Container>
-  ) : (
-    <>You haven't donated anything yet</>
-  );
+        
+             <Row className={css.row}>
+              <div className={css.donationsTitle}>
+                <p>Saved Donation Points:</p>
+              </div>
+            </Row>
+            {/* <Row>
+              <AssignItem onClick={handleEatWasteDonateClick} handleDoneClick={handleDoneClick} /> 
+            </Row>  */}
+            <Row>
+                <DonationsLink link="./donationPoints"/>
+            </Row>
+            
+       
+ </Container>
+    ):(<>You haven't donated anything yet</>)
 };
 
 export default DonationsPage;
