@@ -19,8 +19,6 @@ import { useRouter } from "next/router";
 //add remove shopping list item functionality (swipe?)
 // styling of buttons, etc
 
-
-
 function ShoppingList() {
   const user = useUser();
   const [addPantryDisable, setAddPantryDisable] = useState(false); //Pantry button greyed out when new item form is rendered
@@ -37,18 +35,13 @@ function ShoppingList() {
       `/?user_id=${user.user.sub}`
     );
     const response = await Promise.resolve(fetchData);
-    const userShopData = response.payload[0].shopping_items;
-    // if userShopData.length less than 2 put placeholder items in
-    setTrueFalseArraySL(new Array(userShopData.length).fill(false));
-    setShopListData(userShopData);
-    console.log(
-      "user",
-      user,
-      "user Shop Data from database",
-      userShopData,
-      "True False Array in get users",
-      trueFalseArraySL
-    );
+    console.log(response);
+    if (response.payload.length > 0) {
+      const userShopData = response.payload[0].shopping_items;
+      // if userShopData.length less than 2 put placeholder items in
+      setTrueFalseArraySL(new Array(userShopData.length).fill(false));
+      setShopListData(userShopData);
+    }
   }
 
   useEffect(() => {
@@ -66,7 +59,7 @@ function ShoppingList() {
         remainingPantryList.push(item);
       }
     });
-  
+
     console.log(
       "Checked List to go to Pantry is ",
       pantryList,
@@ -80,7 +73,7 @@ function ShoppingList() {
       "time is",
       new Date()
     );
-  
+
     useFetch(
       //COMMENTED OUT TO TEST 55-61
       "pantryList",
@@ -89,7 +82,7 @@ function ShoppingList() {
       `/update/?user_id=${user.user.sub}`
       // "/update/?user_id=google-oauth2|112451605105134992726" //this works
     );
-  
+
     useFetch(
       // replace user shopping list here, delete in one above
       "shoppinglists",
@@ -99,7 +92,7 @@ function ShoppingList() {
       `/?user_id=${user.user.sub}`
       // "/?user_id=google-oauth2|11245" //REQ.QUERY
     );
-  
+
     useFetch(
       // replace user shopping list here, delete in one above
       "shoppinglists",
@@ -109,14 +102,34 @@ function ShoppingList() {
       // "/?user_id=google-oauth2|11245" //REQ.QUERY
       //`/update/?user_id=${userSub}`
     );
-  
+
     console.log("after 2nd useFetch", new Date());
-    getUserShoppingList();
+    // getUserShoppingList();
     return pantryList;
   }
 
+  function loadShopListTable() {
+    if (shopListData) {
+      console.log(shopListData);
+      return (
+        <ShoppingListTable
+          getUserShoppingList={getUserShoppingList}
+          onFormRender={() => setAddPantryDisable(true)}
+          onNoFormRender={() => setAddPantryDisable(false)}
+          shopListData={shopListData}
+          setShopListData={setShopListData}
+          trueFalseArraySL={trueFalseArraySL}
+          setTrueFalseArraySL={setTrueFalseArraySL}
+          userSub={user.user.sub}
+        />
+      );
+    }
+  }
+
   const router = useRouter();
-  return shopListData ? ( // the ? is so lines 105-107 run whgile we are waiting for our getUserShoppingList promises to resolve
+  // return shopListData ? (
+  return shopListData ? (
+    // the ? is so lines 105-107 run whgile we are waiting for our getUserShoppingList promises to resolve
     <Container>
       <Row className={css.row}>
         <Navbar Icon={GiForkKnifeSpoon} color="#EF8D4B" title={"Grocery List"}>
@@ -127,26 +140,9 @@ function ShoppingList() {
           />
         </Navbar>
         <Container className={css.innercontainer}>
-          <ShoppingListTable
-            getUserShoppingList={getUserShoppingList}
-            onFormRender={() => setAddPantryDisable(true)}
-            onNoFormRender={() => setAddPantryDisable(false)}
-            shopListData={shopListData}
-            setShopListData={setShopListData}
-            trueFalseArraySL={trueFalseArraySL}
-            setTrueFalseArraySL={setTrueFalseArraySL}
-            userSub={user.user.sub}
-          />
+          {loadShopListTable()}
           <Col>
             <Row className={css.row}>
-              <SaveListButton
-                message={"Save List (temp button incase of weird DB issues"}
-                addPantryDisable={addPantryDisable}
-                onClick={
-                  () => console.log("save button clicked", trueFalseArraySL)
-                  // handleSaveListClick(trueFalseArraySL, shopListData, user)
-                }
-              />
               <AddItemToPantryButton
                 message={"Add checked list items to My Pantry:"}
                 addPantryDisable={addPantryDisable}
