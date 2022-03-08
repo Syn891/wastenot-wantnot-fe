@@ -36,8 +36,9 @@ function NavbarCustom({ title, color, children, Icon }) {
           <Offcanvas.Header closeButton className={styles.offcanvasHeader}>
             <Nav.Link className={styles.navLinkLanding} href="/homepage">
               <Offcanvas.Title id="offcanvasNavbarLabel">
-              WasteNot: WantNot
-            </Offcanvas.Title></Nav.Link>
+                WasteNot: WantNot
+              </Offcanvas.Title>
+            </Nav.Link>
             <img
               className={styles.brand}
               src="https://i.ibb.co/MV46RZx/Recycle-icon-by-rudezstudio-2-580x386-copy.png"
