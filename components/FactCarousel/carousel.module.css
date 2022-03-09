@@ -6,7 +6,8 @@
     padding: 1em;
 }
 .carouselText{
-     color:  #243E36;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 500;
      text-align: center;
      font-size: 14px;
      padding-right: 1.5em;
@@ -16,11 +17,18 @@
 
 .item{
     z-index: 1;
-    background-color: #FB9999;
+    background-color: #Fecaa5;
     border-radius: 10px 10px 10px 10px;
     height: 100%;
     text-align: center;
     display: flex;
     align-items: center;
     justify-items: center;
+}
+
+.know{
+    padding-top: 0.5em;
+    font-weight: bolder;
+    color: rgba(0, 0, 0, 0.75);
+
 }
