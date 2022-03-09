@@ -20,7 +20,7 @@ function ShoppingListTable({
   userSub,
   getUserShoppingList,
 }) {
-  const [itemButtonClick, setItemButtonClick] = useState(false);
+  // const [itemButtonClick, setItemButtonClick] = useState(false);
   // const [item, setItem] = useState("Error");
   // const [expiry, setExpiry] = useState("Error");
   // const [qty, setQty] = useState("Error");
@@ -58,10 +58,10 @@ function ShoppingListTable({
     setTrueFalseArraySL([...trueFalseArraySL, false]);
     //Would be here POST REQUEST shopListData to database function is called
     console.log("shop list data:", shopListData, "");
-    setItemButtonClick(false);
+    // setItemButtonClick(false);
     // await getUserShoppingList();
   }
-  onFormRender();
+  // onFormRender();
 
   function renderShopListTable() {
     if (shopListData) {
