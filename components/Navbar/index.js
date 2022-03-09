@@ -59,6 +59,9 @@ function NavbarCustom({ title, color, children, Icon, iconColor }) {
               <Nav.Link className={styles.navLink} href="/mealPlan">
                 Meal Planner
               </Nav.Link>
+              <Nav.Link className={styles.navLink} href="/mymeals">
+                My Meals
+              </Nav.Link>
               <Nav.Link className={styles.navLink} href="/donations">
                 My Donations
               </Nav.Link>
