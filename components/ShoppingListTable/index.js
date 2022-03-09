@@ -153,8 +153,8 @@ function ShoppingListTable({
   //causing error, doesnt work nested in function, solution needed}
   if (!itemButtonClick) {
     return (
-      <Container>
-        <FoodCategoryRow />
+      <>
+        {/*<FoodCategoryRow />*/}
         {console.log("line 141 in SLtable", shopListData)}
         {shopListData.map(function (item, index) {
           return (
@@ -197,7 +197,7 @@ function ShoppingListTable({
           save={save}
           list={"Pantry"}
         />
-      </Container>
+      </>
     );
   }
 }

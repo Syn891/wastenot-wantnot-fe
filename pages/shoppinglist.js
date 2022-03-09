@@ -13,7 +13,7 @@ import { useFetch } from "../hooks/useFetch";
 import { GiForkKnifeSpoon } from "react-icons/gi";
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/router";
-
+import FoodCategoryRow from "../components/FoodCategoryRow";
 //delete items on swipe
 //look into solution for comparing shopping list and pantry list
 //add remove shopping list item functionality (swipe?)
@@ -141,6 +141,7 @@ function ShoppingList() {
             onClick={() => router.back()}
           />
         </Navbar>
+        <FoodCategoryRow/>
         <Container className={css.innercontainer}>
           {loadShopListTable()}
           <Col>
