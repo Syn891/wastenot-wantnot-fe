@@ -282,7 +282,7 @@ const Landing = ({properties}) => {
               <Banner title="WasteNot-WantNot"/>  
             </Row>
             <Row className={css.row}>
-              <Navbar title="Food Waste Matters!" Icon={MdLabelImportant}/>
+              <Navbar title="Food Waste Matters!" Icon={MdLabelImportant} iconColor={"white"}/>
             </Row>
             <Row className={css.row}>
               <div className={css.pantryTitle}>

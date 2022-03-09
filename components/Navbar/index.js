@@ -3,8 +3,9 @@ import { Navbar, Container, Offcanvas, Nav, Button } from "react-bootstrap";
 // import styles from "./Navbar.module.css";
 import styles from "./naavbar.module.css";
 import { useUser } from "@auth0/nextjs-auth0";
-function NavbarCustom({ title, color, children, Icon }) {
+function NavbarCustom({ title, color, children, Icon, iconColor }) {
   const { user } = useUser();
+
 
   function renderLogout() {
     if (user) {
@@ -25,7 +26,7 @@ function NavbarCustom({ title, color, children, Icon }) {
           <Navbar.Brand className={styles.navbarBrand} href="#">
             {title}
           </Navbar.Brand>
-          <Icon className={styles.icon} size={"2em"} />
+          <Icon fill={iconColor} className={styles.icon} size={"2em"} />
         </div>
         <Navbar.Offcanvas
           id="offcanvasNavbar"
