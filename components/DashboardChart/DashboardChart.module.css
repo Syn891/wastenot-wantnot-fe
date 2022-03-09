@@ -1,5 +1,7 @@
 .dashboardChart{
    border: green;
-height: 10%;
+   padding:0;
+   margin: 0;
+   
 
 }

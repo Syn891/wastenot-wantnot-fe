@@ -4,7 +4,9 @@ import css from "./DashboardChart.module.css";
 
 
 
-const DashboardChart = ({value}) => {
+const DashboardChart = ({value, total, colour1, colour2}) => {
+
+   
   return (
     <div className={css.DashboardChart}>
       
@@ -17,26 +19,27 @@ const DashboardChart = ({value}) => {
    animationEasing="ease-out"
    center={[50, 50]}
    data={[
-     {
-     color: "#F1AC79",
-     title: "One",
-     value: value,
-     },
-     {
-     color: "#C13C37",
+      {
+     color:"#f1efef" ,
      title: "Two",
      value: 100-value,
      },
+     {
+     color: colour1,
+     title: "One",
+     value: value/total * 100,
+     },
+    
      
    ]}
    labelPosition={50}
    lengthAngle={360}
-   lineWidth={15}
-   paddingAngle={0}
-   radius={20}
+   lineWidth={35}
+  //  paddingAngle={0}
+   radius={30}
    rounded
    startAngle={0}
-   viewBoxSize={[100, 100]}
+  //  viewBoxSize={[0, 80]}
       />
     </div>
   )

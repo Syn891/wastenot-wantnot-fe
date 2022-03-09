@@ -26,6 +26,7 @@ const Landing = ({properties}) => {
   const [waste, setWaste] = useState(10);
   const [donations, setDonations] = useState(10);
   const [consumption, setConsumption] = useState(0);
+  const [total, setTotal] = useState(waste + donations + consumption)
 
   async function createUserPantryTable() {
     let dbPantry = useFetch("pantryList", "GET", null, `/?user_id=${user.sub}`);
@@ -160,25 +161,27 @@ const Landing = ({properties}) => {
     }
   }
 
-  // useEffect(()=>{
-  // async function getUserConsumption(){
-  //   let data = await userDashboard()
-  //   console.log(consumption)
-  //  console.log(waste)
-  //  console.log(donations)
 
-  //  setConsumption(data[0].consumption)
-  //  setWaste(data[0].wastage)
-  //  setDonations(data[0].donations)
+  useEffect(()=>{
+  async function getUserConsumption(){
+    let data = await userDashboard()
+    console.log(consumption)
+   console.log(waste)
+   console.log(donations)
 
-  //  console.log(waste + donations + consumption)
-  // }
-  // if(isLoading !== true) {
-  //   getUserConsumption()
+   setConsumption(data[0].consumption)
+   setWaste(data[0].wastage)
+   setDonations(data[0].donations)
+   setTotal(waste + consumption + donations)
 
-  // }
+   console.log(waste + donations + consumption)
+  }
+  if(isLoading !== true) {
+    getUserConsumption()
 
-  //  },[consumption, donations, waste, isLoading]);
+  }
+
+   },[consumption, donations, waste, isLoading]);
 
   useEffect(() => {
     userPantry();
@@ -313,7 +316,7 @@ const Landing = ({properties}) => {
                     <NavigationButton title="Donations" color="#EF8D4B" link="/donations"Icon={FaHandHoldingHeart}/>
                 </Col>
             </Row>
-            <Row className={css.row}><Dashboard waste={waste} donations={donations} consumption={consumption} link="/userInformation" />
+            <Row className={css.row}><Dashboard waste={waste} donations={donations} consumption={consumption} total={total} link="/userInformation" />
 
 </Row>
         </Col>

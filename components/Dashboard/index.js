@@ -9,24 +9,24 @@ import css from './Dashboard.module.css';
 
 
 
-const Dashboard = ({link, waste, donations, consumption}) => {
+const Dashboard = ({link, waste, donations, consumption, total}) => {
     // let image = "../"
    
     return (
         
          
         <Container  className={css.dashBox} >
-        <Row><p className={css.dashHeader}>User dashboard: analyse and monitor your food use:</p></Row>
+        <Row className={css.row}><div >User dashboard: analyse and monitor your food use:</div></Row>
        
         <Row className={css.row}> 
         <Link href={link}>
-        <Col xs={{span: 4}}><DashboardChart className={css.dashRight} value={waste}/></Col>
+        <Col className={css.col} xs={{span: 4}}><DashboardChart className={css.dashRight} value={waste} total={total} colour1="red"/></Col>
         </Link>
         <Link href={link}>
-        <Col xs={{span: 4}}><DashboardChart className={css.dashCentre} value={donations} /></Col>
+        <Col className={css.col} xs={{span: 4}}><DashboardChart className={css.dashCentre} value={donations} total={total} colour1="#EF8D4B"/></Col>
         </Link>
         <Link href={link}>
-        <Col xs={{span: 4}}><DashboardChart className={css.dashLeft} value={consumption}/></Col>  
+        <Col className={css.col} xs={{span: 4}}><DashboardChart className={css.dashLeft} value={consumption} total={total} colour1="#5CC971"/></Col>  
         </Link>
         </Row>
         
