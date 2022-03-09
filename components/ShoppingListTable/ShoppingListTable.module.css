@@ -25,14 +25,4 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: auto;
-  flex-wrap: nowrap;
-  min-height: 40vh;
-  padding-top: 1em;
-  box-shadow: inset  0px -1px 8px rgba(0, 0, 0, 0.25);
-}
-.container{
-  padding: 0.5em;
-    display: flex;
-    flex-direction: column;
 }

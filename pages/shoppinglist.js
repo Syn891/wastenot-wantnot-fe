@@ -143,8 +143,10 @@ function ShoppingList() {
         <Row className={css.food}>
         <FoodCategoryRow />
         </Row>
-        <Container className={css.innercontainer}>
+        <Container>
+          <Row className={css.innercontainer}>
           {loadShopListTable()}
+          </Row>
           <Col>
             <Row className={css.row}>
               <AddItemToPantryButton
