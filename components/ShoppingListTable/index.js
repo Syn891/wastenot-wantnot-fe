@@ -67,7 +67,7 @@ function ShoppingListTable({
     if (shopListData) {
       return shopListData.map(function (item, index) {
         return (
-          <Container className={css.container}>
+
             <Row className={css.swipe}>
               <SwipeFoodListItem
                 {...item}
@@ -87,8 +87,8 @@ function ShoppingListTable({
                 />
               </SwipeFoodListItem>
             </Row>
-            {/* <SwipeBar key={index} /> */}
-          </Container>
+          
+        
         );
       });
     }
