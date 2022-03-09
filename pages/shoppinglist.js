@@ -187,6 +187,7 @@ function ShoppingList() {
             onClick={() => router.back()}
           />
         </Navbar>
+        </Row>
         <Row className={css.food}>
         <FoodCategoryRow />
         </Row>
@@ -194,8 +195,7 @@ function ShoppingList() {
           <Row className={css.innercontainer}>
           {loadShopListTable()}
           </Row>
-          <Col>
-            <Row className={css.row}>
+            <Row className={css.pantryButton}>
               <AddItemToPantryButton
                 message={"Add checked list items to My Pantry:"}
                 // addPantryDisable={addPantryDisable}
@@ -209,13 +209,14 @@ function ShoppingList() {
                 Create new List
               </Button>
             </Row>
+            <Row className={css.donate}>
             <DonationPromptInfo
-              text="Donations needed in your area"
+              text="Find local donation points"
               className={css.dpiSVG}
             />
-          </Col>
+            </Row>
         </Container>
-      </Row>
+      
     </Container>
   ) : (
     <>YOU ARE PROBABLY NOT LOGGED IN</>
