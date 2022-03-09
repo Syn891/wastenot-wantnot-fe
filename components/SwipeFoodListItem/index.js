@@ -19,6 +19,7 @@ function SwipeFoodListItem({
   object,*/
   userSub,
   listItem,
+  getUserShoppingList,
 }) {
   async function removeFromSl(_id) {
     const remove = { shopping_items: { _id: _id } };
@@ -32,8 +33,9 @@ function SwipeFoodListItem({
     let removePromise = await Promise.resolve(res);
     console.log(removePromise);
   }
-  console.log(listItem);
+
   async function addToPantry(_id) {
+    // getUserShoppingList(); //janky
     const donUser = useFetch("pantryList", "GET", null, `/?user_id=${userSub}`);
     const res = await Promise.resolve(donUser);
     let query = { pantry_items: listItem };
@@ -43,7 +45,9 @@ function SwipeFoodListItem({
     } else {
       useFetch("pantryList", "PUT", query, `/update/?user_id=${userSub}`);
     }
-    removeFromSl(_id);
+    removeFromSl(_id); //why its working
+    getUserShoppingList();
+
     //incrementUserStats('donations')
   }
 
@@ -95,7 +99,7 @@ function SwipeFoodListItem({
       </SwipeAction>
     </TrailingActions>
   );
-  console.log(_id);
+
   return (
     <SwipeableList className={css.swipeableList}>
       <SwipeableListItem

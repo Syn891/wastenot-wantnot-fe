@@ -13,7 +13,7 @@ import { useFetch } from "../hooks/useFetch";
 import { GiForkKnifeSpoon } from "react-icons/gi";
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/router";
-
+import FoodCategoryRow from "../components/FoodCategoryRow";
 //delete items on swipe
 //look into solution for comparing shopping list and pantry list
 //add remove shopping list item functionality (swipe?)
@@ -34,7 +34,6 @@ function ShoppingList() {
       `/?user_id=${user.sub}`
     );
     const response = await Promise.resolve(fetchData);
-    console.log(response);
     if (response.payload.length > 0) {
       const userShopData = response.payload[0].shopping_items;
       // if userShopData.length less than 2 put placeholder items in
@@ -141,6 +140,7 @@ function ShoppingList() {
             onClick={() => router.back()}
           />
         </Navbar>
+        <FoodCategoryRow />
         <Container className={css.innercontainer}>
           {loadShopListTable()}
           <Col>
