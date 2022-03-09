@@ -30,28 +30,31 @@ const MyMeals = () => {
 
     useEffect(async ()=> {
        const res = await getMealPlan() 
-    //    setMealPlans(res)
+       setMealPlans(res)
+       console.log(latest.current)
       
     }, [isLoading])
 
-    useEffect(()=> {
-            mealPlans.map(async (meal)=> {
+    useEffect(async()=> {
+        if(mealPlans){
+            let meals = mealPlans.map(async (meal)=> {
                 try {
                     const rec = useFetch('api/search', 'GET', null, `/?recipe_id=${meal.recipe_id}`)
                     let response = await Promise.resolve(rec)
-                    setRecipes([...recipes, latest.current = response.recipe])
-                    
+                    // setRecipes([...recipes, latest.current = response.recipe])
+                    return response
                 } catch (err) { 
                     console.log(err) 
                 }
             })
+          meals = await Promise.all(meals)
+            setRecipes(meals)}
+console.log(recipes)
+    }, [])
 
-    }, [mealPlans])
-
-
-    function loadRecipes() {
-        // console.log(latest.current)
-        // return recipes.map((recipe)=> {
+    
+    async function loadRecipes() {
+        return recipes.map((recipe)=> {
             return <RecipeInfoDisplay 
                     key={latest.current.recipe_id}
                     image={latest.current.image} 
@@ -62,8 +65,8 @@ const MyMeals = () => {
                     r={241}
                     g={172}
                     b={121} />
-        // })
-    }
+        }
+        )}
 
     return (
         <Container className={css.container}>
@@ -75,7 +78,7 @@ const MyMeals = () => {
             <Container>
                 {useEffect(()=>{
                     loadRecipes()
-                }, [latest.current])}
+                }, [recipes])}
             </Container>
         </Container>
     );

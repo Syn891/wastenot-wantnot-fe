@@ -2,3 +2,37 @@
   border: 2px solid green;
   /* width: 10vw; */
 }
+.addItem {
+  width: 100%;
+  background-color: #e5e5e5;
+  color: black;
+  border: unset;
+  border-radius: 10px;
+}
+
+.input {
+  margin-top: 1.5em;
+  width: 100%;
+  padding: 0;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.swipe{
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+  flex-wrap: nowrap;
+  min-height: 40vh;
+  padding-top: 1em;
+  box-shadow: inset  0px -1px 8px rgba(0, 0, 0, 0.25);
+}
+.container{
+  padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+}

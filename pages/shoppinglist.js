@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import DonationPromptInfo from "../components/DonationPromptInfo";
 import ShoppingListTable from "../components/ShoppingListTable";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Button } from "react-bootstrap";
 import css from "../styles/Shoppinglist.module.css";
 import SaveListButton from "../components/SaveListButton";
 import AddItemToPantryButton from "../components/AddItemToPantryButton";
@@ -13,7 +13,7 @@ import { useFetch } from "../hooks/useFetch";
 import { GiForkKnifeSpoon } from "react-icons/gi";
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/router";
-
+import FoodCategoryRow from "../components/FoodCategoryRow";
 //delete items on swipe
 //look into solution for comparing shopping list and pantry list
 //add remove shopping list item functionality (swipe?)
@@ -63,7 +63,6 @@ function ShoppingList() {
       `/?user_id=${user.sub}`
     );
     const response = await Promise.resolve(fetchData);
-    console.log(response);
     if (response.payload.length > 0) {
       const userShopData = response.payload[0].shopping_items;
       // if userShopData.length less than 2 put placeholder items in
@@ -79,7 +78,7 @@ function ShoppingList() {
     }
   }, [isLoading]);
 
-  function handlePantryClick(trueFalseArraySL, shopListData, user) {
+  async function handlePantryClick(trueFalseArraySL, shopListData, user) {
     console.log(trueFalseArraySL, "ShopList TF Array");
     let pantryList = [];
     let remainingPantryList = [];
@@ -106,7 +105,6 @@ function ShoppingList() {
     );
 
     useFetch(
-      //THIS ONE IS WORKING
       "pantryList",
       "PUT",
       { pantry_items: pantryList },
@@ -115,7 +113,6 @@ function ShoppingList() {
     );
 
     useFetch(
-      // replace user shopping list here, delete in one above
       "shoppinglists",
       "DELETE",
       { user_id: user.sub },
@@ -138,6 +135,25 @@ function ShoppingList() {
     // getUserShoppingList();
     setShopListData(remainingPantryList);
     return pantryList;
+  }
+
+  async function createNewSL() {
+    //Should be somewthing like this
+    await useFetch(
+      "shoppinglists",
+      "DELETE",
+      { user_id: user.sub },
+      `/all/?user_id=${user.sub}`
+    );
+
+    await useFetch(
+      "shoppinglists",
+      "POST",
+      { shopping_items: [] },
+      `/?user_id=${user.sub}`
+    );
+    // setShopListData([]);
+    await getUserShoppingList();
   }
 
   function loadShopListTable() {
@@ -171,6 +187,9 @@ function ShoppingList() {
             onClick={() => router.back()}
           />
         </Navbar>
+        <Row className={css.food}>
+        <FoodCategoryRow />
+        </Row>
         <Container className={css.innercontainer}>
           {loadShopListTable()}
           <Col>
@@ -184,7 +203,9 @@ function ShoppingList() {
               />
             </Row>
             <Row className={css.row}>
-              <CreateNewListButton message={"Create new List"} />
+              <Button className={css.addItem} onClick={() => createNewSL()}>
+                Create new List
+              </Button>
             </Row>
             <DonationPromptInfo
               text="Donations needed in your area"

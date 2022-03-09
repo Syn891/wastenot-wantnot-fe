@@ -1,14 +1,14 @@
 
 .dashBox{
    position: absolute;
-width: 312px;
-height: 125px;
-left: 41px;
-top: 682px;
+width: 90%;
+height: 20%;
+
+
 
 
 background: #FFFFFF;
-border: 0.5px solid #000000;
+border: 0.5px solid #8d8888;
 box-sizing: border-box;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 10px;
@@ -31,7 +31,7 @@ top: 695px; */
 font-family: Montserrat;
 font-style: normal;
 font-weight: 600;
-font-size: 10px;
+font-size: 0.25em;
 line-height: 12px;
 text-align: center;
 
@@ -78,17 +78,40 @@ background-color: orange;
 .row {
     justify-content: center;
     --bs-gutter-x: unset;
-    height: 10vh;
-    padding: 10px;
+    /* border: red 2px solid;  */
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+   
 }
 
 .label{
     font-family: Montserrat;
 font-style: normal;
 font-weight: 600;
-font-size: 10px;
+font-size:0.7em;
 line-height: 12px;
 text-align: center;
 
 color: #000000;
+}
+
+.row:nth-child(1){
+    font-size: 0.8em;
+    padding-top: 0.5em;
+    padding-bottom: 0.25em;
+    
+}
+
+.row:nth-child(2){
+    height: 65%;
+    padding-bottom: 0.25em;
+
+}
+
+.col{
+    /* border: green 2px solid;  */
+    padding-top: 0;
+    padding-bottom: 0;
 }
