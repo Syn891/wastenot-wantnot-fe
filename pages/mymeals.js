@@ -22,8 +22,7 @@ const MyMeals = () => {
         if(isLoading !== true) {
             const fetchData = useFetch('mealPlan', 'GET', null, `/?user_id=${user.sub}`)
             let res = await Promise.resolve(fetchData)
-            console.log(res)
-            // setMealPlans(res.payload[0].meal_plan)
+            setMealPlans(res.payload[0].meal_plan)
             return res.payload[0].meal_plan
 
         }
@@ -31,29 +30,31 @@ const MyMeals = () => {
 
     useEffect(async ()=> {
        const res = await getMealPlan() 
-       setMealPlans(latest.current=res)
+       setMealPlans(res)
+       console.log(latest.current)
       
     }, [isLoading])
 
-    useEffect(()=> {
+    useEffect(async()=> {
         if(mealPlans){
-            mealPlans.map(async (meal)=> {
+            let meals = mealPlans.map(async (meal)=> {
                 try {
                     const rec = useFetch('api/search', 'GET', null, `/?recipe_id=${meal.recipe_id}`)
                     let response = await Promise.resolve(rec)
-                    setRecipes([...recipes, latest.current = response.recipe])
-                    
+                    // setRecipes([...recipes, latest.current = response.recipe])
+                    return response
                 } catch (err) { 
                     console.log(err) 
                 }
-            })}
-
-    }, [mealPlans])
+            })
+          meals = await Promise.all(meals)
+            setRecipes(meals)}
+console.log(recipes)
+    }, [])
 
     
-    function loadRecipes() {
-        console.log(latest.current)
-        // return recipes.map((recipe)=> {
+    async function loadRecipes() {
+        return recipes.map((recipe)=> {
             return <RecipeInfoDisplay 
                     key={latest.current.recipe_id}
                     image={latest.current.image} 
@@ -65,7 +66,7 @@ const MyMeals = () => {
                     g={172}
                     b={121} />
         }
-    // }
+        )}
 
     return (
         <Container className={css.container}>

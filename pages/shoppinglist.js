@@ -140,7 +140,9 @@ function ShoppingList() {
             onClick={() => router.back()}
           />
         </Navbar>
+        <Row className={css.food}>
         <FoodCategoryRow />
+        </Row>
         <Container className={css.innercontainer}>
           {loadShopListTable()}
           <Col>
