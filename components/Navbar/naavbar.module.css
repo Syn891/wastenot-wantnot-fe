@@ -106,10 +106,16 @@
 .icon {
   display: flex;
   margin-left: auto;
+
 }
 
 .logout {
   background-color: rgba(63, 142, 39, 1);
   border: rgba(63, 142, 39, 1);
   margin-top: 2em;
+}
+
+.navbarBrand {
+  width: 100%;
+  text-align: center;
 }
