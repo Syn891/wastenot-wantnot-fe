@@ -5,8 +5,8 @@ export async function useFetch(endpoint, requestType, data, query) {
     requestType === "PUT" ||
     requestType === "DELETE"
   ) {
-    const response = await fetch(`localhost:3001/${endpoint}${query}`, {
-    //const response = await fetch(`http://localhost:3001/${endpoint}${query}`, {
+    //const response = await fetch(`localhost:3001/${endpoint}${query}`, {
+    const response = await fetch(`https://waste-want.herokuapp.com/${endpoint}${query}`, {
       method: requestType,
       mode: "cors", // no-cors, *cors, same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -20,8 +20,8 @@ export async function useFetch(endpoint, requestType, data, query) {
     return res;
   } else {
     const response = await fetch(
-      // `https://waste-want.herokuapp.com/${endpoint}${query}`,
-      `http://localhost:3001/${endpoint}${query}`,
+      `https://waste-want.herokuapp.com/${endpoint}${query}`,
+      //`http://localhost:3001/${endpoint}${query}`,
       {
         method: requestType,
         mode: "cors",
