@@ -8,6 +8,7 @@ import css from "./ShoppingListTable.module.css";
 import { useFetch } from "../../hooks/useFetch.js";
 import { useUser, getSession } from "@auth0/nextjs-auth0";
 import SwipeFoodListItem from "../SwipeFoodListItem";
+import AddItemModal from "../AddItemModal";
 
 function ShoppingListTable({
   onFormRender, //grey out pantry button
@@ -17,135 +18,138 @@ function ShoppingListTable({
   trueFalseArraySL, // determine if checkbox is checked
   setTrueFalseArraySL, // set a false value for checkbox is checked when a new item is added to shopping list
   userSub,
+  getUserShoppingList,
 }) {
   const [itemButtonClick, setItemButtonClick] = useState(false);
   const [item, setItem] = useState("Error");
   const [expiry, setExpiry] = useState("Error");
   const [qty, setQty] = useState("Error");
   const [unit, setUnit] = useState("Error");
+  const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => console.log("USERSUB PROP", userSub), []);
   //interactions with the database: swipe to add, swipe to delete, form submit,
   //for mvp create new list just deletes everything
 
-  async function handleSubmit(event) {
-    event.preventDefault(); //stop page refresh
+  async function save(object) {
+    console.log("object from modal", object);
 
-    let dataStructure = {
-      user_id: "google-oauth2|112451605105134992726",
-      shopping_items: [
-        {
-          _itemid: "dont even need this",
-          name: item,
-          est_exp: Date.now(),
-          category: "not needed for MVP",
-          quantity: qty,
-          measurement: unit,
-        },
-      ],
-    };
+    // async function handleSubmit(event) {
+    //   event.preventDefault(); //stop page refresh
 
-    useFetch(
-      "shoppinglists",
-      "PUT",
-      { shopping_items: dataStructure.shopping_items[0] },
-      "/update/?user_id=google-oauth2|112451605105134992726" //this works
-      //`/update/?user_id=${userSub}`
-    );
+    //   let dataStructure = {
+    //     user_id: userSub,
+    //     //"google-oauth2|112451605105134992726",
+    //     shopping_items: [
+    //       {
+    //         _itemid: "dont even need this",
+    //         name: item,
+    //         est_exp: Date.now(),
+    //         category: "not needed for MVP",
+    //         quantity: qty,
+    //         measurement: unit,
+    //       },
+    //     ],
+    //   };
 
-    // if (response.payload.length < 1) {
-    //   useFetch(
-    //     "shoppinglists",
-    //     "POST",
-    //     dataStructure,
-    //     "/?user_id=google-oauth2|112451605105134992726"
-    //   );
-    // } else {
-    //   // let query = { meal_plan: data.meal_plan[0] };
-    // }
+    async function newShoppingItem() {
+      const fetchData = useFetch(
+        "shoppinglists",
+        "PUT",
+        // { shopping_items: dataStructure.shopping_items[0] },
+        { shopping_items: object },
+        //"/update/?user_id=google-oauth2|112451605105134992726" //this works
+        `/update/?user_id=${userSub}`
+      );
+      const fetchedData = await Promise.resolve(fetchData);
+      console.log(fetchedData);
+      getUserShoppingList();
+    }
+
+    newShoppingItem();
 
     // What we want to do is push the new added item onto the end of the users shopping list database
 
-    setShopListData([...shopListData, dataStructure.shopping_items[0]]);
+    //setShopListData([...shopListData, dataStructure.shopping_items[0]]);
     setTrueFalseArraySL([...trueFalseArraySL, false]);
     //Would be here POST REQUEST shopListData to database function is called
     console.log("shop list data:", shopListData, "");
     setItemButtonClick(false);
   }
   onFormRender();
-  if (itemButtonClick) {
-    return (
-      <Container>
-        <FoodCategoryRow />
-        {shopListData.map(function (item, index) {
-          return (
-            <>
-              <Row>
-                <SwipeFoodListItem>
-                  <FoodListItem
-                    {...item}
-                    key={item._id}
-                    index={index}
-                    listItem={item}
-                    setShopListData={setShopListData}
-                    trueFalseArraySL={trueFalseArraySL}
-                    setTrueFalseArraySL={trueFalseArraySL}
-                  />
-                </SwipeFoodListItem>
-              </Row>
-              <Row>
-                <SwipeBar key={index} />
-              </Row>
-            </>
-          );
-        })}
-        <Container xs={{ span: 12 }}>
-          <Row>
-            <form onSubmit={handleSubmit}>
-              <Col className={css.cls} xs={{ span: 2 }}>
-                <input
-                  placeholder="item"
-                  onChange={(e) => setItem(e.target.value)}
-                ></input>
-              </Col>
-              <Col className={css.cls} xs={{ span: 2 }}>
-                <label htmlFor="date">Exp:</label>
-                <input
-                  placeholder="Expiry"
-                  type="date"
-                  onChange={(e) => setExpiry(e.target.value)}
-                ></input>
-              </Col>
-              <Col className={css.cls} xs={{ span: 2 }}>
-                <input
-                  placeholder="Qty"
-                  onChange={(e) => setQty(e.target.value)}
-                ></input>
-              </Col>
-              <Col className={css.cls} xs={{ span: 2 }}>
-                <input
-                  placeholder="Unit"
-                  onChange={(e) => setUnit(e.target.value)}
-                ></input>
-              </Col>
-              <Col className={css.cls} xs={{ span: 2 }}>
-                <input
-                  type="submit"
-                  value="+"
-                  onClick={() => {
-                    console.log("submit");
-                    onNoFormRender();
-                  }}
-                />
-              </Col>
-            </form>
-          </Row>
-        </Container>
-      </Container>
-    );
-  }
-  function noFormRender() {}
-  onNoFormRender();
+  // if (itemButtonClick) {
+  //   return (
+  //     <Container>
+  //       <FoodCategoryRow />
+  //       {shopListData.map(function (item, index) {
+  //         return (
+  //           <>
+  //             <Row>
+  //               <SwipeFoodListItem>
+  //                 <FoodListItem
+  //                   {...item}
+  //                   key={item._id}
+  //                   index={index}
+  //                   listItem={item}
+  //                   setShopListData={setShopListData}
+  //                   trueFalseArraySL={trueFalseArraySL}
+  //                   setTrueFalseArraySL={trueFalseArraySL}
+  //                 />
+  //               </SwipeFoodListItem>
+  //             </Row>
+  //             <Row>
+  //               <SwipeBar key={index} />
+  //             </Row>
+  //           </>
+  //         );
+  //       })}
+  //       <Container xs={{ span: 12 }}>
+  //         <Row>
+  //           <form onSubmit={handleSubmit}>
+  //             <Col className={css.cls} xs={{ span: 2 }}>
+  //               <input
+  //                 placeholder="item"
+  //                 onChange={(e) => setItem(e.target.value)}
+  //               ></input>
+  //             </Col>
+  //             <Col className={css.cls} xs={{ span: 2 }}>
+  //               <label htmlFor="date">Exp:</label>
+  //               <input
+  //                 placeholder="Expiry"
+  //                 type="date"
+  //                 onChange={(e) => setExpiry(e.target.value)}
+  //               ></input>
+  //             </Col>
+  //             <Col className={css.cls} xs={{ span: 2 }}>
+  //               <input
+  //                 placeholder="Qty"
+  //                 onChange={(e) => setQty(e.target.value)}
+  //               ></input>
+  //             </Col>
+  //             <Col className={css.cls} xs={{ span: 2 }}>
+  //               <input
+  //                 placeholder="Unit"
+  //                 onChange={(e) => setUnit(e.target.value)}
+  //               ></input>
+  //             </Col>
+  //             <Col className={css.cls} xs={{ span: 2 }}>
+  //               <input
+  //                 type="submit"
+  //                 value="+"
+  //                 onClick={() => {
+  //                   console.log("submit");
+  //                   onNoFormRender();
+  //                 }}
+  //               />
+  //             </Col>
+  //           </form>
+  //         </Row>
+  //       </Container>
+  //     </Container>
+  //   );
+  // }
+  // function noFormRender() {}
+  // onNoFormRender();
   //causing error, doesnt work nested in function, solution needed}
   if (!itemButtonClick) {
     return (
@@ -156,7 +160,12 @@ function ShoppingListTable({
           return (
             <Container>
               <Row>
-                <SwipeFoodListItem>
+                <SwipeFoodListItem
+                  {...item}
+                  listItem={item}
+                  _id={item._id}
+                  userSub={userSub}
+                >
                   <FoodListItem
                     {...item}
                     key={item._id}
@@ -174,10 +183,19 @@ function ShoppingListTable({
         })}
         <AddItemButton
           message={"Add Item to Grocery List"}
-          onClick={() => {
-            setItemButtonClick(true);
-            noFormRender();
-          }}
+          onClick={
+            () => {
+              setModalShow(true);
+            }
+            // setItemButtonClick(true);
+            // noFormRender();
+          }
+        />
+        <AddItemModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          save={save}
+          list={"Pantry"}
         />
       </Container>
     );

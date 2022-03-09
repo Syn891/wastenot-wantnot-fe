@@ -5,9 +5,8 @@ import css from "./AddItemToPantryButton.module.css";
 
 function AddItemToPantryButton({
   message,
-  addPantryDisable,
+  // addPantryDisable,
   onClick,
-  
 }) {
   return (
     <Container>
@@ -15,7 +14,7 @@ function AddItemToPantryButton({
         <button
           className={css.AddItemToPantryButton}
           onClick={onClick}
-          disabled={addPantryDisable}
+          // disabled={addPantryDisable}
         >
           {message}
         </button>

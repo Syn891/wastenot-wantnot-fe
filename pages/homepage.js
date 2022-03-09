@@ -17,127 +17,257 @@ import Navbar from '../components/Navbar';
 import { useState, useEffect } from 'react';
 import {useFetch} from '../hooks/useFetch.js'
 import FindRecipes from '../components/Findrecipes';
-
 const Landing = ({properties}) => {
+
   const { user, error, isLoading } = useUser();
-  const [pantry, setPantry] = useState ([])
+  const [pantry, setPantry] = useState([]);
+  console.log(user);
 
-    const [waste, setWaste] =useState(10);
-    const [donations, setDonations] = useState(10);
-    const [consumption, setConsumption]= useState(0);
+  const [waste, setWaste] = useState(10);
+  const [donations, setDonations] = useState(10);
+  const [consumption, setConsumption] = useState(0);
 
-    //  if(user) {
-       
-      async function userDashboard(){ 
-        if(isLoading !== true) {
-          const fetchData = useFetch('users', 'GET', null, `/${user.sub}`)
-        
-          const data = await Promise.resolve(fetchData)
-          console.log(data)
-          return [data.payload]}
-        }
-    
+  async function createUserPantryTable() {
+    let dbPantry = useFetch("pantryList", "GET", null, `/?user_id=${user.sub}`);
 
-      useEffect(()=>{
-      async function getUserConsumption(){
-        let data = await userDashboard()
-        console.log(consumption)
-       console.log(waste)
-       console.log(donations)
+    dbPantry = await Promise.resolve(dbPantry);
+    if (dbPantry.payload.length < 1) {
+      let newPantry = {
+        user_id: user.sub,
+        pantry_items: [],
+      };
+      let newdbPantry = useFetch(
+        "pantryList",
+        "POST",
+        newPantry,
+        `/?user_id=${user.sub}`
+      );
+      newdbPantry = await Promise.resolve(newdbPantry);
+    }
+  }
 
-       setConsumption(data[0].consumption)
-       setWaste(data[0].wastage)
-       setDonations(data[0].donations)
+  async function createUserDonationsTable() {
+    let dbDonations = useFetch(
+      "donations",
+      "GET",
+      null,
+      `/?user_id=${user.sub}`
+    );
 
-       console.log(waste + donations + consumption)
-      }
-      if(isLoading !== true) {
-        getUserConsumption()
+    dbDonations = await Promise.resolve(dbDonations);
+    console.log(dbDonations);
+    if (dbDonations.payload.length < 1) {
+      console.log(user.sub);
+      let newDonation = {
+        user_id: user.sub,
+        donated_items: [],
+      };
+      let newdbDonation = useFetch("donations", "POST", newDonation, "");
+      newdbDonation = await Promise.resolve(newdbDonation);
+    }
+  }
 
-      }
+  async function createUserDonationBanksTable() {
+    let dbBanks = useFetch(
+      "donationbank",
+      "GET",
+      null,
+      `/?user_id=${user.sub}`
+    );
 
-       },[consumption, donations, waste, isLoading]);
-      
+    dbBanks = await Promise.resolve(dbBanks);
 
+    if (dbBanks.payload.length < 1) {
+      console.log(user.sub);
+      let newBank = {
+        user_id: user.sub,
+        donation_banks: [],
+      };
+      let newdbBank = useFetch("donationbank", "POST", newBank, "");
+      newdbBank = await Promise.resolve(newdbBank);
+      console.log(newdbBank);
+    }
+  }
 
-  useEffect(()=> {
-    userPantry()
+  async function createUserShoppingListTable() {
+    let dbShopping = useFetch(
+      "shoppinglists",
+      "GET",
+      null,
+      `/?user_id=${user.sub}`
+    );
 
-  }, [isLoading])
-  
+    dbShopping = await Promise.resolve(dbShopping);
+
+    console.log("databaseShopping", dbShopping);
+
+    if (dbShopping.payload.length < 1) {
+      console.log("yay want to see this");
+      //Acting really strangely, need to actually populate Shopping List right now to get page to work(were close to getting that sorted), when running on 3001 everything is statusing 304 or 200. useFetch POST inside shoppinglist.js works fine sending an array of new objects to the users db after it has been deleted in the use fetch above. Can we just call the shopping list post request inside of a different one? like after the user donations?
+
+      // let newShoppingItem = {
+      //   user_id: user.sub,
+      //   shopping_items: [],
+      // };
+      let newShopping = useFetch(
+        "shoppinglists",
+        "POST",
+        // { shopping_items: newShoppingItem },
+        { shopping_items: [] },
+        `/?user_id=${user.sub}`
+      );
+      newShopping = await Promise.resolve(newShopping);
+      console.log("ns", newShopping);
+    }
+  }
+
+  async function createUserMealPlanTable() {
+    let dbMealPlan = useFetch("mealplan", "GET", null, `/?user_id=${user.sub}`);
+
+    dbMealPlan = await Promise.resolve(dbMealPlan);
+    if (dbMealPlan.payload.length < 1) {
+      let newMealPlanItem = {
+        user_id: user.sub,
+        meal_plan: [],
+      };
+      let newMealPlan = useFetch(
+        "mealplan",
+        "POST",
+        newMealPlanItem,
+        `/?user_id=${user.sub}`
+      );
+      newMealPlan = await Promise.resolve(newMealPlan);
+    }
+  }
+
+  useEffect(() => {
+    if (isLoading !== true) {
+      createUserPantryTable();
+      createUserDonationsTable();
+      createUserMealPlanTable();
+      createUserDonationBanksTable();
+      createUserShoppingListTable();
+    }
+  }, [isLoading]);
+
+  async function userDashboard() {
+    if (isLoading !== true) {
+      const fetchData = useFetch("users", "GET", null, `/${user.sub}`);
+
+      const data = await Promise.resolve(fetchData);
+      console.log(data);
+      return [data.payload];
+    }
+  }
+
+  // useEffect(()=>{
+  // async function getUserConsumption(){
+  //   let data = await userDashboard()
+  //   console.log(consumption)
+  //  console.log(waste)
+  //  console.log(donations)
+
+  //  setConsumption(data[0].consumption)
+  //  setWaste(data[0].wastage)
+  //  setDonations(data[0].donations)
+
+  //  console.log(waste + donations + consumption)
+  // }
+  // if(isLoading !== true) {
+  //   getUserConsumption()
+
+  // }
+
+  //  },[consumption, donations, waste, isLoading]);
+
+  useEffect(() => {
+    userPantry();
+  }, [isLoading]);
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
-    async function getData(){
-      if(isLoading !== true) {
-        const fetchData = useFetch('pantryList', 'GET', null, `/?user_id=${user.sub}`)
-        const data = await Promise.resolve(fetchData)
-        return data.payload
-      }
-      }
-
-    async function userPantry() {
-      let data = await getData()
-      
-      if(data) {
-        let values =  data.map((d)=> {
-          return  d.pantry_items.map((pi)=> {
-             let date = dateDif(pi.est_exp)
-             return [date, pi.name]
-   
-           })
-         })
-         setPantry(values)
-
-      }
+  async function getData() {
+    if (isLoading !== true) {
+      const fetchData = useFetch(
+        "pantryList",
+        "GET",
+        null,
+        `/?user_id=${user.sub}`
+      );
+      const data = await Promise.resolve(fetchData);
+      return data.payload;
     }
+  }
 
-    function dateDif(expiryDate){
-      let dates = [new Date(), new Date(expiryDate)]
+  async function userPantry() {
+    let data = await getData();
+
+    if (data) {
+      let values = data.map((d) => {
+        return d.pantry_items.map((pi) => {
+          let date = dateDif(pi.est_exp);
+          return [date, pi.name];
+        });
+      });
+      setPantry(values);
+    }
+  }
+
+  function dateDif(expiryDate) {
+    let dates = [new Date(), new Date(expiryDate)];
 
     function daysDifference(d0) {
       var diff = new Date(+d0[1]).setHours(12) - new Date(+d0[0]).setHours(12);
-        return Math.round(diff/8.64e7);
-      }
+      return Math.round(diff / 8.64e7);
+    }
 
-      let dateFound = daysDifference(dates);
-      return dateFound
-}
-  
-const setColor = (number) => {
-  let color = ''
-  if (number < 3){
-       color = '#F96D6D'
-  }else if (number < 7 && number > 2){
-      color = '#EF8D4B'
-  }else{
-      color = '#5CC971'
+    let dateFound = daysDifference(dates);
+    return dateFound;
   }
-  return color
-}
 
-function renderButtons() {
-
-  let sortedValues = pantry.sort(function(a,b) {
-    console.log(a[0])
-    return a[1] - b[1]
-  })
-    console.log(pantry, sortedValues)
-  return sortedValues.map((p, index)=> {
-    // console.log(pantry)
-    if (pantry.length < 1 ) {
-      return <div className={css.err}>You have no items due to expire in your pantry</div>
-
+  const setColor = (number) => {
+    let color = "";
+    if (number < 3) {
+      color = "#F96D6D";
+    } else if (number < 7 && number > 2) {
+      color = "#EF8D4B";
     } else {
-    return p.map((a, index)=> {
+      color = "#5CC971";
+    }
+    return color;
+  };
 
-      if(index < 3 && a[0] >= 0) {
-        return <Col key={a[1]+a[0]} className={css.febtns}>
-        <FoodExpiryButton color = {setColor(a[0])} link="/" message = {`${a[1]}. You have ${a[0]} day(s) left`}/>
-      </Col>
+  function renderButtons() {
+    let sortedValues = pantry.sort(function (a, b) {
+      console.log(a[0]);
+      return a[1] - b[1];
+    });
+    console.log(pantry, sortedValues);
+    return sortedValues.map((p, index) => {
+      // console.log(pantry)
+      if (pantry.length < 1) {
+        return (
+          <div className={css.err}>
+            You have no items due to expire in your pantry
+          </div>
+        );
+      } else {
+        return p.map((a, index) => {
+          if (index < 3 && a[0] >= 0) {
+            return (
+              <Col key={a[1] + a[0]} className={css.febtns}>
+                <FoodExpiryButton
+                  color={setColor(a[0])}
+                  link="/"
+                  message={`${a[1]}. You have ${a[0]} day(s) left`}
+                />
+              </Col>
+            );
+          }
+        });
       }
-    })}
-  })
-}
+    });
+  }
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -191,54 +321,49 @@ function renderButtons() {
     
 };
 
-  export async function getServerSideProps(ctx) {
-   const session = getSession(ctx.req, ctx.res);
-  
-   if(session) {
-    let dbUser = await fetch(`https://waste-want.herokuapp.com/users/${session.user.sub}`)
-    dbUser = await dbUser.json()
+async function getServerSideProps(ctx) {
+  const session = getSession(ctx.req, ctx.res);
+
+  if (session) {
+    let dbUser = await fetch(
+      `https://waste-want.herokuapp.com/users/${session.user.sub}`
+    );
+    dbUser = await dbUser.json();
 
     if (dbUser.payload === null) {
-
       const newUser = {
         _id: session.user.sub,
         name: session.user.nickname,
-        email: session.user.name, 
+        email: session.user.name,
         dietary_reqs: [],
         wastage: 0,
         consumption: 0,
-        donations: 0
-      }
+        donations: 0,
+      };
 
-      const response = await useFetch('users', 'POST', newUser, '')
-      // const response = await fetch(`https://waste-want.herokuapp.com/users/` , {
-      //       method: 'POST', 
-      //       mode: 'cors', // no-cors, *cors, same-origin
-      //       cache: 'no-cache', 
-      //       credentials: 'same-origin', // include, *same-origin, omit
-      //       headers: {
-      //         'Content-Type': 'application/json'
-      //       },
-      //       redirect: 'follow', // manual, *follow, error
-      //       referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      //       body: JSON.stringify(newUser) // body data type must match "Content-Type" header
-          console.log(response.json); // parses JSON response into native JavaScript objects
-        } else {
-          console.log("user already in db")
-        }
-  
+      const response = await useFetch("users", "POST", newUser, "");
+
+      console.log(response.json);
+      // parses JSON response into native JavaScript objects
+    } else {
+      console.log("user already in db");
+    }
+
+    // const responseuseFetch('pantryList', 'POST', listItem, `/?user_id=${userSub}`)
+
+    //           console.log(response.json); // parses JSON response into native JavaScript objects
+    //         } else {
+    //           console.log("user already in db")
+    //         }
+
     return {
-            props: { properties: dbUser},
-          }
-        } else {
-          return {
-            props: {properties: {}}
-          }
-        }
-   }
-
-
-
-
+      props: { properties: dbUser },
+    };
+  } else {
+    return {
+      props: { properties: {} },
+    };
+  }
+}
 
 export default Landing;
