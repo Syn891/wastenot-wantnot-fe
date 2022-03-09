@@ -8,7 +8,7 @@ function AddItemButton({ message, onClick }) {
     <Container>
       <Row>
         <button className={css.AddItemButton} onClick={onClick}>
-          {message}
+          Add Item to Grocery List
         </button>
       </Row>
     </Container>
