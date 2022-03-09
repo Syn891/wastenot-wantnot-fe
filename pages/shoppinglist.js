@@ -25,6 +25,35 @@ function ShoppingList() {
   const [shopListData, setShopListData] = useState(undefined); //undefined for line 66
   const [trueFalseArraySL, setTrueFalseArraySL] = useState(); //This is running after the usestate
 
+
+  async function preLoadShoppingList() {
+     let data = useFetch('mealplan', 'GET', null, `/?user_id=${user.sub}`)
+     data = await Promise.resolve(data)
+     let edamamRecipes = data.payload[0].meal_plan.map(async (meal)=> {
+       console.log(meal.recipe_id)
+       let res = useFetch('api/search', 'GET', null, `/?recipe_id=${meal.recipe_id}`)
+       res = await Promise.resolve(res)
+       return res
+     })
+     let edamam = await Promise.all(edamamRecipes)
+     edamam.map((ed)=> {
+       ed.recipe.ingredients.map((ingredient) => {
+         let ing = {
+             name: ingredient.food,
+             est_exp: new Date(),
+             category: ingredient.foodCategory,
+             quantity: ingredient.quantity,
+             measurement: ingredient.measure
+         }
+         let query = { shopping_items: ing };
+         
+         
+         useFetch('shoppinglists', 'PUT', query, `/update/?user_id=${user.sub}` )
+       })
+     })
+     
+  }
+
   async function getUserShoppingList() {
     const fetchData = useFetch(
       "shoppinglists",
@@ -45,6 +74,7 @@ function ShoppingList() {
   useEffect(() => {
     if (isLoading !== true) {
       getUserShoppingList();
+      preLoadShoppingList()
     }
   }, [isLoading]);
 
