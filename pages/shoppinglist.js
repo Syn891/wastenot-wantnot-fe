@@ -34,7 +34,6 @@ function ShoppingList() {
       `/?user_id=${user.sub}`
     );
     const response = await Promise.resolve(fetchData);
-    console.log(response);
     if (response.payload.length > 0) {
       const userShopData = response.payload[0].shopping_items;
       // if userShopData.length less than 2 put placeholder items in
@@ -141,7 +140,7 @@ function ShoppingList() {
             onClick={() => router.back()}
           />
         </Navbar>
-        <FoodCategoryRow/>
+        <FoodCategoryRow />
         <Container className={css.innercontainer}>
           {loadShopListTable()}
           <Col>
