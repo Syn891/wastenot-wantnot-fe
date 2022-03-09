@@ -29,10 +29,14 @@ const profile = () => {
     useEffect(async()=> {
        const data = await getUserData() 
        setUserData(data)
-       setLevel(getLevel)
-
-
+       console.log(userData)
     }, [user.isLoading])
+
+    useEffect(async()=>{
+        let level = getLevel();
+         setLevel(level)
+         console.log(level)
+    }, [userData] )
 
     function getUserInfo() {
         if(user.isLoading !== true) {
@@ -56,16 +60,21 @@ const profile = () => {
     }
 
     function getLevel() {
+        let level = ""
         if(userData) {
+            console.log(userData)
             if(userData.wastage > userData.consumption 
                 && userData.wastage > userData.donations) {
-                    return 'Beginner'
+                    console.log(userData.wastage)
+                   level = 'Beginner'
             } else {
-                return 'Expert'
+                level = 'Expert'
             }
-        }
+        } return level;
      
     }
+
+    
    
     return user &&(
         <>
