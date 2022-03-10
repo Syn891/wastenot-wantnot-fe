@@ -17,7 +17,6 @@ function SwipePantryBar({ className, children, data, object_id, userId, object }
 
   async function removeFromDb(id){
     const remove = {pantry_items: {_id:id}}
-    console.log("remove", remove, "id", id)
     const res = useFetch('pantryList', 'DELETE', remove, `/?user_id=${userId}`)
     await Promise.resolve(res)    
     incrementUserStats('wastage')
@@ -26,14 +25,11 @@ function SwipePantryBar({ className, children, data, object_id, userId, object }
   async function incrementUserStats(key) {
     let userInfo = useFetch('users', 'GET', null, `/${userId}`)
     userInfo = await Promise.resolve(userInfo)
-    console.log(key)
     let data = userInfo.payload[key] + 1
-    console.log(data)
 
       let query = {[key]: data}
       let res1 = useFetch('users', 'PUT', query,`/${userId}` )
       res1 = await Promise.resolve(res1)
-      console.log(res1)
   }
   async function addToDonationsDb(id){
 

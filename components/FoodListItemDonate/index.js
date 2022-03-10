@@ -20,7 +20,6 @@ function FoodListItemDonate({
   //     index === position ? !item : item
   //   );
 
-  //   console.log("True False Array", updatedCheckedState);
   //   setTrueFalseArraySL(updatedCheckedState);
   // }
 
@@ -32,7 +31,6 @@ function FoodListItemDonate({
     setChecked(!checked); 
     if(checked ===true){
       checkedArray.push(item)
-      console.log(checkedArray)
     }
     
   }; 

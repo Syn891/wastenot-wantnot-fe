@@ -19,9 +19,7 @@ export async function createUserPantryTable(){
       let dbDonations = useFetch('donations', 'GET', null, `/?user_id=${user.sub}`)
       
       dbDonations = await Promise.resolve (dbDonations)
-    console.log(dbDonations)
     if(dbDonations.payload.length <1){
-      console.log(user.sub)
       let newDonation = { 
         user_id: user.sub,
         donated_items: [],
@@ -39,15 +37,12 @@ export async function createUserPantryTable(){
     dbBanks = await Promise.resolve (dbBanks)
   
     if(dbBanks.payload.length <1){
-      console.log(user.sub)
       let newBank = { 
         user_id: user.sub,
         donation_banks: [],
      }
-    console.log(newPantry.user_id)
      let newdbBank = useFetch('donationbank', 'POST', newBank, '')
      newdbBank = await Promise.resolve (newdbBank)
-     console.log(newdbBank)
   }
   }
 

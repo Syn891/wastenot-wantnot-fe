@@ -18,7 +18,6 @@ const Test = ({properties}) => {
         // const id="auth0|6217832025ea850070393ba0"
         const response = await fetch(`https://waste-want.herokuapp.com/?user_id=${properties.payload._id}`)
         const data= await response.json();
-        console.log(data.payload)
         setWaste(data.payload.wastage)
 
 
