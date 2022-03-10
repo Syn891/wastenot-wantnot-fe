@@ -1,31 +1,62 @@
-import React from 'react';
-import Banner from '../components/Banner';
-import DonationPromptInfo from '../components/DonationPromptInfo';
-import {Button, Col, Row} from 'react-bootstrap'
-import css from '../styles/Landing.module.css'
-import NavigationButton from '../components/NavigationButton';
-import FoodExpiryButton from '../components/FoodExpiryButton';
-import {FaHandHoldingHeart } from "react-icons/fa";
-import {TiShoppingCart} from 'react-icons/ti'
-import {RiFridgeLine} from 'react-icons/ri'
-import {GiForkKnifeSpoon} from 'react-icons/gi'
-import {MdLabelImportant} from 'react-icons/md'
-import { useUser, getSession } from '@auth0/nextjs-auth0';
-import Dashboard from '../components/Dashboard';
-import DashboardChart from '../components/DashboardChart';
-import Navbar from '../components/Navbar';
-import { useState, useEffect } from 'react';
-import {useFetch} from '../hooks/useFetch.js'
-import FindRecipes from '../components/Findrecipes';
-const Landing = ({properties}) => {
-
+import React from "react";
+import Banner from "../components/Banner";
+import DonationPromptInfo from "../components/DonationPromptInfo";
+import { Button, Col, Row } from "react-bootstrap";
+import css from "../styles/Landing.module.css";
+import NavigationButton from "../components/NavigationButton";
+import FoodExpiryButton from "../components/FoodExpiryButton";
+import { FaHandHoldingHeart } from "react-icons/fa";
+import { TiShoppingCart } from "react-icons/ti";
+import { RiFridgeLine } from "react-icons/ri";
+import { GiForkKnifeSpoon } from "react-icons/gi";
+import { MdLabelImportant } from "react-icons/md";
+import { useUser, getSession } from "@auth0/nextjs-auth0";
+import Dashboard from "../components/Dashboard";
+import DashboardChart from "../components/DashboardChart";
+import Navbar from "../components/Navbar";
+import { useState, useEffect } from "react";
+import { useFetch } from "../hooks/useFetch.js";
+import FindRecipes from "../components/Findrecipes";
+const Landing = ({ properties }) => {
   const { user, error, isLoading } = useUser();
   const [pantry, setPantry] = useState([]);
+  console.log(user);
+  async function loadUser() {
+    if (user) {
+      let dbUser = await fetch(
+        `https://waste-want.herokuapp.com/users/${user.sub}`
+        //`http://localhost:3001/users/${user.sub}`
+      );
+      dbUser = await dbUser.json();
+      console.log(dbUser);
+      if (dbUser.payload === null) {
+        const newUser = {
+          _id: user.sub,
+          name: user.nickname,
+          email: user.name,
+          dietary_reqs: [],
+          wastage: 0,
+          consumption: 0,
+          donations: 0,
+        };
 
-  const [waste, setWaste] = useState(10);
-  const [donations, setDonations] = useState(10);
+        const response = await useFetch("users", "POST", newUser, "");
+
+        console.log(response.json);
+        // parses JSON response into native JavaScript objects
+      } else {
+        console.log("user already in db");
+      }
+    }
+  }
+  useEffect(() => {
+    loadUser();
+  }, [isLoading]);
+
+  const [waste, setWaste] = useState(0);
+  const [donations, setDonations] = useState(0);
   const [consumption, setConsumption] = useState(0);
-  const [total, setTotal] = useState(waste + donations + consumption)
+  const [total, setTotal] = useState(waste + donations + consumption);
 
   async function createUserPantryTable() {
     let dbPantry = useFetch("pantryList", "GET", null, `/?user_id=${user.sub}`);
@@ -55,7 +86,9 @@ const Landing = ({properties}) => {
     );
 
     dbDonations = await Promise.resolve(dbDonations);
+    console.log(dbDonations);
     if (dbDonations.payload.length < 1) {
+      console.log(user.sub);
       let newDonation = {
         user_id: user.sub,
         donated_items: [],
@@ -76,12 +109,14 @@ const Landing = ({properties}) => {
     dbBanks = await Promise.resolve(dbBanks);
 
     if (dbBanks.payload.length < 1) {
+      console.log(user.sub);
       let newBank = {
         user_id: user.sub,
         donation_banks: [],
       };
       let newdbBank = useFetch("donationbank", "POST", newBank, "");
       newdbBank = await Promise.resolve(newdbBank);
+      console.log(newdbBank);
     }
   }
 
@@ -95,7 +130,10 @@ const Landing = ({properties}) => {
 
     dbShopping = await Promise.resolve(dbShopping);
 
+    console.log("databaseShopping", dbShopping);
+
     if (dbShopping.payload.length < 1) {
+      console.log("yay want to see this");
       //Acting really strangely, need to actually populate Shopping List right now to get page to work(were close to getting that sorted), when running on 3001 everything is statusing 304 or 200. useFetch POST inside shoppinglist.js works fine sending an array of new objects to the users db after it has been deleted in the use fetch above. Can we just call the shopping list post request inside of a different one? like after the user donations?
 
       // let newShoppingItem = {
@@ -110,6 +148,7 @@ const Landing = ({properties}) => {
         `/?user_id=${user.sub}`
       );
       newShopping = await Promise.resolve(newShopping);
+      console.log("ns", newShopping);
     }
   }
 
@@ -144,29 +183,36 @@ const Landing = ({properties}) => {
 
   async function userDashboard() {
     if (isLoading !== true) {
+      console.log(user.sub);
       const fetchData = useFetch("users", "GET", null, `/${user.sub}`);
 
       const data = await Promise.resolve(fetchData);
+      console.log(data);
+      setConsumption(data.payload.consumption);
+      setWaste(data.payload.wastage);
+      setDonations(data.payload.donations);
+      setTotal(waste + consumption + donations);
       return [data.payload];
     }
   }
 
+  useEffect(async () => {
+    console.log(isLoading);
+    if (isLoading !== true) {
+      let data = await userDashboard();
 
-  useEffect(()=>{
-  async function getUserConsumption(){
-    let data = await userDashboard()
+      console.log(data[0]);
+      //  setConsumption(data[0].consumption)
+      //  setWaste(data[0].wastage)
+      //  setDonations(data[0].donations)
+      //  setTotal(waste + consumption + donations)
 
-   setConsumption(data[0].consumption)
-   setWaste(data[0].wastage)
-   setDonations(data[0].donations)
-   setTotal(waste + consumption + donations)
-  }
-  if(isLoading !== true) {
-    getUserConsumption()
-
-  }
-
-   },[consumption, donations, waste, isLoading]);
+      console.log(waste + donations + consumption);
+    }
+    console.log(consumption);
+    console.log(waste);
+    console.log(donations);
+  }, [user, isLoading, donations]);
 
   useEffect(() => {
     userPantry();
@@ -227,9 +273,12 @@ const Landing = ({properties}) => {
 
   function renderButtons() {
     let sortedValues = pantry.sort(function (a, b) {
+      console.log(a[0]);
       return a[1] - b[1];
     });
+    console.log(pantry, sortedValues);
     return sortedValues.map((p, index) => {
+      // console.log(pantry)
       if (pantry.length < 1) {
         return (
           <div className={css.err}>
@@ -257,91 +306,80 @@ const Landing = ({properties}) => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
-    return (
-      user && (
-        <Col className={css.view}>
-            <Row className={css.row}>
-              <Banner title="WasteNot-WantNot"/>  
-            </Row>
-            <Row className={css.row}>
-              <Navbar title="Food Waste Matters!" Icon={MdLabelImportant} iconColor={"white"}/>
-            </Row>
-            <Row className={css.row}>
-              <div className={css.pantryTitle}>
-                <div>Food in your Pantry due to go out of date:</div>
-              </div>
-            </Row>
-            <Row className={css.row}>
+  return (
+    user && (
+      <Col className={css.view}>
+        <Row className={css.row}>
+          <Banner title="WasteNot-WantNot" />
+        </Row>
+        <Row className={css.row}>
+          <Navbar
+            title="Food Waste Matters!"
+            Icon={MdLabelImportant}
+            iconColor={"white"}
+          />
+        </Row>
+        <Row className={css.row}>
+          <div className={css.pantryTitle}>
+            <div>Food in your Pantry due to go out of date:</div>
+          </div>
+        </Row>
+        <Row className={css.row}>{renderButtons()}</Row>
 
-              { renderButtons() }
-            </Row>
-                                           
-            <Row className={css.row}>
-            <FindRecipes text='Find recipes to use these items here'/>
-            </Row>
-            <Row className={css.row}>
-                <DonationPromptInfo 
-                    text="Or donate items to orgnisations in need, here:"
-                    className={css.dpiSVG}/>
-            </Row>
-            <Row className={css.row}>
-                <Col className={css.col}>
-                    <NavigationButton title="Grocery List" color="#94DEB2" link="/shoppinglist"Icon={TiShoppingCart}/>
-                </Col>
-                <Col className={css.col}>
-                    <NavigationButton title="In my Pantry" color="#5CC971" link="/pantry"Icon={RiFridgeLine}/>
-                </Col>
-                <Col className={css.col}>
-                    <NavigationButton title="My Meals" color="#F1AC79" link="/mealPlan"Icon={GiForkKnifeSpoon}/>
-                </Col>
-                <Col className={css.col}>
-                    <NavigationButton title="Donations" color="#EF8D4B" link="/donations"Icon={FaHandHoldingHeart}/>
-                </Col>
-            </Row>
-            <Row className={css.row}><Dashboard waste={waste} donations={donations} consumption={consumption} total={total} link="/userInformation" />
-
-</Row>
-        </Col>
-    ));
-    
+        <Row className={css.row}>
+          <FindRecipes text="Find recipes to use these items here" />
+        </Row>
+        <Row className={css.row}>
+          <DonationPromptInfo
+            text="Or donate items to orgnisations in need, here:"
+            className={css.dpiSVG}
+          />
+        </Row>
+        <Row className={css.row}>
+          <Col className={css.col}>
+            <NavigationButton
+              title="Grocery List"
+              color="#94DEB2"
+              link="/shoppinglist"
+              Icon={TiShoppingCart}
+            />
+          </Col>
+          <Col className={css.col}>
+            <NavigationButton
+              title="In my Pantry"
+              color="#5CC971"
+              link="/pantry"
+              Icon={RiFridgeLine}
+            />
+          </Col>
+          <Col className={css.col}>
+            <NavigationButton
+              title="My Meals"
+              color="#F1AC79"
+              link="/mealPlan"
+              Icon={GiForkKnifeSpoon}
+            />
+          </Col>
+          <Col className={css.col}>
+            <NavigationButton
+              title="Donations"
+              color="#EF8D4B"
+              link="/donations"
+              Icon={FaHandHoldingHeart}
+            />
+          </Col>
+        </Row>
+        <Row className={css.row}>
+          <Dashboard
+            waste={waste}
+            donations={donations}
+            consumption={consumption}
+            total={total}
+            link="/userInformation"
+          />
+        </Row>
+      </Col>
+    )
+  );
 };
-
-async function getServerSideProps(ctx) {
-  const session = getSession(ctx.req, ctx.res);
-
-  if (session) {
-    let dbUser = await fetch(
-      `https://waste-want.herokuapp.com/users/${session.user.sub}`
-    );
-    dbUser = await dbUser.json();
-
-    if (dbUser.payload === null) {
-      const newUser = {
-        _id: session.user.sub,
-        name: session.user.nickname,
-        email: session.user.name,
-        dietary_reqs: [],
-        wastage: 0,
-        consumption: 0,
-        donations: 0,
-      };
-
-      const response = await useFetch("users", "POST", newUser, "");
-
-      // parses JSON response into native JavaScript objects
-    } else {
-      console.log("user already in db");
-    }
-
-
-    return {
-      props: { properties: dbUser },
-    };
-  } else {
-    return {
-      props: { properties: {} },
-    };
-  }
-}
-
 export default Landing;
