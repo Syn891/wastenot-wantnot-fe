@@ -35,7 +35,7 @@ function FoodListItem({
         <div>{quantity}</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
-        <p>{measurement}</p>
+        <div>{measurement}</div>
       </Col>
       <Col className={css.col} xs={{ span: 1 }}>
         <input
