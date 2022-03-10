@@ -33,7 +33,7 @@ export default function Home() {
             className={styles.offcanvas}
             >
         <Offcanvas.Header closeButton className={styles.offcanvasHeader}>
-        <Offcanvas.Title id="offcanvasNavbarLabel">WasteNot: WantNot</Offcanvas.Title>
+        <Offcanvas.Title testId="heading" id="offcanvasNavbarLabel">WasteNot: WantNot</Offcanvas.Title>
         <img className={styles.brand} src="https://i.ibb.co/QPB4VKC/Wn-Wn-Logo-White.png"/>
         </Offcanvas.Header>
       <Offcanvas.Body>
