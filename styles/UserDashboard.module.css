@@ -98,3 +98,15 @@
     align-items: center;
     justify-content: center;
 }
+
+.trophy {
+    position: absolute; 
+    z-index: 1;
+    top: 27%;
+    left: 58%
+}
+
+/* .image {
+    z-index: 0;
+    position: relative;
+} */

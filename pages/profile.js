@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import css from '../styles/UserDashboard.module.css'
 import {Row, Col} from 'react-bootstrap'
 import { BsFilterSquare} from 'react-icons/bs'
-import { AiFillSetting} from 'react-icons/ai'
+import { AiFillSetting, AiFillTrophy} from 'react-icons/ai'
 import { useUser } from '@auth0/nextjs-auth0';
 import { FaHandHoldingHeart, FaTrashAlt, FaUserAlt } from "react-icons/fa";
 import { GiForkKnifeSpoon } from "react-icons/gi";
@@ -38,10 +38,18 @@ const profile = () => {
          console.log(level)
     }, [userData] )
 
+    function getColor() {
+        if(level === 'Expert') {
+            return 'gold'
+        } else {
+            return 'brown'
+        }
+    }
     function getUserInfo() {
         if(user.isLoading !== true) {
           return  <div className={css.userDetails}>
-                    <img src={user.user.picture}/>
+                    <img className={css.image} src={user.user.picture}/>
+                    <AiFillTrophy  className={css.trophy} fill={getColor()} size={'2.5em'}/>
                     <div>{user.user.email}</div> 
                 </div>     
         }
@@ -53,7 +61,9 @@ const profile = () => {
 
             console.log(userData)
             let total = userData.wastage + userData.consumption + userData.donations
-            total = userData[key]/total * 100
+            if(total !== 0){
+                total = userData[key]/total * 100
+            }
             return Math.round(total)
         }
         

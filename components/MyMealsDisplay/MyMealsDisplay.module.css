@@ -1,0 +1,48 @@
+.image {
+    height: 10em
+}
+
+.row {
+    --bs-gutter-x: unset;
+    height: 100%;
+    margin-top: 1em;
+    padding: 0.5em;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    background: rgb(219, 153, 103);
+}
+
+.addRecipe {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    background-color: #FF6600;
+    border: unset;
+    color: white;
+}
+
+.selected {
+    background-color: #5CC971 ;
+}
+
+.title {
+    font-size: 1.25em;
+    font-weight: 700;
+}
+
+.explore {
+    padding-top: 0.2em;
+}
+
+
+.ing {
+    font-size: 80%;
+    justify-self: flex-end;
+    padding-top: 2em;
+    color: rgb(0, 84, 0);
+}
+
+.col:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1em;
+}
