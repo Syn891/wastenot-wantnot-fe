@@ -21,7 +21,6 @@ const Landing = ({properties}) => {
 
   const { user, error, isLoading } = useUser();
   const [pantry, setPantry] = useState([]);
-  console.log(user);
 
   const [waste, setWaste] = useState(10);
   const [donations, setDonations] = useState(10);
@@ -56,9 +55,7 @@ const Landing = ({properties}) => {
     );
 
     dbDonations = await Promise.resolve(dbDonations);
-    console.log(dbDonations);
     if (dbDonations.payload.length < 1) {
-      console.log(user.sub);
       let newDonation = {
         user_id: user.sub,
         donated_items: [],
@@ -79,14 +76,12 @@ const Landing = ({properties}) => {
     dbBanks = await Promise.resolve(dbBanks);
 
     if (dbBanks.payload.length < 1) {
-      console.log(user.sub);
       let newBank = {
         user_id: user.sub,
         donation_banks: [],
       };
       let newdbBank = useFetch("donationbank", "POST", newBank, "");
       newdbBank = await Promise.resolve(newdbBank);
-      console.log(newdbBank);
     }
   }
 
@@ -100,10 +95,7 @@ const Landing = ({properties}) => {
 
     dbShopping = await Promise.resolve(dbShopping);
 
-    console.log("databaseShopping", dbShopping);
-
     if (dbShopping.payload.length < 1) {
-      console.log("yay want to see this");
       //Acting really strangely, need to actually populate Shopping List right now to get page to work(were close to getting that sorted), when running on 3001 everything is statusing 304 or 200. useFetch POST inside shoppinglist.js works fine sending an array of new objects to the users db after it has been deleted in the use fetch above. Can we just call the shopping list post request inside of a different one? like after the user donations?
 
       // let newShoppingItem = {
@@ -118,7 +110,6 @@ const Landing = ({properties}) => {
         `/?user_id=${user.sub}`
       );
       newShopping = await Promise.resolve(newShopping);
-      console.log("ns", newShopping);
     }
   }
 
@@ -156,7 +147,6 @@ const Landing = ({properties}) => {
       const fetchData = useFetch("users", "GET", null, `/${user.sub}`);
 
       const data = await Promise.resolve(fetchData);
-      console.log(data);
       return [data.payload];
     }
   }
@@ -165,16 +155,11 @@ const Landing = ({properties}) => {
   useEffect(()=>{
   async function getUserConsumption(){
     let data = await userDashboard()
-    console.log(consumption)
-   console.log(waste)
-   console.log(donations)
 
    setConsumption(data[0].consumption)
    setWaste(data[0].wastage)
    setDonations(data[0].donations)
    setTotal(waste + consumption + donations)
-
-   console.log(waste + donations + consumption)
   }
   if(isLoading !== true) {
     getUserConsumption()
@@ -242,12 +227,9 @@ const Landing = ({properties}) => {
 
   function renderButtons() {
     let sortedValues = pantry.sort(function (a, b) {
-      console.log(a[0]);
       return a[1] - b[1];
     });
-    console.log(pantry, sortedValues);
     return sortedValues.map((p, index) => {
-      // console.log(pantry)
       if (pantry.length < 1) {
         return (
           <div className={css.err}>
@@ -346,18 +328,11 @@ async function getServerSideProps(ctx) {
 
       const response = await useFetch("users", "POST", newUser, "");
 
-      console.log(response.json);
       // parses JSON response into native JavaScript objects
     } else {
       console.log("user already in db");
     }
 
-    // const responseuseFetch('pantryList', 'POST', listItem, `/?user_id=${userSub}`)
-
-    //           console.log(response.json); // parses JSON response into native JavaScript objects
-    //         } else {
-    //           console.log("user already in db")
-    //         }
 
     return {
       props: { properties: dbUser },

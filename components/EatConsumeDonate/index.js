@@ -30,17 +30,13 @@ const AssignItem = ({handleDoneClick, onClick}) => {
   ];
 function temp(event){
   setRadioValue(event.target.value);
-  console.log(event.target.value)
-
 }
 
 async function handleDoneClick({trueArray}){
 const fetchedData = useFetch('users', 'GET', null, `/?user_id=google-oauth2|108124826364307880117`)
 const data = await Promise.resolve(fetchedData)
-console.log(data)
   //  if(radio.value === 'Eaten'){
   let newConsumption = data.payload.consumption + trueArray.length
-  console.log(newConsumption)
   let query= {consumption: newConsumption} //let user.consumption = consumption + ewdlist.length
  useFetch('users', 'PUT', query, `/update/?user_id=google-oauth2|108124826364307880117`)
 

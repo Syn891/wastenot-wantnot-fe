@@ -23,7 +23,6 @@ function SwipeFoodListItem({
 }) {
   async function removeFromSl(_id) {
     const remove = { shopping_items: { _id: _id } };
-    console.log("remove", remove, "_id", _id, userSub);
     const res = useFetch(
       "shoppinglists",
       "DELETE",
@@ -31,7 +30,6 @@ function SwipeFoodListItem({
       `/?user_id=${userSub}`
     );
     let removePromise = await Promise.resolve(res);
-    console.log(removePromise);
   }
 
   async function addToPantry(_id) {
@@ -62,7 +60,6 @@ function SwipeFoodListItem({
   //   // const remove = {id:id}
   //   // const res = useFetch('pantryList', 'PUT', remove, `/${object_id}`)
   //   // const test = await Promise.resolve(res)
-  //   // console.log(test)
   //   const donUser = useFetch('donations', 'GET', null, `/?user_id=${userId}`)
   //   const res = await Promise.resolve(donUser)
   //   if(res.payload.length < 1){

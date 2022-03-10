@@ -11,19 +11,16 @@ function PantryListItem({
   expiry
 }) {
 
-  console.log(quantity)
   // const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000); //silly maths no functionality
   if (!color) {
     color = "#5CC971";
   }
   function handleChange(position) {
     const updatedCheckedState = isChecked.map((item, index) =>{
-    console.log(item)
 
       index === position ? !item : item
     });
 
-    // console.log("True False Array", updatedCheckedState);
     // setTrueFalseArraySL(updatedCheckedState);
   }
   return (

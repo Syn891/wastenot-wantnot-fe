@@ -28,7 +28,6 @@ const DonationsPage = ({ trueFalseArraySL, setTrueFalseArraySL }) => {
     if(isLoading !== true) {
       let data = useFetch('donationbank', 'GET', null, `/?user_id=${user.sub}`)
       data = await Promise.resolve(data)
-      console.log(data)
       if(data.payload.length > 0){
         setDonationBanks(data.payload[0].donation_banks)
     }
@@ -48,13 +47,10 @@ const DonationsPage = ({ trueFalseArraySL, setTrueFalseArraySL }) => {
 
     async function userDonations(){ 
       if(isLoading !== true){
-        console.log(user);
-        console.log(user.sub)
         const fetchData = useFetch('donations', 'GET', null, `/?user_id=${user.sub}`)
        
         const data = await Promise.resolve(fetchData);
          const donationsData = data.payload[0].donated_items;
-         console.log(donationsData)
          setDonations(donationsData);
      
     }

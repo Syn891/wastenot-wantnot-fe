@@ -26,7 +26,6 @@ function SwipeDonationsBar({ className, children, data, object_id, object }) {
   }
 
   async function incrementUserStats(key) {
-    console.log(key)
     let userInfo = useFetch('users', 'GET', null, `/${user.user.sub}`)
     userInfo = await Promise.resolve(userInfo)
     let data = userInfo.payload

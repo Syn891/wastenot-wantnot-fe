@@ -29,13 +29,11 @@ const profile = () => {
     useEffect(async()=> {
        const data = await getUserData() 
        setUserData(data)
-       console.log(userData)
     }, [user.isLoading])
 
     useEffect(async()=>{
         let level = getLevel();
          setLevel(level)
-         console.log(level)
     }, [userData] )
 
     function getColor() {
@@ -59,7 +57,6 @@ const profile = () => {
         
         if(userData) {
 
-            console.log(userData)
             let total = userData.wastage + userData.consumption + userData.donations
             if(total !== 0){
                 total = userData[key]/total * 100
@@ -72,10 +69,8 @@ const profile = () => {
     function getLevel() {
         let level = ""
         if(userData) {
-            console.log(userData)
             if(userData.wastage > userData.consumption 
                 && userData.wastage > userData.donations) {
-                    console.log(userData.wastage)
                    level = 'Beginner'
             } else {
                 level = 'Expert'

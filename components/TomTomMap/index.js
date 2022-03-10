@@ -45,7 +45,6 @@ const TomTomMap = () => {
     setFave(tempState)
 
     let donationsfaves = await useFetch('donationbank', 'GET', null, `/?user_id=${user.user.sub}`)
-    console.log(donationsfaves)
     
     if(donationsfaves.payload.length < 1 && tempState[position] === true){
 
@@ -75,24 +74,19 @@ const TomTomMap = () => {
               const remove = {donation_banks: {_id:containing._id}}
         let data = useFetch('donationbank', 'DELETE', remove, `/?user_id=${user.user.sub}`)
         data = await Promise.resolve(data)
-        console.log(data)
     }
   }
 
   // useEffect(async()=> {
   //   let donationsfaves = await useFetch('donationbank', 'GET', null, `/?user_id=${user.user.sub}`)
 
-  //   console.log(donationsfaves)
   //     if(donationsfaves.payload.length < 1 && fave[position] === true){
   //       let data = await useFetch('donationbanks', 'POST', fave[position], '' )
-  //       console.log(data)
   //     } else if (fave[position]===true) {
   //       let query = {donation_banks: fave[position]}
   //       let data = useFetch('donationbanks', 'PUT', query,`/update/?user_id=${userId}` )
-  //       console.log(data)
   //     } else {
   //       let data = await useFetch('donationbanks', 'DELETE', {donation_banks: {id:fave[position._id]}})
-  //       console.log(data)
   //     }
     
     
@@ -165,7 +159,6 @@ const TomTomMap = () => {
               const fetchFromFoodBank = await fetch(`https://www.givefood.org.uk/api/2/foodbanks/search/?lat_lng=${latitude},${longitude}`)
               const bankData = await fetchFromFoodBank.json()
               bankData.map((bank)=> {
-                  // console.log(bank)
                   let latLng = bank.lat_lng.split(",");
                   latLng[0] = Number(latLng[0])
                   latLng[1] = Number(latLng[1])
