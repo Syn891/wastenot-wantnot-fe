@@ -7,6 +7,24 @@ import { useUser } from "@auth0/nextjs-auth0";
 
 function MyMealsDisplay({ image, title, url, r,g,b, id }) {
 
+  const [isActive, setActive] = useState(false);
+  const handleToggle = () => {
+    setActive(!isActive);
+  };
+
+  // async function deleteMeal(event) {
+  //   const fetchedData = useFetch('mealPlan', 'GET', null, `/?user_id=${userId}`)
+  //   const response = await Promise.resolve(fetchedData)
+  //     useFetch('mealPlan', 'DELETE', data, '' )
+    
+
+  async function deleteMeal(id){
+    const remove = {meal_plan: {_id:id}}
+    const res = useFetch('mealPlan', 'DELETE', remove, `/?user_id=${user.user.sub}`)
+    await Promise.resolve(res)
+  handleToggle()
+}    
+
   const user = useUser()
 
   async function addIngredients(id) {
@@ -45,6 +63,9 @@ function MyMealsDisplay({ image, title, url, r,g,b, id }) {
           Explore Recipe
         </a>
         </Row>
+        <Col>
+      <button className={`${css.addRecipe} ${isActive ? `${css.selected}`  : ""}`} onClick={deleteMeal}>x</button>
+      </Col>
         <Row className={css.ing}>
           <a  onClick={()=> addIngredients(id)}> Add ingredients to shopping list?</a>
         </Row>
@@ -55,3 +76,5 @@ function MyMealsDisplay({ image, title, url, r,g,b, id }) {
 }
 
 export default MyMealsDisplay;
+
+//hello
