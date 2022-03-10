@@ -148,9 +148,11 @@ function ShoppingList() {
       <Container>
         <Row className={css.innercontainer}>{loadShopListTable()}</Row>
         <Container className={css.input}>
+        <Row className={css.add}>
           <Button onClick={() => setModalShow(true)} className={css.addItem}>
             Add Item to Grocery List
           </Button>
+          </Row>
         </Container>
         <AddItemModal
           show={modalShow}
@@ -167,7 +169,7 @@ function ShoppingList() {
         </Row>
         <Row className={css.row}>
           <Button className={css.addItem} onClick={() => createNewSL()}>
-            Create new List
+            Clear List
           </Button>
         </Row>
         <Row className={css.donate}>
