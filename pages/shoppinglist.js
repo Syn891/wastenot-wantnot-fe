@@ -3,11 +3,8 @@ import DonationPromptInfo from "../components/DonationPromptInfo";
 import ShoppingListTable from "../components/ShoppingListTable";
 import { Col, Container, Row, Button } from "react-bootstrap";
 import css from "../styles/Shoppinglist.module.css";
-import SaveListButton from "../components/SaveListButton";
 import AddItemToPantryButton from "../components/AddItemToPantryButton";
-import CreateNewListButton from "../components/CreateNewListButton";
 import React, { useState, useEffect, useRef } from "react";
-import shopListTestData from "../testdata/testshoppinglists";
 import { useUser, getSession } from "@auth0/nextjs-auth0";
 import { useFetch } from "../hooks/useFetch";
 import { GiForkKnifeSpoon } from "react-icons/gi";
@@ -15,10 +12,6 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/router";
 import FoodCategoryRow from "../components/FoodCategoryRow";
 import AddItemModal from "../components/AddItemModal";
-//delete items on swipe
-//look into solution for comparing shopping list and pantry list
-//add remove shopping list item functionality (swipe?)
-// styling of buttons, etc
 
 function ShoppingList() {
   const { user, error, isLoading } = useUser();
@@ -38,7 +31,6 @@ function ShoppingList() {
     const response = await Promise.resolve(fetchData);
     if (response.payload.length > 0) {
       const userShopData = response.payload[0].shopping_items;
-      // if userShopData.length less than 2 put placeholder items in
       setTrueFalseArraySL(new Array(userShopData.length).fill(false));
       setShopListData(userShopData);
     }
@@ -51,7 +43,6 @@ function ShoppingList() {
   }, [isLoading]);
 
   async function handlePantryClick(trueFalseArraySL, shopListData, user) {
-    console.log(trueFalseArraySL, "ShopList TF Array");
     let pantryList = [];
     let remainingPantryList = [];
     shopListData.map(function (item, index) {
@@ -62,55 +53,33 @@ function ShoppingList() {
       }
     });
 
-    console.log(
-      "Checked List to go to Pantry is ",
-      pantryList,
-      "to be put into Users List For",
-      "Name:",
-      user.name,
-      "Sub/userID:",
-      user.sub,
-      "Remaining items to go back into users shopping list",
-      remainingPantryList,
-      "time is",
-      new Date()
-    );
-
     useFetch(
       "pantryList",
       "PUT",
       { pantry_items: pantryList },
       `/update/?user_id=${user.sub}`
-      // "/update/?user_id=google-oauth2|112451605105134992726" //this works
     );
 
     useFetch(
       "shoppinglists",
       "DELETE",
       { user_id: user.sub },
-      // { user_id: "google-oauth2|11245" }, //REQ.BODY
       `/all/?user_id=${user.sub}`
-      // "/?user_id=google-oauth2|11245" //REQ.QUERY
     );
 
     useFetch(
-      // replace user shopping list here, delete in one above
       "shoppinglists",
       "POST",
-      { shopping_items: remainingPantryList }, //REQ.BODY
-      //{ shopping_items: [{ name: "delete" }, { name: "delete2" }] },
+      { shopping_items: remainingPantryList },
       `/?user_id=${user.sub}`
-      // "/?user_id=google-oauth2|11245" //REQ.QUERY
-      //`/update/?user_id=${userSub}`
     );
     console.log("remaining pantry list", remainingPantryList);
-    // getUserShoppingList();
+
     setShopListData(remainingPantryList);
     return pantryList;
   }
 
   async function createNewSL() {
-    //Should be somewthing like this
     await useFetch(
       "shoppinglists",
       "DELETE",
@@ -124,13 +93,12 @@ function ShoppingList() {
       { shopping_items: [] },
       `/?user_id=${user.sub}`
     );
-    // setShopListData([]);
+
     await getUserShoppingList();
   }
 
   function loadShopListTable() {
     if (shopListData) {
-      console.log(shopListData);
       return (
         <ShoppingListTable
           getUserShoppingList={getUserShoppingList}
@@ -147,8 +115,6 @@ function ShoppingList() {
   }
 
   async function save(object) {
-    // getUserShoppingList(); //janky
-    console.log(object);
     setShopListData([...shopListData, object]);
     async function newShoppingItem() {
       const fetchData = useFetch(
@@ -158,18 +124,14 @@ function ShoppingList() {
         `/update/?user_id=${user.sub}`
       );
       const fetchedData = await Promise.resolve(fetchData);
-      console.log(fetchedData);
       setModalShow(false);
     }
     newShoppingItem();
     setTrueFalseArraySL([...trueFalseArraySL, false]);
-    console.log("shop list data:", shopListData, "");
   }
 
   const router = useRouter();
-  // return shopListData ? (
   return shopListData ? (
-    // the ? is so lines 105-107 run whgile we are waiting for our getUserShoppingList promises to resolve
     <Container>
       <Row className={css.row}>
         <Navbar Icon={GiForkKnifeSpoon} color="#EF8D4B" title={"Grocery List"}>
@@ -198,7 +160,6 @@ function ShoppingList() {
         <Row className={css.pantryButton}>
           <AddItemToPantryButton
             message={"Add checked list items to My Pantry:"}
-            // addPantryDisable={addPantryDisable}
             onClick={() =>
               handlePantryClick(trueFalseArraySL, shopListData, user)
             }
@@ -218,8 +179,8 @@ function ShoppingList() {
       </Container>
     </Container>
   ) : (
-    <>YOU ARE PROBABLY NOT LOGGED IN</>
-  ); //CONVERSATION TO HAVE: save button to push user shopping list to database to remove the need to push everytime a user adds an item? Look into local storage solution for shopping list?
+    <>Loading...</>
+  );
 }
 
 export default ShoppingList;

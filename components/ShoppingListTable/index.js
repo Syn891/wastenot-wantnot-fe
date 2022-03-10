@@ -3,7 +3,6 @@ import FoodListItem from "../FoodListItem";
 import { Col, Container, Row, Button } from "react-bootstrap";
 import css from "./ShoppingListTable.module.css";
 import SwipeFoodListItem from "../SwipeFoodListItem";
-
 function ShoppingListTable({
   shopListData, //database data
   setShopListData, //pass this down so we can spread new items into it when a user adds to shopping list
@@ -39,7 +38,6 @@ function ShoppingListTable({
       });
     }
   }
-
   return <>{renderShopListTable()}</>;
 }
 
