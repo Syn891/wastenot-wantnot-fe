@@ -19,7 +19,7 @@ function NavbarCustom({ title, color, children, Icon, iconColor }) {
 
   return (
     <Navbar expand={false} className={styles.navbar}>
-      <Container fluid className={styles.container}>
+      <Container className={styles.container}>
         {children}
         <div className={styles.divc} style={{ backgroundColor: color }}>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
