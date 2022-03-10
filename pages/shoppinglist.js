@@ -73,7 +73,6 @@ function ShoppingList() {
       { shopping_items: remainingPantryList },
       `/?user_id=${user.sub}`
     );
-    console.log("remaining pantry list", remainingPantryList);
 
     setShopListData(remainingPantryList);
     return pantryList;

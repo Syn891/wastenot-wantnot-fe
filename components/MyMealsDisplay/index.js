@@ -13,7 +13,6 @@ function MyMealsDisplay({ image, title, url, r,g,b, id }) {
     let res = useFetch('api/search', 'GET', null, `/?recipe_id=${id}`)
     res = await Promise.resolve(res)
     
-    console.log(res.recipe)
     res.recipe.ingredients.map((ingredient)=> {
       let ing = {
         name: ingredient.food,

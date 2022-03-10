@@ -73,8 +73,7 @@ const Pantry = () => {
     let query = { consumption: data };
     let res1 = useFetch("users", "PUT", query, `/${user.user.sub}`);
     res1 = await Promise.resolve(res1);
-    console.log(res1);
-    console.log(isChecked);
+  
   }
 
   useEffect(() => {}, [isChecked]);
