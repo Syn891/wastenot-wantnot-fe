@@ -42,7 +42,7 @@ function NavbarCustom({ title, color, children, Icon, iconColor }) {
             </Nav.Link>
             <img
               className={styles.brand}
-              src="https://i.ibb.co/MV46RZx/Recycle-icon-by-rudezstudio-2-580x386-copy.png"
+              src="https://i.ibb.co/QPB4VKC/Wn-Wn-Logo-White.png"
             />
           </Offcanvas.Header>
           <Offcanvas.Body className={styles.offcanvasBody}>

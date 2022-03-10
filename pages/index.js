@@ -25,7 +25,7 @@ export default function Home() {
       <Navbar expand={false}>
         <Container fluid>
         <Navbar.Toggle aria-controls="offcanvasNavbar" />
-            <Navbar.Brand href="#"><img className={styles.brand} src="https://i.ibb.co/MV46RZx/Recycle-icon-by-rudezstudio-2-580x386-copy.png"/></Navbar.Brand>
+            <Navbar.Brand href="#"><img className={styles.brand} src="https://i.ibb.co/QPB4VKC/Wn-Wn-Logo-White.png"/></Navbar.Brand>
             <Navbar.Offcanvas
             id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel"
@@ -34,7 +34,7 @@ export default function Home() {
             >
         <Offcanvas.Header closeButton className={styles.offcanvasHeader}>
         <Offcanvas.Title id="offcanvasNavbarLabel">WasteNot: WantNot</Offcanvas.Title>
-        <img className={styles.brand} src="https://i.ibb.co/MV46RZx/Recycle-icon-by-rudezstudio-2-580x386-copy.png"/>
+        <img className={styles.brand} src="https://i.ibb.co/QPB4VKC/Wn-Wn-Logo-White.png"/>
         </Offcanvas.Header>
       <Offcanvas.Body>
         <Nav className="justify-content-end flex-grow-1 pe-3">
@@ -62,7 +62,7 @@ export default function Home() {
             </Row>
           </Col>
           <Col className={styles.headingS} xs={{span: 4}}>
-            <img className={styles.brandHead} src="https://i.ibb.co/MV46RZx/Recycle-icon-by-rudezstudio-2-580x386-copy.png"/>
+            <img className={styles.brandHead} src="https://i.ibb.co/QPB4VKC/Wn-Wn-Logo-White.png"/>
           </Col>
 
 

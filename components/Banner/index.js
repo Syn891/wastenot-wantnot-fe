@@ -7,7 +7,7 @@ const Banner = ({title}) => {
     return (
       <div className={css.heading}>
         <Col className={css.header}><h1>{title}</h1></Col>
-        <Col className={css.branding}><img className={css.image} src="https://i.ibb.co/MV46RZx/Recycle-icon-by-rudezstudio-2-580x386-copy.png"></img>
+        <Col className={css.branding}><img className={css.image} src="https://i.ibb.co/QPB4VKC/Wn-Wn-Logo-White.png"></img>
         </Col>
     </div>
     );
