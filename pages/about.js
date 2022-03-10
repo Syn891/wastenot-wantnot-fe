@@ -21,7 +21,7 @@ return (
         <Col className={css.col}>
             <Row className={css.title}>
             <Col xs={{span: 8}} className={css.waste}>Food waste matters!</Col> 
-            <Col xs={{span: 4}}><img className={css.brand} src="https://i.ibb.co/MV46RZx/Recycle-icon-by-rudezstudio-2-580x386-copy.png"/>
+            <Col xs={{span: 4}}><img className={css.brand} src="https://i.ibb.co/ZBJCZWg/Wn-Wn-Logo-Black.png"/>
             </Col>
             </Row>
         
