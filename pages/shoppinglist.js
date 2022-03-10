@@ -142,7 +142,7 @@ function ShoppingList() {
         </Navbar>
       </Row>
       <Row className={css.food}>
-        <FoodCategoryRow />
+        <FoodCategoryRow value={"x"}/>
       </Row>
       <Container>
         <Row className={css.innercontainer}>{loadShopListTable()}</Row>

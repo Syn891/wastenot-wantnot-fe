@@ -101,7 +101,7 @@ useEffect(() => {
         </div>
       </Row>
       <Row className={css.row, css.foodRow}>
-        <FoodCategoryRow />
+        <FoodCategoryRow value={""}/>
       </Row>
       <Row className={css.container1}>
 
