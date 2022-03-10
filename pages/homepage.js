@@ -22,9 +22,37 @@ const Landing = ({properties}) => {
   const { user, error, isLoading } = useUser();
   const [pantry, setPantry] = useState([]);
   console.log(user);
+  async function loadUser(){
+  if (user) {
+    let dbUser = await fetch(
+      `https://waste-want.herokuapp.com/users/${user.sub}`
+    );
+    dbUser = await dbUser.json();
+      console.log(dbUser)
+    if (dbUser.payload === null) {
+      const newUser = {
+        _id: user.sub,
+        name: user.nickname,
+        email: user.name,
+        dietary_reqs: [],
+        wastage: 0,
+        consumption: 0,
+        donations: 0,
+      };
 
-  const [waste, setWaste] = useState(10);
-  const [donations, setDonations] = useState(10);
+      const response = await useFetch("users", "POST", newUser, "");
+
+      console.log(response.json);
+      // parses JSON response into native JavaScript objects
+    } else {
+      console.log("user already in db");
+    }
+  }}
+useEffect(()=>{loadUser()}, [isLoading])
+  
+
+  const [waste, setWaste] = useState(0);
+  const [donations, setDonations] = useState(0);
   const [consumption, setConsumption] = useState(0);
   const [total, setTotal] = useState(waste + donations + consumption)
 
@@ -153,35 +181,39 @@ const Landing = ({properties}) => {
 
   async function userDashboard() {
     if (isLoading !== true) {
+      console.log(user.sub)
       const fetchData = useFetch("users", "GET", null, `/${user.sub}`);
 
       const data = await Promise.resolve(fetchData);
       console.log(data);
+      setConsumption(data.payload.consumption)
+   setWaste(data.payload.wastage)
+   setDonations(data.payload.donations)
+   setTotal(waste + consumption + donations)
       return [data.payload];
     }
   }
 
 
-  useEffect(()=>{
-  async function getUserConsumption(){
+  useEffect(async()=>{
+   console.log(isLoading)
+  if(isLoading !== true) {
     let data = await userDashboard()
-    console.log(consumption)
-   console.log(waste)
-   console.log(donations)
-
-   setConsumption(data[0].consumption)
-   setWaste(data[0].wastage)
-   setDonations(data[0].donations)
-   setTotal(waste + consumption + donations)
+  
+    console.log(data[0])
+  //  setConsumption(data[0].consumption)
+  //  setWaste(data[0].wastage)
+  //  setDonations(data[0].donations)
+  //  setTotal(waste + consumption + donations)
 
    console.log(waste + donations + consumption)
-  }
-  if(isLoading !== true) {
-    getUserConsumption()
 
   }
+  console.log(consumption)
+  console.log(waste)
+  console.log(donations)
 
-   },[consumption, donations, waste, isLoading]);
+   },[user, isLoading, donations]);
 
   useEffect(() => {
     userPantry();
@@ -323,50 +355,4 @@ const Landing = ({properties}) => {
     ));
     
 };
-
-async function getServerSideProps(ctx) {
-  const session = getSession(ctx.req, ctx.res);
-
-  if (session) {
-    let dbUser = await fetch(
-      `https://waste-want.herokuapp.com/users/${session.user.sub}`
-    );
-    dbUser = await dbUser.json();
-
-    if (dbUser.payload === null) {
-      const newUser = {
-        _id: session.user.sub,
-        name: session.user.nickname,
-        email: session.user.name,
-        dietary_reqs: [],
-        wastage: 0,
-        consumption: 0,
-        donations: 0,
-      };
-
-      const response = await useFetch("users", "POST", newUser, "");
-
-      console.log(response.json);
-      // parses JSON response into native JavaScript objects
-    } else {
-      console.log("user already in db");
-    }
-
-    // const responseuseFetch('pantryList', 'POST', listItem, `/?user_id=${userSub}`)
-
-    //           console.log(response.json); // parses JSON response into native JavaScript objects
-    //         } else {
-    //           console.log("user already in db")
-    //         }
-
-    return {
-      props: { properties: dbUser },
-    };
-  } else {
-    return {
-      props: { properties: {} },
-    };
-  }
-}
-
 export default Landing;

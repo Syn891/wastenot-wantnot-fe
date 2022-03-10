@@ -56,15 +56,17 @@ const profile = () => {
     }
 
     function calculatePercentage(key) {
+
         
         if(userData) {
 
             console.log(userData)
             let total = userData.wastage + userData.consumption + userData.donations
-            if(total !== 0){
-                total = userData[key]/total * 100
+            let percentage = userData[key]/total * 100
+            if(total === 0){
+                percentage = 0
             }
-            return Math.round(total)
+            return Math.round(percentage * 10)/10
         }
         
     }
@@ -115,7 +117,7 @@ const profile = () => {
             </Row>
             <Row className={css.row}>
                 <div className={css.level}>
-                    You are at: <span className={css.levelResult}> {level} level!</span>
+                    You are at:&nbsp; <span className={css.levelResult}> {level} level!</span>
                 </div>
             </Row>
             <Row className={css.row}>
