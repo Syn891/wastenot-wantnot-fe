@@ -14,6 +14,7 @@ import { GiForkKnifeSpoon } from "react-icons/gi";
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/router";
 import FoodCategoryRow from "../components/FoodCategoryRow";
+import AddItemModal from "../components/AddItemModal";
 //delete items on swipe
 //look into solution for comparing shopping list and pantry list
 //add remove shopping list item functionality (swipe?)
@@ -24,7 +25,7 @@ function ShoppingList() {
   const [addPantryDisable, setAddPantryDisable] = useState(false); //Pantry button greyed out when new item form is rendered
   const [shopListData, setShopListData] = useState(undefined); //undefined for line 66
   const [trueFalseArraySL, setTrueFalseArraySL] = useState(); //This is running after the usestate
-
+  const [modalShow, setModalShow] = useState(false);
 
   async function getUserShoppingList() {
     const fetchData = useFetch(
@@ -145,6 +146,26 @@ function ShoppingList() {
     }
   }
 
+  async function save(object) {
+    // getUserShoppingList(); //janky
+    console.log(object);
+    setShopListData([...shopListData, object]);
+    async function newShoppingItem() {
+      const fetchData = useFetch(
+        "shoppinglists",
+        "PUT",
+        { shopping_items: object },
+        `/update/?user_id=${user.sub}`
+      );
+      const fetchedData = await Promise.resolve(fetchData);
+      console.log(fetchedData);
+      setModalShow(false);
+    }
+    newShoppingItem();
+    setTrueFalseArraySL([...trueFalseArraySL, false]);
+    console.log("shop list data:", shopListData, "");
+  }
+
   const router = useRouter();
   // return shopListData ? (
   return shopListData ? (
@@ -158,36 +179,43 @@ function ShoppingList() {
             onClick={() => router.back()}
           />
         </Navbar>
-        </Row>
-        <Row className={css.food}>
+      </Row>
+      <Row className={css.food}>
         <FoodCategoryRow />
-        </Row>
-        <Container>
-          <Row className={css.innercontainer}>
-          {loadShopListTable()}
-          </Row>
-            <Row className={css.pantryButton}>
-              <AddItemToPantryButton
-                message={"Add checked list items to My Pantry:"}
-                // addPantryDisable={addPantryDisable}
-                onClick={() =>
-                  handlePantryClick(trueFalseArraySL, shopListData, user)
-                }
-              />
-            </Row>
-            <Row className={css.row}>
-              <Button className={css.addItem} onClick={() => createNewSL()}>
-                Create new List
-              </Button>
-            </Row>
-            <Row className={css.donate}>
-            <DonationPromptInfo
-              text="Find local donation points"
-              className={css.dpiSVG}
-            />
-            </Row>
+      </Row>
+      <Container>
+        <Row className={css.innercontainer}>{loadShopListTable()}</Row>
+        <Container className={css.input}>
+          <Button onClick={() => setModalShow(true)} className={css.addItem}>
+            Add Item to Grocery List
+          </Button>
         </Container>
-      
+        <AddItemModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          save={save}
+        />
+        <Row className={css.pantryButton}>
+          <AddItemToPantryButton
+            message={"Add checked list items to My Pantry:"}
+            // addPantryDisable={addPantryDisable}
+            onClick={() =>
+              handlePantryClick(trueFalseArraySL, shopListData, user)
+            }
+          />
+        </Row>
+        <Row className={css.row}>
+          <Button className={css.addItem} onClick={() => createNewSL()}>
+            Create new List
+          </Button>
+        </Row>
+        <Row className={css.donate}>
+          <DonationPromptInfo
+            text="Find local donation points"
+            className={css.dpiSVG}
+          />
+        </Row>
+      </Container>
     </Container>
   ) : (
     <>YOU ARE PROBABLY NOT LOGGED IN</>
