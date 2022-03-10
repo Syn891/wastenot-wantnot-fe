@@ -6,13 +6,14 @@ import css from "./DashboardChart.module.css";
 
 const DashboardChart = ({value, total, colour1, colour2}) => {
 
-   
+  let percentage = value/total * 100
+  if (total === 0 ){
+    percentage = 0
+  }
+
   return (
     <div className={css.DashboardChart}>
       
-
-
-
 <PieChart className={css.DashboardChart} 
    animation
    animationDuration={500}
@@ -22,12 +23,12 @@ const DashboardChart = ({value, total, colour1, colour2}) => {
       {
      color:"#f1efef" ,
      title: "Two",
-     value: 100-value,
+     value: 100-percentage,
      },
      {
      color: colour1,
      title: "One",
-     value: value/total * 100,
+     value: percentage ,
      },
     
      
