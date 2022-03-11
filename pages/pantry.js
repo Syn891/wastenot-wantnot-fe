@@ -68,13 +68,12 @@ const Pantry = () => {
 
     let userInfo = useFetch("users", "GET", null, `/${user.user.sub}`);
     userInfo = await Promise.resolve(userInfo);
-    console.log(userInfo)
+    console.log(userInfo);
     let data = userInfo.payload.consumption + 1;
 
     let query = { consumption: data };
     let res1 = useFetch("users", "PUT", query, `/${user.user.sub}`);
     res1 = await Promise.resolve(res1);
-  
   }
 
   useEffect(() => {}, [isChecked]);
@@ -116,15 +115,16 @@ const Pantry = () => {
             let date = new Date(pi.est_exp);
             let dateString = date.toLocaleDateString("en-GB");
             let dateDif = calcDate(pi.est_exp);
+            console.log("pi", pi);
             const object = {
               user_id: user.user.sub,
               donated_items: [
                 {
                   name: pi.name,
                   est_exp: pi.est_exp,
-                  category: "",
-                  quanitiy: 0,
-                  measurement: "",
+                  category: pi.category,
+                  quanitiy: pi.quantity,
+                  measurement: pi.measurement,
                 },
               ],
             };

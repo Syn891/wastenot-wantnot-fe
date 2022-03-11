@@ -55,7 +55,7 @@ const MyMeals = () => {
     let data = await load();
     setRecipes(data);
     setDeleted(false);
-  }, [isLoading]);
+  }, [isLoading, deleted]);
 
   function loadRecipes() {
     if (recipes !== undefined) {
