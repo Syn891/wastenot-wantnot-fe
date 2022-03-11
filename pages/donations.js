@@ -16,6 +16,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { useFetch } from "../hooks/useFetch.js";
 import FactCarousel from "../components/FactCarousel";
 import DonationPromptInfo from "../components/DonationPromptInfo";
+import ItemInfo from "../components/Iteminfo";
 
 const DonationsPage = ({ trueFalseArraySL, setTrueFalseArraySL }) => {
   const { user, error, isLoading } = useUser();
@@ -127,7 +128,7 @@ const DonationsPage = ({ trueFalseArraySL, setTrueFalseArraySL }) => {
           );
         })}
       </Row>
-
+      <ItemInfo right={"waste"} left={"donate"} />
       <Row className={css.row}>
         <Dropdown>
           <Dropdown.Toggle
@@ -168,6 +169,7 @@ const DonationsPage = ({ trueFalseArraySL, setTrueFalseArraySL }) => {
       <DonationPromptInfo
         text="Donations needed in your area"
         className={css.dpiSVG}
+        width={"100%"}
       />
       {/* </Container> */}
     </div>
