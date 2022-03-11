@@ -68,6 +68,7 @@ const Pantry = () => {
 
     let userInfo = useFetch("users", "GET", null, `/${user.user.sub}`);
     userInfo = await Promise.resolve(userInfo);
+    console.log(userInfo)
     let data = userInfo.payload.consumption + 1;
 
     let query = { consumption: data };
