@@ -1,81 +1,104 @@
-.container {
+/* .container {
     display: flex;
     flex-direction: column;
     margin: 0;
     padding: 0 1em 0 1em
+} */
+.container {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+  flex-wrap: nowrap;
+  min-height: 40vh;
+  padding-top: 1em;
+  box-shadow: inset 0px -1px 8px rgba(0, 0, 0, 0.25);
 }
-
+.innercontainer {
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  flex-wrap: nowrap;
+  padding-top: 1em;
+  box-shadow: inset 0px -1px 8px rgba(0, 0, 0, 0.25);
+  min-height: 47vh;
+  height: 47vh;
+  align-items: center;
+}
 .navDiv {
-    padding: 0.5em 0.35em 0.5em 0.35em;
-    margin: 0;
+  padding: 0.5em 0.35em 0.5em 0.35em;
+  margin: 0;
 }
 
+/* .body {
+  margin: 0;
+} */
 
 .body {
-    margin: 0
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
 }
 
 .container1 {
-    overflow: scroll;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 45vh;
-    padding-top: 1em;
-    box-shadow: inset  0px -1px 8px rgba(0, 0, 0, 0.25);
-    margin: 0
+  overflow: scroll;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 45vh;
+  padding-top: 1em;
+  box-shadow: inset 0px -1px 8px rgba(0, 0, 0, 0.25);
+  margin: 0;
 }
 
 .row {
-    justify-content: center;
-    --bs-gutter-x: unset;
-    height: auto;
-    
+  justify-content: center;
+  --bs-gutter-x: unset;
+  height: auto;
 }
 
-.donationsHeader{
-    text-align: center;
-    align-content: center;
+.donationsHeader {
+  text-align: center;
+  align-content: center;
 }
 .donationsTitle {
-    
-    display: flex;
-    background: #FCEADD;
-    border-radius: 10px;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5em;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  background: #fceadd;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .donationsSubTitle {
-    
-    display: flex;
-    background: #FCEADD;
-    border-radius: 10px;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    margin-top: 1em;
-    padding: 0.5em;
-    color: black;
-    width: 100%;
-    border: unset;
+  display: flex;
+  background: #fceadd;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-top: 1em;
+  padding: 0.5em;
+  color: black;
+  width: 100%;
+  border: unset;
 }
 
-
 .swipeRow {
-    padding:0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .dropDownItem {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.phone:hover{
-color: green
+.phone:hover {
+  color: green;
 }
