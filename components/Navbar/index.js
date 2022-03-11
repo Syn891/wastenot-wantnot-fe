@@ -36,8 +36,8 @@ function NavbarCustom({ title, color, children, Icon, iconColor }) {
         >
           <Offcanvas.Header closeButton className={styles.offcanvasHeader}>
             <Nav.Link className={styles.navLinkLanding} href="/homepage">
-              <Offcanvas.Title id="offcanvasNavbarLabel">
-                WasteNot: WantNot
+              <Offcanvas.Title className={styles.offcanvasNavbarLabel}>
+                <strong>Waste</strong>Not: <strong>Want</strong>Not
               </Offcanvas.Title>
             </Nav.Link>
             <img

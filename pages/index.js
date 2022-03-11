@@ -52,12 +52,12 @@ export default function Home() {
 
 <Row className={styles.row}>
         <div className={styles.heading}>
-          <Col className={styles.headingT} xs={{span: 8}}>
+          <Col className={styles.headingT} xs={{span: 7.5}}>
             <Row className={styles.headingR}>
               <span className={styles.span}><strong>Waste</strong>Not:</span>
             </Row>
             <Row className={styles.headingU}>
-              <span className={styles.span}><strong>Want</strong>Not<strong>!</strong></span>
+              <span className={styles.span}><strong>-Want</strong>Not<strong>!</strong></span>
 
             </Row>
           </Col>
