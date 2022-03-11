@@ -332,7 +332,7 @@ const Landing = ({ properties }) => {
           <DonationPromptInfo
             text="Or donate items to orgnisations in need, here:"
             className={css.dpiSVG}
-             width={ "90%"}
+            width={"90%"}
           />
         </Row>
         <Row className={css.row}>
@@ -354,7 +354,7 @@ const Landing = ({ properties }) => {
           </Col>
           <Col className={css.col}>
             <NavigationButton
-              title="My Meals"
+              title="Plan Meals"
               color="#F1AC79"
               link="/mealPlan"
               Icon={GiForkKnifeSpoon}

@@ -78,7 +78,7 @@ function MyMealsDisplay({ image, title, url, r, g, b, id, setDeleted }) {
               }`}
               onClick={() => deleteMeal(id)}
             >
-              Delete Meal
+              Remove
             </button>
           </Col>
           <Row className={css.ing}>

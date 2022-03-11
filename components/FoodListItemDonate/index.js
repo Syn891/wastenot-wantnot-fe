@@ -11,8 +11,6 @@ function FoodListItemDonate({
   listItem,
   color,
 }) {
-  let date = new Date(est_exp);
-  let newDate = date.toLocaleDateString("en-GB");
   // const date = Math.trunc(Number(est_exp.$date.$numberLong) / 10000000); //silly maths no functionality
   if (!color) {
     color = "#5CC971";
