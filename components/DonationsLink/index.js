@@ -9,8 +9,7 @@ const DonationsLink = ({link}) => {
         <Link href={link}>
         <Row className={css.box}>
         <Col sm={4} className={css.col}>
-        <p className={css.p}>What people need near me?
-Donations needed in your area: </p>
+        <p className={css.p}>Find local donation points: </p>
 </Col>
 <Col sm={8} className={css.col} >
 <GrMapLocation className={css.logo} />

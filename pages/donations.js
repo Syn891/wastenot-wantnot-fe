@@ -13,6 +13,8 @@ import DonationsLink from "../components/DonationsLink";
 import FoodCategoryRow from "../components/FoodCategoryRow";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useFetch } from "../hooks/useFetch.js";
+import ItemInfo from "../components/Iteminfo";
+import DonationPromptInfo from "../components/DonationPromptInfo";
 
 
 const DonationsPage = ({ trueFalseArraySL, setTrueFalseArraySL }) => {
@@ -100,10 +102,10 @@ useEffect(() => {
           <div>To Donate:</div>
         </div>
       </Row>
-      <Row className={css.row, css.foodRow}>
+      <Row className={css.row}>
         <FoodCategoryRow />
       </Row>
-      <Row className={css.container1}>
+      <Container className={css.container1}>
 
         {donations.map(function (item, index) {
           return (
@@ -114,6 +116,7 @@ useEffect(() => {
                 <FoodListItemDonate
                   // {...item}
                   key={item._id}
+                  est_exp={item.est_exp}
                   index={index}
                   listItem={item}
                   name={item.name}
@@ -123,10 +126,10 @@ useEffect(() => {
                 </SwipeDonationsBar>
               </Row>
               ) })}
-        </Row>
+        </Container>
 
            
-        
+        <ItemInfo right={'waste'} left={'donate'}/>
         
              <Row className={css.row}>
                 <Dropdown>
@@ -139,30 +142,9 @@ useEffect(() => {
 
                     </Dropdown.Menu>
                 </Dropdown>
-              
-
-              {/* <>
-  <Dropdown>
-    <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-      Dropdown Button
-    </Dropdown.Toggle>
-
-    <Dropdown.Menu variant="dark">
-      <Dropdown.Item href="#/action-1" active>
-        Action
-      </Dropdown.Item>
-      <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-      <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-      <Dropdown.Divider />
-      <Dropdown.Item href="#/action-4">Separated link</Dropdown.Item>
-    </Dropdown.Menu>
-  </Dropdown>
-
-  
-</> */}
             </Row>
-            <Row>
-                <DonationsLink link="./donationPoints"/>
+            <Row className={css.dpiSVG} >
+                <DonationPromptInfo  text="Find local donation points" width={ "100%"}/>
             </Row>
             
        

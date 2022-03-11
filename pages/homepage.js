@@ -282,7 +282,9 @@ const Landing = ({properties}) => {
             <Row className={css.row}>
                 <DonationPromptInfo 
                     text="Or donate items to orgnisations in need, here:"
-                    className={css.dpiSVG}/>
+                    className={css.dpiSVG}
+                      width={ "90%"}
+                    />
             </Row>
             <Row className={css.row}>
                 <Col className={css.col}>

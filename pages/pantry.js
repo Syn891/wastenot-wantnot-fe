@@ -15,6 +15,7 @@ import DonationPromptInfo from "../components/DonationPromptInfo";
 import FactCarousel from "../components/FactCarousel";
 import { Row } from "react-bootstrap";
 import { RiFridgeLine } from "react-icons/ri";
+import ItemInfo from "../components/Iteminfo";
 
 const Pantry = () => {
   let user = useUser();
@@ -167,6 +168,8 @@ const Pantry = () => {
 
       <Container className={css.container}>{renderListItems()}</Container>
 
+      <ItemInfo right={'waste'} left={'add to donation list'}/>
+
       <Container className={css.input}>
         <Button onClick={() => setModalShow(true)} className={css.addItem}>
           Add Item to Pantry
@@ -182,8 +185,9 @@ const Pantry = () => {
       </Row>
 
       <DonationPromptInfo
-        text="Donations needed in your area"
+        text="Find local donation points"
         className={css.dpiSVG}
+        width={ "100%"}
       />
     </div>
   );
