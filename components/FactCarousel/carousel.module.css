@@ -3,7 +3,10 @@
     justify-content: center;
     align-content: center;
     flex-wrap: nowrap;
-    padding: 1em;
+    padding-top: 1em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    padding-bottom: 1em;
 }
 .carouselText{
     color: rgba(0, 0, 0, 0.85);

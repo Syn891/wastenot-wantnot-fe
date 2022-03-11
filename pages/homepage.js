@@ -305,7 +305,6 @@ const Landing = ({ properties }) => {
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
-
   return (
     user && (
       <Col className={css.view}>
@@ -333,6 +332,7 @@ const Landing = ({ properties }) => {
           <DonationPromptInfo
             text="Or donate items to orgnisations in need, here:"
             className={css.dpiSVG}
+             width={ "90%"}
           />
         </Row>
         <Row className={css.row}>
