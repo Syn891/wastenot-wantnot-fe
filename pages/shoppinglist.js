@@ -12,6 +12,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/router";
 import FoodCategoryRow from "../components/FoodCategoryRow";
 import AddItemModal from "../components/AddItemModal";
+import ItemInfo from "../components/Iteminfo";
 
 function ShoppingList() {
   const { user, error, isLoading } = useUser();
@@ -147,6 +148,7 @@ function ShoppingList() {
       <Container>
         <Row className={css.innercontainer}>{loadShopListTable()}</Row>
         <Container className={css.input}>
+        <ItemInfo right={'delete'} left={'add to pantry'}/>
         <Row className={css.add}>
           <Button onClick={() => setModalShow(true)} className={css.addItem}>
             Add Item to Grocery List

@@ -33,15 +33,15 @@ export default function Home() {
             className={styles.offcanvas}
             >
         <Offcanvas.Header closeButton className={styles.offcanvasHeader}>
-        <Offcanvas.Title id="offcanvasNavbarLabel">WasteNot: WantNot</Offcanvas.Title>
+        <Offcanvas.Title testId="heading" id="offcanvasNavbarLabel">WasteNot: WantNot</Offcanvas.Title>
         <img className={styles.brand} src="https://i.ibb.co/QPB4VKC/Wn-Wn-Logo-White.png"/>
         </Offcanvas.Header>
       <Offcanvas.Body>
         <Nav className="justify-content-end flex-grow-1 pe-3">
-          <Nav.Link className={styles.navLink} href="#action1">About Us</Nav.Link>
-          <Nav.Link className={styles.navLink} href="#action2">Food waste matters!</Nav.Link>
-          <Nav.Link className={styles.navLink} href="#action2">Manage, Reduce, Donate!</Nav.Link>
-          <Nav.Link className={styles.navLink} href="/donations">Find Food Banks!</Nav.Link>
+          <Nav.Link className={styles.navLink} href="/about">About Us</Nav.Link>
+          <Nav.Link className={styles.navLink} href="https://lordslibrary.parliament.uk/food-waste-in-the-uk/">Food waste matters!</Nav.Link>
+          <Nav.Link className={styles.navLink} href="https://www.trusselltrust.org/">Manage, Reduce, Donate!</Nav.Link>
+          <Nav.Link className={styles.navLink} href="https://www.givefood.org.uk/needs/">Find Food Banks!</Nav.Link>
           <Nav.Link className={styles.navLink} href="/">Register</Nav.Link>
         </Nav>
       

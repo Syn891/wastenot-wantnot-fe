@@ -23,8 +23,8 @@ export async function useFetch(endpoint, requestType, data, query) {
     return res;
   } else {
     const response = await fetch(
-      `https://waste-want.herokuapp.com/${endpoint}${query}`,
-      //`http://localhost:3001/${endpoint}${query}`,
+      // `https://waste-want.herokuapp.com/${endpoint}${query}`,
+      `http://localhost:3001/${endpoint}${query}`,
       {
         method: requestType,
       }
