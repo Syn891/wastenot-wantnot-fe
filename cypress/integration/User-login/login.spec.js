@@ -51,6 +51,35 @@ describe('Page loading', () => {
   it('Burger bar being able open and close with a click', () => {
   cy.get('.navbar-toggler').should('be.visible').wait(1000).click()
   cy.get("#offcanvasNavbarLabel").should('have.text', 'WasteNot: WantNot').should('be.visible')
+   
   cy.get('.btn-close').click() 
+ 
+  
+  
 })
+
+it('Burger bar has about link', () =>{
+  cy.get('.navbar-toggler').should('be.visible').wait(1000).click()
+cy.get('a[href="/about"]').click()
+cy.location('pathname').should('eq', '/about')
+cy.go('back')
 })
+
+it('Burger bar has food waste link', () =>{
+cy.get('.navbar-toggler').should('be.visible').wait(1000).click()
+cy.get('a[href="https://lordslibrary.parliament.uk/food-waste-in-the-uk/"')
+ .should('have.attr', 'target')
+ .should('have.attr', 'rel', 'noopener noreferrer')
+// cy.request("https://lordslibrary.parliament.uk/food-waste-in-the-uk/") 
+// cy.go('back')
+})
+
+})
+
+// cy
+//   .get('a')
+//   .should('have.attr', 'href', '/about')
+//   .should('have.attr', 'target', '_blank')
+//   .should('have.attr', 'rel', 'noopener noreferrer');
+
+// })
