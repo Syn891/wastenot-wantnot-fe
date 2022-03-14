@@ -67,19 +67,31 @@ cy.go('back')
 
 it('Burger bar has food waste link', () =>{
 cy.get('.navbar-toggler').should('be.visible').wait(1000).click()
-cy.get('a[href="https://lordslibrary.parliament.uk/food-waste-in-the-uk/"')
- .should('have.attr', 'target')
- .should('have.attr', 'rel', 'noopener noreferrer')
-// cy.request("https://lordslibrary.parliament.uk/food-waste-in-the-uk/") 
-// cy.go('back')
+cy.get('a[href="https://lordslibrary.parliament.uk/food-waste-in-the-uk/"]')
+  .should('have.prop', 'href')
+  .and('equal', 'https://lordslibrary.parliament.uk/food-waste-in-the-uk/')
 })
 
+it('Burger bar has trusell trust link', () =>{
+  cy.get('.navbar-toggler').should('be.visible').wait(1000).click()
+  cy.get('a[href="https://www.trusselltrust.org/"]')
+    .should('have.prop', 'href')
+    .and('equal', 'https://www.trusselltrust.org/')
+  })
+  
+  it('Burger bar has Food bank search link', () =>{
+    cy.get('.navbar-toggler').should('be.visible').wait(1000).click()
+    cy.get('a[href="https://www.givefood.org.uk/needs/"]')
+      .should('have.prop', 'href')
+      .and('equal', 'https://www.givefood.org.uk/needs/')
+    })
+    
+    it('Burger bar has Register link', () =>{
+      cy.get('.navbar-toggler').should('be.visible').wait(1000).click()
+    cy.get('a[href="/"]').click()
+    cy.location('pathname').should('eq', '/')
+    })
+    
+
 })
 
-// cy
-//   .get('a')
-//   .should('have.attr', 'href', '/about')
-//   .should('have.attr', 'target', '_blank')
-//   .should('have.attr', 'rel', 'noopener noreferrer');
-
-// })
