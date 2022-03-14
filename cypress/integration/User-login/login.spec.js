@@ -51,6 +51,6 @@ describe('Page loading', () => {
   it('Burger bar being able open and close with a click', () => {
   cy.get('.navbar-toggler').should('be.visible').wait(1000).click()
   cy.get("#offcanvasNavbarLabel").should('have.text', 'WasteNot: WantNot').should('be.visible')
-  cy.get('.btn-close').click()
+  cy.get('.btn-close').click() 
 })
 })
