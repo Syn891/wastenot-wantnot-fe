@@ -36,7 +36,7 @@ describe('Page loading', () => {
   
   it('display banner and logo on the centre of the page', () => {
 
-    cy.get('.Home_headingT__LUled').should('have.text', 'WasteNot:WantNot!')
+    cy.get('.Home_headingT__LUled').should('have.text', 'WasteNot:-WantNot!')
     cy.get('img').filter('[src]').filter(':visible')
   })
 
@@ -48,8 +48,9 @@ describe('Page loading', () => {
     cy.get('img').filter('[src]').filter(':visible')
   })
 
-  it('Burger bar being able to click', () => {
+  it('Burger bar being able open and close with a click', () => {
   cy.get('.navbar-toggler').should('be.visible').wait(1000).click()
-  cy.get(".Home_offcanvasHeader__pP80n").should('have.text', 'WasteNot: WantNot').should('be.visible').wait(1000).click().filter('[src]').filter(':visible')
+  cy.get("#offcanvasNavbarLabel").should('have.text', 'WasteNot: WantNot').should('be.visible')
+  cy.get('.btn-close').click()
 })
 })
