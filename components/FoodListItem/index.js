@@ -13,6 +13,9 @@ function FoodListItem({
 }) {
   let date = new Date(est_exp);
   let newDate = date.toLocaleDateString("en-GB");
+  let updatedName = name.replace(/[^0-9a-z]/gi, "");
+  let updatedMeasurement = measurement.replace(/[^0-9a-z]/gi, "");
+
   if (!color) {
     color = "#5CC971";
   }
@@ -26,7 +29,7 @@ function FoodListItem({
   return (
     <>
       <Col className={css.col} xs={{ span: 3 }}>
-        <div>{name}</div>
+        <div>{updatedName}</div>
       </Col>
       <Col className={css.col} xs={{ span: 3 }}>
         <div>{newDate}</div>
@@ -35,7 +38,7 @@ function FoodListItem({
         <div>{quantity}</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
-        <div>{measurement}</div>
+        <div>{updatedMeasurement}</div>
       </Col>
       <Col className={css.col} xs={{ span: 1 }}>
         <input
