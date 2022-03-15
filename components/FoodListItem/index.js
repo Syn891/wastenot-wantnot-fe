@@ -29,7 +29,7 @@ function FoodListItem({
   return (
     <>
       <Col className={css.col} xs={{ span: 3 }}>
-        <div>{updatedName}</div>
+        <div>{name}</div>
       </Col>
       <Col className={css.col} xs={{ span: 3 }}>
         <div>{newDate}</div>
@@ -38,7 +38,7 @@ function FoodListItem({
         <div>{quantity}</div>
       </Col>
       <Col className={css.col} xs={{ span: 2 }}>
-        <div>{updatedMeasurement}</div>
+        <div>{measurement}</div>
       </Col>
       <Col className={css.col} xs={{ span: 1 }}>
         <input
