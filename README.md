@@ -22,7 +22,7 @@ Begin with downloading all of the dependencies:
   npm i
 ```
 
-In the file /hooks/useFetch/useFetch.js, amend the fetch request url to run on localhost:3000.
+In the file /hooks/useFetch/useFetch.js, amend the fetch request url to run on localhost:3001.
 
 ![useFetch.js](https://i.ibb.co/PCYCG8Y/fetch.jpg)
 
