@@ -22,7 +22,7 @@ Begin with downloading all of the dependencies:
   npm i
 ```
 
-In the file /hooks/useFetch/useFetch.js, amend the fetch request url to run on localhost:3000.
+In the file /hooks/useFetch/useFetch.js, amend the fetch request url to run on localhost:3001.
 
 ![useFetch.js](https://i.ibb.co/PCYCG8Y/fetch.jpg)
 
@@ -133,3 +133,5 @@ TomTom Maps
 [Research and Planning Documentation](https://github.com/Syn891/wnwn-frontend/tree/main)
 
 [Figma Board](https://www.figma.com/file/YUvxAuqMVHYhvpNJqDoCLR/Waste-Not%2C-Want-Not?node-id=0%3A1)
+
+[Backend repository](https://github.com/ah960/WasteNotWantNotBE)
