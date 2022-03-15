@@ -165,7 +165,7 @@ const Pantry = () => {
           onClick={() => router.back()}
         />
       </Navbar>
-      <FoodCategoryRow />
+      <FoodCategoryRow value="Eat"/>
 
       <Container className={css.container}>{renderListItems()}</Container>
 
