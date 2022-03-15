@@ -13,8 +13,8 @@ function FoodListItem({
 }) {
   let date = new Date(est_exp);
   let newDate = date.toLocaleDateString("en-GB");
-  let updatedName = name.replace(/[^0-9a-z]/gi, "");
-  let updatedMeasurement = measurement.replace(/[^0-9a-z]/gi, "");
+  //let updatedName = name.replace(/[^0-9a-z]/gi, "");
+  //let updatedMeasurement = measurement.replace(/[^0-9a-z]/gi, "");
 
   if (!color) {
     color = "#5CC971";
