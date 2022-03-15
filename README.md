@@ -1,34 +1,135 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# WasteNot: WantNot
 
-First, run the development server:
+An all encompassing app that allows households to plan their meals, track expiry dates of items in their pantry and find local food donation points to donate surplus items.
+Households can also track their progress and earn badges based on how effectively they are managing their food.
+
+*Note:  App currently runs best on screen sizes 428 x 926 (i.e. iPhone 12 Pro Max)*
+
+
+
+
+
+
+<img src="https://i.ibb.co/YTPxJWZ/Wn-Wn-Logo-Black.png" alt="logo" width="200" height="200"/>
+
+
+## Quick Start
+
+Begin with downloading all of the dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
+  npm i
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+In the file /hooks/useFetch/useFetch.js, amend the fetch request url to run on localhost:3000.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+![useFetch.js](https://i.ibb.co/PCYCG8Y/fetch.jpg)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+To run this project, run the command:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+  npm run dev
+```
 
-## Learn More
+Click on the login/signup button to create an account and you will be redirected to your homepage.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Components
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Navbar
+  - Navigation Arrow
+  - Burger Bar
+- Landing 
+    - Dashboard
+        - Pie Chart
+        - Buttons
+- Meal Planner 
+    - Input 
+    - Filter Button
+    - Search Button
+    - List Display
+- My Meals 
+    - List Display
+        - Delete Button
+        - Add To Ingredients Button
+- Grocery List, Pantry List, My Donations
+    - List Items
+        - Swipe Left 
+        - Swipe Right
+        - Checkbox
+    - Donation Prompt
+- Donation Banks
+    - Map
+    - PostCode Search Bar
+    - Results List View
+- Account 
+    - User Info
+    - User Statistics
 
-## Deploy on Vercel
+## Pages
+  - Landing
+  - About Us
+    - Home
+      - Meal Planner
+      - Grocery List
+      - My Meals
+      - My Donations
+      - My Pantry
+      - Donation Banks
+      - Account
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## API Reference
+
+TomTom Maps
+
+#### Get access to TomTom API
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `key`     | `string` | **Required**. Your API key |
+
+#### Get Postcode using Lat and Long
+
+```http
+  GET https://api.postcodes.io/postcodes/${query}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `query`   | `Array` | **Required**. Latitude and Longitude As Numbers|
+
+
+#### Get List of Local Foodbanks API
+
+```http
+  GET https://www.givefood.org.uk/api/2/foodbanks/search/?lat_lng=${latitude},${longitude}
+```
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `latitude`| `Number` | **Required**. Latitude of current location|
+| `longitude`| `Number` | **Required**. Longitude of current location|
+
+## Color Scheme
+
+![useFetch.js](https://i.ibb.co/2Wmq81s/colours.jpg)
+
+## Screenshots
+
+<img src="https://i.ibb.co/r7b5ywh/ezgif-com-gif-maker.gif" alt="screenshot" width="250" height="500" /> &nbsp;&nbsp;&nbsp;  <img src="https://i.ibb.co/bXYBFy3/home-screen.jpg" alt="screenshot" width="250" height="500" />
+
+## Authors
+
+
+[![github](https://img.shields.io/badge/Sareena_Naser-FF6600?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Syn891) &nbsp; [![github](https://img.shields.io/badge/Erdogan_Elma-FDA96F?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Erdogan90) &nbsp; [![github](https://img.shields.io/badge/Adam_Hooper-FFEADB?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ah960) &nbsp; 
+
+[![github](https://img.shields.io/badge/Amanda_Richards-7BE1AE?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AmandaRichards) &nbsp; [![github](https://img.shields.io/badge/Gariel_Sterpone_Magni-00CD66?style=for-the-badge&logo=github&logoColor=white)](https://github.com/gabrielsterponemagni) &nbsp; [![github](https://img.shields.io/badge/Thomas_Dichmont-009100?style=for-the-badge&logo=github&logoColor=white)](https://github.com/tom-dichmont)
+
+
+
+## Documentation
+
+[Research and Planning Documentation](https://github.com/Syn891/wnwn-frontend/tree/main)
+
+[Figma Board](https://www.figma.com/file/YUvxAuqMVHYhvpNJqDoCLR/Waste-Not%2C-Want-Not?node-id=0%3A1)
