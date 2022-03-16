@@ -5,7 +5,7 @@ import css from './FoodExpiryButton.module.css'
 
 const FoodExpiryButton = ({message, color }) => {
     return (  
-    <Link href={"/"}>
+    <Link href={"/pantry"}>
     <div >
     <button style={{backgroundColor:color}} className={css.button}>{message}</button>
     </div>
