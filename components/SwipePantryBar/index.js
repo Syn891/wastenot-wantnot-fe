@@ -22,6 +22,13 @@ function SwipePantryBar({ className, children, data, object_id, userId, object }
     incrementUserStats('wastage')
   }
 
+  async function removeFromdonDb(id){
+    const remove = {pantry_items: {_id:id}}
+    const res = useFetch('pantryList', 'DELETE', remove, `/?user_id=${userId}`)
+    await Promise.resolve(res)    
+    
+  }
+
   async function incrementUserStats(key) {
     let userInfo = useFetch('users', 'GET', null, `/${userId}`)
     userInfo = await Promise.resolve(userInfo)
@@ -42,7 +49,7 @@ function SwipePantryBar({ className, children, data, object_id, userId, object }
       let query = {donated_items: object.donated_items[0]}
       useFetch('donations', 'PUT', query,`/update/?user_id=${userId}` )
     }
-    removeFromDb(data)
+    removeFromdonDb(data)
     incrementUserStats('donations')
   }
   const leadingActions = (id) => (
