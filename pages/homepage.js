@@ -292,7 +292,7 @@ const Landing = ({ properties }) => {
               <Col key={a[1] + a[0]} className={css.febtns}>
                 <FoodExpiryButton
                   color={setColor(a[0])}
-                  link="/"
+                  link="/pantry"
                   message={`${a[1]}. You have ${a[0]} day(s) left`}
                 />
               </Col>
