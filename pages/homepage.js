@@ -354,9 +354,9 @@ const Landing = ({ properties }) => {
           </Col>
           <Col className={css.col}>
             <NavigationButton
-              title="Plan Meals"
+              title="My Meals"
               color="#F1AC79"
-              link="/mealPlan"
+              link="/mymeals"
               Icon={GiForkKnifeSpoon}
             />
           </Col>
@@ -375,7 +375,7 @@ const Landing = ({ properties }) => {
             donations={donations}
             consumption={consumption}
             total={total}
-            link="/userInformation"
+            link="/profile"
           />
         </Row>
       </Col>
